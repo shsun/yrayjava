@@ -14,6 +14,10 @@ import spring.cloud.gateway.service.AccountService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import base.BConstants;
+
+
 @Controller
 @Api(description = "用户信息相关接口")
 public class AccountController {
@@ -27,6 +31,11 @@ public class AccountController {
     @GetMapping(path = "/account/detail")
     @ResponseBody
     public ResultModel<AccountModel> detail(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "userId", required = false) String userId) {
+
+
+        System.out.println(BConstants.ABC);
+
+
         return this.accountService.detailByUserId(userId);
     }
 
