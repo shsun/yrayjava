@@ -32,8 +32,7 @@ public class AccountServiceImpl implements AccountService {
         }
         Optional<AccountDo> accountDoOp = this.accountDataAccess.selectByPrimaryKey(userId);
         if (!accountDoOp.isPresent()) {
-            LOGGER.error("traceId:{}, AccountService.detail, user does not exist, userId:{}",
-                    TraceIdHelper.getTraceId(), userId);
+            LOGGER.error("traceId:{}, AccountService.detail, user does not exist, userId:{}", TraceIdHelper.getTraceId(), userId);
             return ResultModel.createFail("noThisUser");
         }
         AccountModel accountModel = new AccountModel();
@@ -52,8 +51,7 @@ public class AccountServiceImpl implements AccountService {
 
         Optional<AccountDo> accountDoOp = this.accountDataAccess.selectByPrimaryKey(userId);
         if (!accountDoOp.isPresent()) {
-            LOGGER.error("traceId:{}, AccountService.detail, user does not exist, userId:{}",
-                    TraceIdHelper.getTraceId(), userId);
+            LOGGER.error("traceId:{}, AccountService.detail, user does not exist, userId:{}", TraceIdHelper.getTraceId(), userId);
             //hide the error msg
             return ResultModel.createFail("wrongUserOrPwd");
         }

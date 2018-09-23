@@ -19,10 +19,7 @@ import spring.cloud.gateway.config.GlobalConstants;
 public interface AccountFeignService {
 
     @PostMapping("/validate")
-    ResultModel<String> validateUserIdAndPassword(
-            @RequestParam("userId") String userId,
-            @RequestParam("password") String password
-    );
+    ResultModel<String> validateUserIdAndPassword(@RequestParam("userId") String userId, @RequestParam("password") String password);
 
     @GetMapping("/detail")
     ResultModel<AccountModel> detailByUserId(@RequestParam("userId") String userId);

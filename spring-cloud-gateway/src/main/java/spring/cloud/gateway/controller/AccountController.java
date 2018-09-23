@@ -23,8 +23,7 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @ApiOperation(value = "获取用户详细信息", notes = "获取用户详细信息，userId\n\r\t" +
-            "不传userId的话，默认取当前用户的信息")
+    @ApiOperation(value = "获取用户详细信息", notes = "获取用户详细信息，userId\n\r\t" + "不传userId的话，默认取当前用户的信息")
     @GetMapping(path = "/account/detail")
     @ResponseBody
     public ResultModel<AccountModel> detail(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "userId", required = false) String userId) {

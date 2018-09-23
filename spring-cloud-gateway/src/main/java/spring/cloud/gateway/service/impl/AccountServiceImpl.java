@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 import spring.cloud.client.model.AccountModel;
 import spring.cloud.client.uitils.ParamCheckUtils;
 import spring.cloud.client.uitils.RandomGenerator;
-import spring.cloud.demo.cache.CacheService;
-import spring.cloud.demo.model.ResultModel;
-import spring.cloud.demo.model.TraceIdHelper;
 import spring.cloud.gateway.config.AccountHelper;
 import spring.cloud.gateway.config.GlobalConstants;
 import spring.cloud.gateway.feignService.AccountFeignService;
@@ -20,6 +17,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.Optional;
+
+
+import spring.cloud.demo.cache.CacheService;
+import spring.cloud.demo.model.ResultModel;
+import spring.cloud.demo.model.TraceIdHelper;
 
 /**
  * Created by Harry on 14/12/2017.
@@ -49,19 +51,17 @@ public class AccountServiceImpl implements AccountService {
     public ResultModel<String> login(HttpServletResponse response, String userId, String password) {
         Optional<String> valOp = ParamCheckUtils.checkParams(Arrays.asList(userId, password), "userId", "password");
         if (valOp.isPresent()) {
-            LOGGER.error("traceId:{}, login, param valid fail, userId:{}, password:{}",
-                    TraceIdHelper.getTraceId(), userId, password);
+            LOGGER.error("traceId:{}, login, param valid fail, userId:{}, password:{}", TraceIdHelper.getTraceId(), userId, password);
             return ResultModel.createFail("invalidParam");
         }
 
         ResultModel<String> validateResult = this.accountFeignService.validateUserIdAndPassword(userId, password);
         if (!ResultModel.CODE_SUCCESS.equals(validateResult.getCode())) {
-            LOGGER.error("traceId:{}, login fail, errorCode:{}, errorMsg:{}, userId:{}, password:{}",
-                    TraceIdHelper.getTraceId(), validateResult.getCode(), validateResult.getMsg());
+            LOGGER.error("traceId:{}, login fail, errorCode:{}, errorMsg:{}, userId:{}, password:{}", TraceIdHelper.getTraceId(), validateResult.getCode(), validateResult.getMsg());
             return validateResult;
         }
 
-        //FIXME  not a good way to generate ticket
+        // FIXME  not a good way to generate ticket
         String ticket = RandomGenerator.generateNumerString(32);
         try {
             this.cacheService.putString(ticket, userId, GlobalConstants.LOGIN_TOKEN_EXPIRE);
