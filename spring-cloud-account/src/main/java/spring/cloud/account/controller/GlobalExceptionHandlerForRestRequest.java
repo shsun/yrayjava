@@ -13,18 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-@ControllerAdvice(basePackages={"spring.cloud.account"})
-public class GlobalExceptionHandlerForRestRequest extends ResponseEntityExceptionHandler{
-	private static final Logger LOGGER = LoggerFactory.getLogger( GlobalExceptionHandlerForRestRequest.class );
-	
-	@ExceptionHandler(value={Exception.class, Throwable.class})
-	@ResponseBody
-	ResultModel handlerAllException(HttpServletRequest request, Throwable ex, HttpServletResponse response){
-		StringWriter sw = new StringWriter();
-		ex.printStackTrace(new PrintWriter(sw));
-		LOGGER.error( sw.toString() );
+@ControllerAdvice(basePackages = {"spring.cloud.account"})
+public class GlobalExceptionHandlerForRestRequest extends ResponseEntityExceptionHandler {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandlerForRestRequest.class);
+
+    @ExceptionHandler(value = {Exception.class, Throwable.class})
+    @ResponseBody
+    ResultModel handlerAllException(HttpServletRequest request, Throwable ex, HttpServletResponse response) {
+        StringWriter sw = new StringWriter();
+        ex.printStackTrace(new PrintWriter(sw));
+        LOGGER.error(sw.toString());
 //		response.setStatus(500);
-		return ResultModel.createFail("internalErr");
-	}
-	
+        return ResultModel.createFail("internalErr");
+    }
+
 }

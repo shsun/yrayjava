@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -18,11 +20,13 @@ import java.util.List;
 @RestController
 public class RefreshController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger( RefreshController.class );
+    private static final Logger LOGGER = LoggerFactory.getLogger(RefreshController.class);
 
-    @Autowired private DiscoveryClient discoveryClient;
+    @Autowired
+    private DiscoveryClient discoveryClient;
 
-    @Autowired private RestTemplate restTemplate;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Value("${spring.application.name}")
     private String serverName;
@@ -31,21 +35,21 @@ public class RefreshController {
      * refresh all hosts in all services, not a good idea
      */
     @PostMapping("/allRefresh")
-    public void allRefresh() {
+    public void allRefresh(HttpServletRequest request, HttpServletResponse response) {
         List<String> services = discoveryClient.getServices();
-        for (String serviceId : services){
-            if (serverName.equals(serviceId)){
+        for (String serviceId : services) {
+            if (serverName.equals(serviceId)) {
                 continue;
             }
             List<ServiceInstance> instanceList = discoveryClient.getInstances(serviceId);
             for (ServiceInstance serviceInstance : instanceList) {
-                String url = "http://"+ serviceInstance.getHost() +":"+serviceInstance.getPort()+"/refresh";
+                String url = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/refresh";
                 String result;
                 try {
                     result = this.restTemplate.postForObject(url, null, String.class);
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
-                    LOGGER.error("post /refresh Error. url: {}; serviceId: {}, host:{}", url, serviceId, serviceInstance.getHost() );
+                    LOGGER.error("post /refresh Error. url: {}; serviceId: {}, host:{}", url, serviceId, serviceInstance.getHost());
                     continue;
                 }
                 LOGGER.info("url: {}; serviceId: {}; changedProfile: {}", url, serviceId, result);

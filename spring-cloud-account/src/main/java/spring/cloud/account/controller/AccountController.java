@@ -10,6 +10,9 @@ import spring.cloud.account.service.AccountService;
 import spring.cloud.client.model.AccountModel;
 import spring.cloud.demo.model.ResultModel;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/account")
 @Api(description = "用户信息相关接口")
@@ -22,15 +25,12 @@ public class AccountController {
 
     @ApiOperation(value = "获取用户详细信息")
     @GetMapping("/detail")
-    public ResultModel<AccountModel> detailByUserId(@RequestParam("userId") String userId) {
+    public ResultModel<AccountModel> detailByUserId(HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId) {
         return this.accountService.detail(userId);
     }
 
     @PostMapping("/validate")
-    public ResultModel<String> validateUserIdAndPassword(
-            @RequestParam("userId") String userId,
-            @RequestParam("password") String password
-    ) {
+    public ResultModel<String> validateUserIdAndPassword(HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId, @RequestParam("password") String password) {
         return this.accountService.validateUserIdAndPassword(userId, password);
     }
 

@@ -13,27 +13,28 @@ import javax.servlet.annotation.WebFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
-@WebFilter(filterName="FilterDemo", urlPatterns={"/**"})
-@Order(1)	//当有多个filter时，指定filter的顺序
-public class FilterDemo implements Filter{
-	private static final Logger LOGGER = LoggerFactory.getLogger( FilterDemo.class );
-	
-	@Override
-	public void destroy() {
-		
-	}
 
-	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
-		LOGGER.debug(" filter demo ");
-		chain.doFilter(request, response);
-	}
+@WebFilter(filterName = "FilterDemo", urlPatterns = {"/**"})
+@Order(1)    //当有多个filter时，指定filter的顺序
+public class FilterDemo implements Filter {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FilterDemo.class);
 
-	@Override
-	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        LOGGER.debug(" filter demo ");
+        chain.doFilter(request, response);
+    }
+
+    @Override
+    public void init(FilterConfig arg0) throws ServletException {
+        // TODO Auto-generated method stub
+
+    }
 
 }

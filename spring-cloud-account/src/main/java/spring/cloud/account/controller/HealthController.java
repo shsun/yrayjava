@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import spring.cloud.account.dataaccess.mapper.AccountDoMapper;
 import spring.cloud.demo.cache.CacheService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -18,8 +19,10 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/")
 public class HealthController {
 
-    @Autowired private AccountDoMapper accountDoMapper;
-    @Autowired private CacheService cacheService;
+    @Autowired
+    private AccountDoMapper accountDoMapper;
+    @Autowired
+    private CacheService cacheService;
 
     public static final Logger LOGGER = LoggerFactory.getLogger(HealthController.class);
 
@@ -32,21 +35,21 @@ public class HealthController {
     private static final String SUCCESS = "success";
 
     @RequestMapping("/health")
-    public String health(HttpServletResponse response) {
+    public String health(HttpServletRequest request, HttpServletResponse response) {
 
         /* check the cache time */
         long start = System.currentTimeMillis();
         try {
             this.cacheService.putString(HEALTH_KEY, HEALTH_KEY);
             String strInCache = this.cacheService.getString(HEALTH_KEY);
-            if ( !HEALTH_KEY.equals(strInCache) ) {
+            if (!HEALTH_KEY.equals(strInCache)) {
                 LOGGER.error("healthCheckController error， get from cache:{}, put into cache:{}, not the same", strInCache, HEALTH_KEY);
                 response.setStatus(500);
                 return FAIL;
             }
             long end = System.currentTimeMillis();
             if (end - start > 500) {
-                LOGGER.error("healthCheckController error, check cache time expire {}ms, actually:{}ms",CACHE_TIME, (end-start));
+                LOGGER.error("healthCheckController error, check cache time expire {}ms, actually:{}ms", CACHE_TIME, (end - start));
                 response.setStatus(500);
                 return FAIL;
             }
@@ -57,11 +60,11 @@ public class HealthController {
 
         /* check db */
         start = System.currentTimeMillis();
-        PageHelper.startPage(1,10);
+        PageHelper.startPage(1, 10);
         this.accountDoMapper.listAllUsers();
         long end = System.currentTimeMillis();
         if (end - start > db_TIME) {
-            LOGGER.error("healthCheckController error, listAllUsers expire {}ms, actually:{}ms", db_TIME, (end-start));
+            LOGGER.error("healthCheckController error, listAllUsers expire {}ms, actually:{}ms", db_TIME, (end - start));
             response.setStatus(500);
             return FAIL;
         }
@@ -70,9 +73,9 @@ public class HealthController {
     }
 
     private String addString(String pre, String after) {
-        if ( null == pre && null == after ) return null;
-        if ( null == pre ) return after;
-        if ( null == after ) return pre;
-        return pre +"\n" + after;
+        if (null == pre && null == after) return null;
+        if (null == pre) return after;
+        if (null == after) return pre;
+        return pre + "\n" + after;
     }
 }

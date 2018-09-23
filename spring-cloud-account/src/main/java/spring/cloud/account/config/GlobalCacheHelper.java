@@ -18,32 +18,32 @@ public class GlobalCacheHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalCacheHelper.class);
 
-    @Autowired private CacheService cacheService;
+    @Autowired
+    private CacheService cacheService;
     private static ConcurrentSkipListSet<String> needToDeleteKeySet = new ConcurrentSkipListSet();
 
     @Scheduled(fixedDelay = 1000)
-    private void cacheDelete(){
-        if (!needToDeleteKeySet.isEmpty()){
+    private void cacheDelete() {
+        if (!needToDeleteKeySet.isEmpty()) {
             String key = needToDeleteKeySet.first();
             try {
                 cacheService.deleteObjectByKey(key);
                 LOGGER.info("traceId:{}, cacheDelete by GlobalCacheDelete, delete key {}", TraceIdHelper.getTraceId(), key);
                 needToDeleteKeySet.remove(key);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public static void putDeleteKeys( String key ) {
-        if ( GlobalCacheHelper.needToDeleteKeySet.size() >= GlobalConstants.MAX_LIST_SIZE) {
+    public static void putDeleteKeys(String key) {
+        if (GlobalCacheHelper.needToDeleteKeySet.size() >= GlobalConstants.MAX_LIST_SIZE) {
             LOGGER.warn("traceId:{} , needToDeleteKey is over MAX_LIST_SIZE", TraceIdHelper.getTraceId());
-        }
-        else {
+        } else {
             GlobalCacheHelper.needToDeleteKeySet.add(key);
         }
 
-//        GlobalCacheDelete.needToDeleteKeySet.add(key);
+        // GlobalCacheDelete.needToDeleteKeySet.add(key);
     }
 
 }

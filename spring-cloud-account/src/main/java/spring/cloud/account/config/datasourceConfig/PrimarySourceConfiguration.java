@@ -13,17 +13,17 @@ import com.alibaba.druid.pool.DruidDataSource;
 
 @Configuration
 public class PrimarySourceConfiguration {
-	
-	@Bean
-	@ConfigurationProperties(prefix="spring.datasource")
-	public DataSource dataSource() {
-		DruidDataSource dataSource = (DruidDataSource) DataSourceBuilder.create().type(DruidDataSource.class).build();
-	    return dataSource;
-	}
-	
-	@Bean
-	public DataSourceTransactionManager txManager( DataSource dataSource ) {
-		return new DataSourceTransactionManager(dataSource);
-	}
-	
+
+    @Bean
+    @ConfigurationProperties(prefix = "spring.datasource")
+    public DataSource dataSource() {
+        DruidDataSource dataSource = (DruidDataSource) DataSourceBuilder.create().type(DruidDataSource.class).build();
+        return dataSource;
+    }
+
+    @Bean
+    public DataSourceTransactionManager txManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
+
 }

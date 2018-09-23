@@ -16,16 +16,16 @@ import java.util.Optional;
 public class XmlParser {
 
     public static Optional<String> javaToXml(Object object) {
-        if ( null == object ) return Optional.empty();
+        if (null == object) return Optional.empty();
         try {
-            JAXBContext context = JAXBContext.newInstance( object.getClass() );
+            JAXBContext context = JAXBContext.newInstance(object.getClass());
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 //            marshaller.setProperty(Marshaller.JAXB_ENCODING, "utf-8");
 
             StringWriter writer = new StringWriter();
             marshaller.marshal(object, writer);
-            return Optional.ofNullable( writer.toString() );
+            return Optional.ofNullable(writer.toString());
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -33,15 +33,15 @@ public class XmlParser {
     }
 
     public static <T extends Object> Optional<T> xmlToJava(String xml, Class<T> clazz) {
-        if (Strings.isNullOrEmpty(xml) || null == clazz){
+        if (Strings.isNullOrEmpty(xml) || null == clazz) {
             return Optional.empty();
         }
         try {
-            JAXBContext context = JAXBContext.newInstance( clazz );
+            JAXBContext context = JAXBContext.newInstance(clazz);
             Unmarshaller unmarshaller = context.createUnmarshaller();
 //            unmarshaller.setProperty(Marshaller.JAXB_ENCODING, "utf-8");
-            T obj = (T)unmarshaller.unmarshal(new StringReader(xml));
-            return Optional.ofNullable( obj );
+            T obj = (T) unmarshaller.unmarshal(new StringReader(xml));
+            return Optional.ofNullable(obj);
         } catch (JAXBException e) {
             e.printStackTrace();
         }

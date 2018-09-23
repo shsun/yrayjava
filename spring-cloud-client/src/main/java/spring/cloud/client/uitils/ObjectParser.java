@@ -12,14 +12,14 @@ public class ObjectParser {
 
     public static Map<String, String> objectToMap(Object object) {
         Map<String, String> map = new HashMap<>();
-        if ( null == object ) return map;
+        if (null == object) return map;
 
         Field[] declaredFields = object.getClass().getDeclaredFields();
         for (Field field : declaredFields) {
             field.setAccessible(true);
             try {
                 Object tmp = field.get(object);
-                if ( null == tmp ) continue;
+                if (null == tmp) continue;
                 map.put(field.getName(), tmp.toString());
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
@@ -29,15 +29,15 @@ public class ObjectParser {
         return map;
     }
 
-    public static <T extends Object> T mapToObject( Map<String, String> map, Class<T> clazz ) {
-        if ( null == clazz ) return null;
+    public static <T extends Object> T mapToObject(Map<String, String> map, Class<T> clazz) {
+        if (null == clazz) return null;
         T obj = null;
         try {
             obj = clazz.newInstance();
             Field[] fields = obj.getClass().getDeclaredFields();
             for (Field field : fields) {
                 int mod = field.getModifiers();
-                if(Modifier.isStatic(mod) || Modifier.isFinal(mod)){
+                if (Modifier.isStatic(mod) || Modifier.isFinal(mod)) {
                     continue;
                 }
                 field.setAccessible(true);

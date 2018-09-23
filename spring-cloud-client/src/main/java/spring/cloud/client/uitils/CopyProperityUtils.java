@@ -20,7 +20,7 @@ public class CopyProperityUtils {
         BeanUtils.copyProperties(source, target);
     }
 
-    public static void copyPropertiesWithIgnore(Object source, Object target, String...ignoreProperties) {
+    public static void copyPropertiesWithIgnore(Object source, Object target, String... ignoreProperties) {
         BeanUtils.copyProperties(source, target, ignoreProperties);
     }
 
@@ -28,34 +28,34 @@ public class CopyProperityUtils {
         List<String> nullPropertyNames = new ArrayList<String>();
         BeanWrapper wrappedSource = new BeanWrapperImpl(source);
         PropertyDescriptor[] dess = wrappedSource.getPropertyDescriptors();
-        if ( null != dess && dess.length > 0 ) {
-            for ( int i = 0; i < dess.length; i++ ) {
+        if (null != dess && dess.length > 0) {
+            for (int i = 0; i < dess.length; i++) {
                 PropertyDescriptor des = dess[i];
-                if ( null == des ) continue ;
+                if (null == des) continue;
                 String propertyName = des.getName();
-                if ( null == wrappedSource.getPropertyValue(propertyName) ) {
-                    nullPropertyNames.add( propertyName );
+                if (null == wrappedSource.getPropertyValue(propertyName)) {
+                    nullPropertyNames.add(propertyName);
                 }
 
             }
         }
-        return nullPropertyNames.toArray( new String[nullPropertyNames.size()] );
+        return nullPropertyNames.toArray(new String[nullPropertyNames.size()]);
     }
 
     public static String[] getNotNullPropertyNames(Object source) {
         List<String> notNullPropertyNames = new ArrayList<String>();
         BeanWrapper wrappedSource = new BeanWrapperImpl(source);
         PropertyDescriptor[] dess = wrappedSource.getPropertyDescriptors();
-        if ( null != dess && dess.length > 0 ) {
-            for ( int i = 0; i < dess.length; i++ ) {
+        if (null != dess && dess.length > 0) {
+            for (int i = 0; i < dess.length; i++) {
                 PropertyDescriptor des = dess[i];
-                if ( null == des ) continue ;
+                if (null == des) continue;
                 String propertyName = des.getName();
-                if ( null != wrappedSource.getPropertyValue(propertyName) ) {
-                    notNullPropertyNames.add( propertyName );
+                if (null != wrappedSource.getPropertyValue(propertyName)) {
+                    notNullPropertyNames.add(propertyName);
                 }
             }
         }
-        return notNullPropertyNames.toArray( new String[notNullPropertyNames.size()] );
+        return notNullPropertyNames.toArray(new String[notNullPropertyNames.size()]);
     }
 }

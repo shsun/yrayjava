@@ -11,6 +11,7 @@ import spring.cloud.client.model.AccountModel;
 import spring.cloud.demo.model.ResultModel;
 import spring.cloud.gateway.service.AccountService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
@@ -26,21 +27,18 @@ public class AccountController {
             "不传userId的话，默认取当前用户的信息")
     @GetMapping(path = "/account/detail")
     @ResponseBody
-    public ResultModel<AccountModel> detail(@RequestParam(value = "userId", required = false) String userId) {
+    public ResultModel<AccountModel> detail(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "userId", required = false) String userId) {
         return this.accountService.detailByUserId(userId);
     }
 
     @GetMapping("/index")
-    public String index() {
+    public String index(HttpServletRequest request, HttpServletResponse response) {
         return "login";
     }
 
     @PostMapping("/account/login")
     @ResponseBody
-    public ResultModel<String> login(
-            HttpServletResponse response,
-            @RequestParam String userId,
-            @RequestParam String password) {
+    public ResultModel<String> login(HttpServletRequest request, HttpServletResponse response, @RequestParam String userId, @RequestParam String password) {
         return this.accountService.login(response, userId, password);
     }
 }

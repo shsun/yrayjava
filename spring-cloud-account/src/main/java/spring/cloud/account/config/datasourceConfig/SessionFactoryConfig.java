@@ -17,38 +17,38 @@ import javax.sql.DataSource;
 
 @Configuration
 public class SessionFactoryConfig {
-	
-	@Value("${mybatis.mapper-locations}")
-	private String mapperLocations;
-	@Value("${mybatis.type-aliases-package}")
-	private String typeAliasesPackage;
-	@Value("${mybatis.config-location}")
-	private String configLocation;
-	
-	@Bean
-	public SqlSessionFactory sqlSessionFactory(@Autowired DataSource dataSource ) {
-		try {
-			SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-			sessionFactory.setDataSource(dataSource);
-			sessionFactory.setTypeAliasesPackage(this.typeAliasesPackage);
-			sessionFactory.setMapperLocations( new PathMatchingResourcePatternResolver().getResources(mapperLocations) );
-			sessionFactory.setConfigLocation(new PathMatchingResourcePatternResolver().getResource(configLocation));
-			
-			PageHelper pageHelper = new PageHelper();
-			Properties props = new Properties();
-			props.setProperty("reasonable", "false");
-			props.setProperty("supportMethodsArguments", "true");
-			props.setProperty("returnPageInfo", "check");
-			props.setProperty("params", "count=countSql");
-			pageHelper.setProperties(props);
 
-			sessionFactory.setPlugins(new Interceptor[] { pageHelper });
+    @Value("${mybatis.mapper-locations}")
+    private String mapperLocations;
+    @Value("${mybatis.type-aliases-package}")
+    private String typeAliasesPackage;
+    @Value("${mybatis.config-location}")
+    private String configLocation;
 
-			return sessionFactory.getObject();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(@Autowired DataSource dataSource) {
+        try {
+            SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+            sessionFactory.setDataSource(dataSource);
+            sessionFactory.setTypeAliasesPackage(this.typeAliasesPackage);
+            sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));
+            sessionFactory.setConfigLocation(new PathMatchingResourcePatternResolver().getResource(configLocation));
+
+            PageHelper pageHelper = new PageHelper();
+            Properties props = new Properties();
+            props.setProperty("reasonable", "false");
+            props.setProperty("supportMethodsArguments", "true");
+            props.setProperty("returnPageInfo", "check");
+            props.setProperty("params", "count=countSql");
+            pageHelper.setProperties(props);
+
+            sessionFactory.setPlugins(new Interceptor[]{pageHelper});
+
+            return sessionFactory.getObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 }

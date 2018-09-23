@@ -4,8 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
 public class JSONUtil {
-	public static String toJSONString(Object obj) {
-		return JSON.toJSONStringWithDateFormat(obj,
+    public static String toJSONString(Object obj) {
+        return JSON.toJSONStringWithDateFormat(obj,
                 "yyyy-MM-dd HH:mm:ss",
                 SerializerFeature.WriteMapNullValue,
                 SerializerFeature.WriteNullBooleanAsFalse,
@@ -13,6 +13,6 @@ public class JSONUtil {
                 SerializerFeature.WriteNullNumberAsZero,
                 SerializerFeature.WriteNullStringAsEmpty,
                 SerializerFeature.DisableCircularReferenceDetect
-                );
-	}
+        );
+    }
 }

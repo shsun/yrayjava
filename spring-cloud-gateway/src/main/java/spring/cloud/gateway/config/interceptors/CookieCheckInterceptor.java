@@ -26,42 +26,43 @@ import java.io.IOException;
 @RefreshScope
 public class CookieCheckInterceptor implements HandlerInterceptor {
 
-    @Autowired private CacheService cacheService;
+    @Autowired
+    private CacheService cacheService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger( CookieCheckInterceptor.class );
+    private static final Logger LOGGER = LoggerFactory.getLogger(CookieCheckInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        LOGGER.info("request -> path:{}, params:{}", request.getRequestURI(), JSON.toJSONString( request.getParameterMap() ) );
+        LOGGER.info("request -> path:{}, params:{}", request.getRequestURI(), JSON.toJSONString(request.getParameterMap()));
 
         Cookie[] cookies = request.getCookies();
-        if ( null == cookies || cookies.length == 0 ) {
-            printError( response, JSON.toJSONString(ResultModel.createFail("needLogin")) );
+        if (null == cookies || cookies.length == 0) {
+            printError(response, JSON.toJSONString(ResultModel.createFail("needLogin")));
             return false;
         }
         String ticket = null;
-        for (Cookie cookie: cookies) {
-            if ( null == cookie ) continue;
+        for (Cookie cookie : cookies) {
+            if (null == cookie) continue;
             String cookieKey = cookie.getName();
-            if ( !GlobalConstants.LOGIN_TOKEN_KEY.equals(cookieKey) ) {
+            if (!GlobalConstants.LOGIN_TOKEN_KEY.equals(cookieKey)) {
                 continue;
             }
             ticket = cookie.getValue();
             break;
         }
-        if ( Strings.isNullOrEmpty( ticket ) ) {
-            printError( response, JSON.toJSONString(ResultModel.createFail("needLogin")) );
+        if (Strings.isNullOrEmpty(ticket)) {
+            printError(response, JSON.toJSONString(ResultModel.createFail("needLogin")));
             return false;
         }
 
-        String userId = this.cacheService.getString( ticket );
-        if ( Strings.isNullOrEmpty( userId ) ) {
-            printError( response, JSON.toJSONString(ResultModel.createFail("needLogin")) );
+        String userId = this.cacheService.getString(ticket);
+        if (Strings.isNullOrEmpty(userId)) {
+            printError(response, JSON.toJSONString(ResultModel.createFail("needLogin")));
             return false;
         }
 
-        AccountHelper.setUserId( userId );
+        AccountHelper.setUserId(userId);
         return true;
     }
 
@@ -78,7 +79,7 @@ public class CookieCheckInterceptor implements HandlerInterceptor {
     public static void printError(HttpServletResponse response, String msg) throws IOException {
         response.setCharacterEncoding("utf-8");
         response.setContentType("application/json");
-        response.getWriter().print( msg );
+        response.getWriter().print(msg);
         response.getWriter().flush();
         response.getWriter().close();
     }

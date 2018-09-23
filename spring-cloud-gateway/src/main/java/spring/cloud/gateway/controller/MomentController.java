@@ -10,6 +10,9 @@ import spring.cloud.demo.model.ResultModel;
 import spring.cloud.gateway.config.AccountHelper;
 import spring.cloud.gateway.feignService.MomentFeignService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Created by Harry on 15/12/2017.
  */
@@ -21,11 +24,7 @@ public class MomentController {
     private MomentFeignService momentFeignService;
 
     @GetMapping("/list")
-    public String listFirstPageMoment(
-            Model model,
-            @RequestParam(required = false, defaultValue = "1") Integer page,
-            @RequestParam(required = false, defaultValue = "10") Integer pageSize
-    ) {
+    public String listFirstPageMoment(HttpServletRequest request, HttpServletResponse response, Model model, @RequestParam(required = false, defaultValue = "1") Integer page, @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         page = page <= 0 ? 1 : page;
         pageSize = pageSize <= 0 || pageSize > 50 ? 10 : pageSize;
 
@@ -37,9 +36,7 @@ public class MomentController {
 
     @PostMapping("")
     @ResponseBody
-    public ResultModel<MomentModel> addMoment(
-            @RequestParam String content
-    ) {
+    public ResultModel<MomentModel> addMoment(HttpServletRequest request, HttpServletResponse response, @RequestParam String content) {
         String userId = AccountHelper.getUserId();
         return this.momentFeignService.addMoment(userId, content);
     }

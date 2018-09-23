@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import spring.cloud.client.uitils.HttpClientUtil;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
 /**
@@ -21,11 +23,11 @@ public class RefreshController {
 
     @ApiOperation(value = "刷新配置文件", notes = "将端口转到managementPort")
     @RequestMapping("/refresh")
-    public String refresh(){
-        String url = "http://127.0.0.1:"+managementPort+"/refresh";
+    public String refresh(HttpServletRequest request, HttpServletResponse response) {
+        String url = "http://127.0.0.1:" + managementPort + "/refresh";
         String result = null;
         Optional<String> resultOp = HttpClientUtil.post(url);
-        if (resultOp.isPresent()){
+        if (resultOp.isPresent()) {
             result = resultOp.get();
         }
         return result;

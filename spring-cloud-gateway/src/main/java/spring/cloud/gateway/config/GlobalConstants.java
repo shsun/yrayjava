@@ -8,8 +8,9 @@ public class GlobalConstants {
     public static final String ACCOUNT_SERVICE_NAME = "spring.cloud.account";
 
     public static final String BIZ_SERVICE_NAME = "spring.cloud.biz";
-
-    public final static int LOGIN_TOKEN_EXPIRE = 60*60;//登陆的token保持1h
+    
+    // 登陆的token保持1h
+    public final static int LOGIN_TOKEN_EXPIRE = 60 * 60;
 
     public final static String LOGIN_TOKEN_KEY = "demo-loginToken";
 

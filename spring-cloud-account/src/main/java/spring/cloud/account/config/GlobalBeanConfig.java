@@ -25,7 +25,7 @@ public class GlobalBeanConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo( getApiInfo() )
+                .apiInfo(getApiInfo())
                 .host("127.0.0.1")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("spring.cloud.account"))

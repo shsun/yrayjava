@@ -33,11 +33,12 @@ public class HttpClientUtil {
 
     private static final String UTF_8 = "utf-8";
 
-    private static int time_out = 10*1000;
+    private static int time_out = 10 * 1000;
     private static int retry_time = 2;
 
     /**
      * 发送post数据
+     *
      * @param url
      * @param treeMap
      * @return
@@ -51,28 +52,28 @@ public class HttpClientUtil {
         httpPost.setConfig(requestConfig);
         CloseableHttpResponse response = null;
 
-        List<BasicNameValuePair> formparams = HttpClientUtil.getNamedValuePairFromTreeMap( treeMap );
+        List<BasicNameValuePair> formparams = HttpClientUtil.getNamedValuePairFromTreeMap(treeMap);
         int times = 0;
-        while ( times < retry_time ) {
+        while (times < retry_time) {
             try {
-                if ( null != formparams && !formparams.isEmpty() ) {
+                if (null != formparams && !formparams.isEmpty()) {
                     httpPost.setEntity(new UrlEncodedFormEntity(formparams, UTF_8));
                 }
                 CloseableHttpClient httpclient = HttpClients.createDefault();
                 response = httpclient.execute(httpPost);
                 HttpEntity entity = response.getEntity();
-                String content = EntityUtils.toString( entity );
+                String content = EntityUtils.toString(entity);
                 EntityUtils.consume(entity);
                 return Optional.ofNullable(content);
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 try {
-                    if (null!=response) response.close();
-                } catch (IOException e) {}
+                    if (null != response) response.close();
+                } catch (IOException e) {
+                }
             }
-            times ++;
+            times++;
         }
         return Optional.empty();
     }
@@ -85,38 +86,38 @@ public class HttpClientUtil {
                 .build();//设置请求和传输超时时间
         httpPost.setConfig(requestConfig);
         CloseableHttpResponse response = null;
-        if ( !Strings.isNullOrEmpty(body) ) {
+        if (!Strings.isNullOrEmpty(body)) {
             StringEntity stringEntity = new StringEntity(body, UTF_8);
-            if (!Strings.isNullOrEmpty(contentType)){
+            if (!Strings.isNullOrEmpty(contentType)) {
                 stringEntity.setContentType(contentType);
             }
             httpPost.setEntity(stringEntity);
         }
-        
+
         int times = 0;
-        while ( times < retry_time ) {
+        while (times < retry_time) {
             try {
                 CloseableHttpClient httpclient = HttpClients.createDefault();
                 response = httpclient.execute(httpPost);
-                
+
                 HttpEntity entity = response.getEntity();
-                String content = EntityUtils.toString( entity );
+                String content = EntityUtils.toString(entity);
                 EntityUtils.consume(entity);
                 return Optional.ofNullable(content);
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 try {
-                    if (null!=response) response.close();
-                } catch (IOException e) {}
+                    if (null != response) response.close();
+                } catch (IOException e) {
+                }
             }
-            times ++;
+            times++;
         }
         return Optional.empty();
     }
 
-    public static Optional<String> postWidthBody(String url, String body){
+    public static Optional<String> postWidthBody(String url, String body) {
         return postWidthBody(url, body, null);
     }
 
@@ -124,14 +125,14 @@ public class HttpClientUtil {
         return HttpClientUtil.post(url, null);
     }
 
-    private static List<BasicNameValuePair> getNamedValuePairFromTreeMap(TreeMap<String, String> treeMap ) {
+    private static List<BasicNameValuePair> getNamedValuePairFromTreeMap(TreeMap<String, String> treeMap) {
         List<BasicNameValuePair> formparams = new ArrayList<BasicNameValuePair>();
         if (null != treeMap && !treeMap.isEmpty()) {
             Iterator<String> keyIte = treeMap.keySet().iterator();
             while (keyIte.hasNext()) {
                 String key = keyIte.next();
                 String value = treeMap.get(key);
-                if ( Strings.isNullOrEmpty(key) || Strings.isNullOrEmpty(value) ) {
+                if (Strings.isNullOrEmpty(key) || Strings.isNullOrEmpty(value)) {
                     continue;
                 }
                 formparams.add(new BasicNameValuePair(key, value));
@@ -139,75 +140,76 @@ public class HttpClientUtil {
         }
         return formparams;
     }
-    
-    public static Optional<String> postMultiPart(String url, String fileName, byte[] fileData){
-    	if (Strings.isNullOrEmpty(fileName)) {
-    		fileName = "file.jpg";
-		}
-    	if ( null == fileData ) {
-			return Optional.empty();
-		}
-    	
-    	HttpPost httpPost = new HttpPost(url);
+
+    public static Optional<String> postMultiPart(String url, String fileName, byte[] fileData) {
+        if (Strings.isNullOrEmpty(fileName)) {
+            fileName = "file.jpg";
+        }
+        if (null == fileData) {
+            return Optional.empty();
+        }
+
+        HttpPost httpPost = new HttpPost(url);
         RequestConfig requestConfig = RequestConfig.custom()
                 .setSocketTimeout(time_out)
                 .setConnectTimeout(time_out)
                 .build();//设置请求和传输超时时间
         httpPost.setConfig(requestConfig);
         CloseableHttpResponse response = null;
-        
+
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
-    	builder.addBinaryBody("upload_file", fileData, ContentType.MULTIPART_FORM_DATA, fileName);
-    	
-    	HttpEntity requestEntity = builder.build();
-    	
-    	httpPost.setEntity(requestEntity);
-    	
+        builder.addBinaryBody("upload_file", fileData, ContentType.MULTIPART_FORM_DATA, fileName);
+
+        HttpEntity requestEntity = builder.build();
+
+        httpPost.setEntity(requestEntity);
+
         int times = 0;
-        while ( times < retry_time ) {
+        while (times < retry_time) {
             try {
                 CloseableHttpClient httpclient = HttpClients.createDefault();
                 response = httpclient.execute(httpPost);
-                
+
                 HttpEntity entity = response.getEntity();
-                String content = EntityUtils.toString( entity );
+                String content = EntityUtils.toString(entity);
                 EntityUtils.consume(entity);
                 return Optional.ofNullable(content);
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 try {
-                    if (null!=response) response.close();
-                } catch (IOException e) {}
+                    if (null != response) response.close();
+                } catch (IOException e) {
+                }
             }
-            times ++;
+            times++;
         }
         return Optional.empty();
     }
-    
+
     public static String getParamStringFromMap(TreeMap<String, String> treeMap) {
-    	if ( null == treeMap || treeMap.isEmpty() ) {
-			return "";
-		}
-    	
-    	List<String> keyValueList = new ArrayList<>();
+        if (null == treeMap || treeMap.isEmpty()) {
+            return "";
+        }
+
+        List<String> keyValueList = new ArrayList<>();
         if (null != treeMap && !treeMap.isEmpty()) {
             Iterator<String> keyIte = treeMap.keySet().iterator();
             while (keyIte.hasNext()) {
                 String key = keyIte.next();
                 String value = treeMap.get(key);
-                if ( Strings.isNullOrEmpty(key) || Strings.isNullOrEmpty(value) ) {
+                if (Strings.isNullOrEmpty(key) || Strings.isNullOrEmpty(value)) {
                     continue;
                 }
-                keyValueList.add( String.format("%s=%s", key,value) );
+                keyValueList.add(String.format("%s=%s", key, value));
             }
         }
-		return Joiner.on("&").skipNulls().join(keyValueList);
-	}
-    
+        return Joiner.on("&").skipNulls().join(keyValueList);
+    }
+
     /**
      * 发送get数据
+     *
      * @param url
      * @param treeMap
      * @return
@@ -215,8 +217,8 @@ public class HttpClientUtil {
     public static Optional<String> get(String url, TreeMap<String, String> treeMap) {
         String innerUrl = url;
         String paramStr = HttpClientUtil.getParamStringFromMap(treeMap);
-        if ( !Strings.isNullOrEmpty(paramStr) ) {
-            innerUrl += "?"+ paramStr;
+        if (!Strings.isNullOrEmpty(paramStr)) {
+            innerUrl += "?" + paramStr;
         }
 
         HttpGet httpGet = new HttpGet(innerUrl);
@@ -227,33 +229,34 @@ public class HttpClientUtil {
         httpGet.setConfig(requestConfig);
         CloseableHttpResponse response = null;
         int times = 0;
-        while ( times < retry_time ) {
+        while (times < retry_time) {
             try {
                 CloseableHttpClient httpclient = HttpClients.createDefault();
                 response = httpclient.execute(httpGet);
                 HttpEntity entity = response.getEntity();
-                String content = EntityUtils.toString( entity );
+                String content = EntityUtils.toString(entity);
                 EntityUtils.consume(entity);
                 return Optional.ofNullable(content);
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 try {
-                    if (null!=response) response.close();
-                } catch (IOException e) {}
+                    if (null != response) response.close();
+                } catch (IOException e) {
+                }
             }
-            times ++;
+            times++;
         }
         return Optional.empty();
     }
 
     public static Optional<String> get(String url) {
-        return  HttpClientUtil.get(url, null);
+        return HttpClientUtil.get(url, null);
     }
-    
+
     /**
      * 发送get数据
+     *
      * @param url
      * @param treeMap
      * @return
@@ -261,8 +264,8 @@ public class HttpClientUtil {
     public static Optional<String> delete(String url, TreeMap<String, String> treeMap) {
         String innerUrl = url;
         String paramStr = HttpClientUtil.getParamStringFromMap(treeMap);
-        if ( !Strings.isNullOrEmpty(paramStr) ) {
-            innerUrl += "?"+ paramStr;
+        if (!Strings.isNullOrEmpty(paramStr)) {
+            innerUrl += "?" + paramStr;
         }
 
         HttpDelete httpDelete = new HttpDelete(innerUrl);
@@ -273,29 +276,29 @@ public class HttpClientUtil {
         httpDelete.setConfig(requestConfig);
         CloseableHttpResponse response = null;
         int times = 0;
-        while ( times < retry_time ) {
+        while (times < retry_time) {
             try {
                 CloseableHttpClient httpclient = HttpClients.createDefault();
                 response = httpclient.execute(httpDelete);
                 HttpEntity entity = response.getEntity();
-                String content = EntityUtils.toString( entity );
+                String content = EntityUtils.toString(entity);
                 EntityUtils.consume(entity);
                 return Optional.ofNullable(content);
-            }catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 try {
-                    if (null!=response) response.close();
-                } catch (IOException e) {}
+                    if (null != response) response.close();
+                } catch (IOException e) {
+                }
             }
-            times ++;
+            times++;
         }
         return Optional.empty();
     }
 
     public static Optional<String> delete(String url) {
-        return  HttpClientUtil.delete(url, null);
+        return HttpClientUtil.delete(url, null);
     }
 
     public static final byte[] readBytes(InputStream is, int contentLen) {
@@ -316,13 +319,13 @@ public class HttpClientUtil {
 
             }
         }
-        return new byte[] {};
+        return new byte[]{};
     }
-    
-    public static String getRequestBodyByString(InputStream is,int size) {
+
+    public static String getRequestBodyByString(InputStream is, int size) {
         byte[] reqBodyBytes = readBytes(is, size);
         String res = new String(reqBodyBytes);
         return res;
     }
-    
+
 }

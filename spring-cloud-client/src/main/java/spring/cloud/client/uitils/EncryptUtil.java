@@ -41,21 +41,23 @@ public class EncryptUtil {
 
     private final static String[] hexDigits = {"0", "1", "2", "3", "4", "5", "6", "7",
             "8", "9", "a", "b", "c", "d", "e", "f"};
-    
+
     private static SecureRandom random = null;
+
     //初始化 SecureRandom，为了线程安全
     static {
-    	try {
-			random = SecureRandom.getInstance("SHA1PRNG");
-			random.nextInt();
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
+        try {
+            random = SecureRandom.getInstance("SHA1PRNG");
+            random.nextInt();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
     }
 
     /**
      * 转换字节数组为16进制字串
+     *
      * @param b 字节数组
      * @return 16进制字串
      */
@@ -67,17 +69,19 @@ public class EncryptUtil {
         return resultSb.toString();
     }
 
-    /**将16进制转换为二进制
+    /**
+     * 将16进制转换为二进制
+     *
      * @param hexStr
      * @return
      */
     public static byte[] parseHexStr2Byte(String hexStr) {
         if (hexStr.length() < 1)
             return null;
-        byte[] result = new byte[hexStr.length()/2];
-        for (int i = 0;i< hexStr.length()/2; i++) {
-            int high = Integer.parseInt(hexStr.substring(i*2, i*2+1), 16);
-            int low = Integer.parseInt(hexStr.substring(i*2+1, i*2+2), 16);
+        byte[] result = new byte[hexStr.length() / 2];
+        for (int i = 0; i < hexStr.length() / 2; i++) {
+            int high = Integer.parseInt(hexStr.substring(i * 2, i * 2 + 1), 16);
+            int low = Integer.parseInt(hexStr.substring(i * 2 + 1, i * 2 + 2), 16);
             result[i] = (byte) (high * 16 + low);
         }
         return result;
@@ -85,6 +89,7 @@ public class EncryptUtil {
 
     /**
      * 转换byte到16进制
+     *
      * @param b 要转换的byte
      * @return 16进制格式
      */
@@ -99,7 +104,7 @@ public class EncryptUtil {
     }
 
     public static String MD5(String toBeSigned) {
-        if ( Strings.isNullOrEmpty(toBeSigned) ) return "";
+        if (Strings.isNullOrEmpty(toBeSigned)) return "";
         try {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             byte[] md5SignBytes = md5.digest(toBeSigned.getBytes("utf-8"));
@@ -115,7 +120,7 @@ public class EncryptUtil {
         if (Strings.isNullOrEmpty(toBeSigned)) {
             return "";
         }
-        byte messageDigest[] = DigestUtils.sha1( toBeSigned.getBytes() );
+        byte messageDigest[] = DigestUtils.sha1(toBeSigned.getBytes());
         // Create Hex String
         StringBuffer hexString = new StringBuffer();
         // 字节数组转换为 十六进制 数
@@ -130,7 +135,7 @@ public class EncryptUtil {
     }
 
     public static String aes_encrypt(String sKey, String ivParameter, String sSrc) throws Exception {
-        if ( Strings.isNullOrEmpty(sKey) || Strings.isNullOrEmpty(ivParameter) || Strings.isNullOrEmpty(sSrc) )
+        if (Strings.isNullOrEmpty(sKey) || Strings.isNullOrEmpty(ivParameter) || Strings.isNullOrEmpty(sSrc))
             throw new Exception("param is required");
         initialize();
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
@@ -142,9 +147,9 @@ public class EncryptUtil {
         String result = byteArrayToHexString(encrypted);
         return result;
     }
-    
+
     public static String aes_encrypt(String sKey, String sSrc) throws Exception {
-        if ( Strings.isNullOrEmpty(sKey) || Strings.isNullOrEmpty(sSrc) )
+        if (Strings.isNullOrEmpty(sKey) || Strings.isNullOrEmpty(sSrc))
             throw new Exception("param is required");
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         byte[] raw = sKey.getBytes();
@@ -154,10 +159,10 @@ public class EncryptUtil {
         String result = byteArrayToHexString(encrypted);
         return result;
     }
-    
- // 解密
+
+    // 解密
     public static String aes_decrypt(byte[] sKey, byte[] ivParameter, byte[] sSrc) throws Exception {
-        if ( null==sKey || null==ivParameter || null==sSrc )
+        if (null == sKey || null == ivParameter || null == sSrc)
             throw new Exception("param is required");
         initialize();
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS7Padding");
@@ -165,21 +170,21 @@ public class EncryptUtil {
         AlgorithmParameters iv = generateIV(ivParameter);
         cipher.init(Cipher.DECRYPT_MODE, sKeySpec, iv);
         byte[] original = cipher.doFinal(sSrc);
-        String originalString = new String(original,"utf-8");
+        String originalString = new String(original, "utf-8");
         return originalString;
     }
 
     // 解密
     public static String aes_decrypt(String sKey, String sSrcInHex) throws Exception {
-        if ( Strings.isNullOrEmpty(sKey ) || Strings.isNullOrEmpty(sSrcInHex) )
+        if (Strings.isNullOrEmpty(sKey) || Strings.isNullOrEmpty(sSrcInHex))
             throw new Exception("param is required");
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        
+
         Key sKeySpec = new SecretKeySpec(sKey.getBytes(), "AES");
         cipher.init(Cipher.DECRYPT_MODE, sKeySpec);
-        
-        byte[] original = cipher.doFinal( EncryptUtil.parseHexStr2Byte(sSrcInHex) );
-        String originalString = new String(original,"utf-8");
+
+        byte[] original = cipher.doFinal(EncryptUtil.parseHexStr2Byte(sSrcInHex));
+        String originalString = new String(original, "utf-8");
         return originalString;
     }
 
@@ -189,7 +194,7 @@ public class EncryptUtil {
         initialized = true;
     }
 
-    private static AlgorithmParameters generateIV(byte[] iv) throws Exception{
+    private static AlgorithmParameters generateIV(byte[] iv) throws Exception {
         AlgorithmParameters params = AlgorithmParameters.getInstance("AES");
         params.init(new IvParameterSpec(iv));
         return params;
@@ -198,12 +203,9 @@ public class EncryptUtil {
     /**
      * 对输入的密码进行验证
      *
-     * @param attemptedPassword
-     *            待验证的密码
-     * @param encryptedPassword
-     *            密文
-     * @param salt
-     *            盐值
+     * @param attemptedPassword 待验证的密码
+     * @param encryptedPassword 密文
+     * @param salt              盐值
      * @return 是否验证成功
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
@@ -219,21 +221,19 @@ public class EncryptUtil {
     /**
      * 生成密文
      *
-     * @param password
-     *            明文密码
-     * @param salt
-     *            盐值
+     * @param password 明文密码
+     * @param salt     盐值
      * @return
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
      */
     public static String getEncryptedPassword(String password, String salt) throws NoSuchAlgorithmException,
             InvalidKeySpecException {
-    	
-        KeySpec spec = new PBEKeySpec(password.toCharArray(), parseHexStr2Byte(salt), 50000, 128*4);
+
+        KeySpec spec = new PBEKeySpec(password.toCharArray(), parseHexStr2Byte(salt), 50000, 128 * 4);
         SecretKeyFactory f = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
         byte[] resultBytes = f.generateSecret(spec).getEncoded();
-        return byteArrayToHexString( resultBytes );
+        return byteArrayToHexString(resultBytes);
     }
 
     /**
@@ -248,55 +248,55 @@ public class EncryptUtil {
 
         return byteArrayToHexString(salt);
     }
-    
+
     public static String encryptUsingPublicKey(String base64PubKey, String toBeSigned) {
-    	if ( Strings.isNullOrEmpty(toBeSigned) || Strings.isNullOrEmpty( base64PubKey ) ) {
-			return "";
-		}
-    	initialize();
-    	try {
-    		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-    		X509EncodedKeySpec keySpec = new X509EncodedKeySpec( Base64.getDecoder().decode(base64PubKey) );
-        	PublicKey publicKey = keyFactory.generatePublic(keySpec);
-        	
-        	Cipher c1 =Cipher.getInstance("RSA/None/OAEPWithSHA1AndMGF1Padding","BC");
-            c1.init(Cipher.ENCRYPT_MODE, publicKey );
+        if (Strings.isNullOrEmpty(toBeSigned) || Strings.isNullOrEmpty(base64PubKey)) {
+            return "";
+        }
+        initialize();
+        try {
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(Base64.getDecoder().decode(base64PubKey));
+            PublicKey publicKey = keyFactory.generatePublic(keySpec);
+
+            Cipher c1 = Cipher.getInstance("RSA/None/OAEPWithSHA1AndMGF1Padding", "BC");
+            c1.init(Cipher.ENCRYPT_MODE, publicKey);
 
             byte[] cipherText = c1.doFinal(toBeSigned.getBytes());
 //            System.out.println( byteArrayToHexString(cipherText) );
             return Base64.getEncoder().encodeToString(cipherText);
-		} catch (NoSuchAlgorithmException | InvalidKeySpecException 
-				| NoSuchPaddingException | InvalidKeyException 
-				| IllegalBlockSizeException | BadPaddingException | NoSuchProviderException e) {
-			e.printStackTrace();
-		}
-    	return "";
-        
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException
+                | NoSuchPaddingException | InvalidKeyException
+                | IllegalBlockSizeException | BadPaddingException | NoSuchProviderException e) {
+            e.printStackTrace();
+        }
+        return "";
+
     }
-    
+
     public static String decryptUsingPrivateKey(String base64PriKey, String toBeDecryptBase64) {
-    	if ( Strings.isNullOrEmpty(toBeDecryptBase64) || Strings.isNullOrEmpty( base64PriKey ) ) {
-			return "";
-		}
-    	initialize();
-    	try {
-    		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-    		byte[] keyBytes = Base64.getDecoder().decode(base64PriKey);
-    		System.out.println( keyBytes.length );
-    		byte[] encrypedData = Base64.getDecoder().decode(toBeDecryptBase64);
-    		System.out.println("encrypedData length:" + encrypedData.length);
-    		EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec( keyBytes );
-    		PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
-    		Cipher c1 = Cipher.getInstance("RSA/None/OAEPWithSHA1AndMGF1Padding","BC");
-    		c1.init(Cipher.DECRYPT_MODE, privateKey);
-            byte[] output = c1.doFinal( encrypedData );
-    		return new String( output );
-		} catch (NoSuchAlgorithmException | InvalidKeySpecException 
-				| NoSuchPaddingException | InvalidKeyException 
-				| IllegalBlockSizeException | BadPaddingException | NoSuchProviderException e) {
-			e.printStackTrace();
-		}
-    	return "";
+        if (Strings.isNullOrEmpty(toBeDecryptBase64) || Strings.isNullOrEmpty(base64PriKey)) {
+            return "";
+        }
+        initialize();
+        try {
+            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+            byte[] keyBytes = Base64.getDecoder().decode(base64PriKey);
+            System.out.println(keyBytes.length);
+            byte[] encrypedData = Base64.getDecoder().decode(toBeDecryptBase64);
+            System.out.println("encrypedData length:" + encrypedData.length);
+            EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(keyBytes);
+            PrivateKey privateKey = keyFactory.generatePrivate(privateKeySpec);
+            Cipher c1 = Cipher.getInstance("RSA/None/OAEPWithSHA1AndMGF1Padding", "BC");
+            c1.init(Cipher.DECRYPT_MODE, privateKey);
+            byte[] output = c1.doFinal(encrypedData);
+            return new String(output);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException
+                | NoSuchPaddingException | InvalidKeyException
+                | IllegalBlockSizeException | BadPaddingException | NoSuchProviderException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
-    
+
 }

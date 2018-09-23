@@ -14,6 +14,7 @@ import spring.cloud.demo.model.TraceIdHelper;
 import spring.cloud.gateway.feignService.AccountHealthCheckService;
 import spring.cloud.gateway.feignService.BizHealthCheckService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -35,15 +36,15 @@ public class HealthCheckController {
     private static final String HEALTH_KEY = "spring.cloud.gateway#healthCheck#key";
 
     private static final int CACHE_TIME = 500;  //ms
-    private static final int db_TIME = 2000;  //ms
+    private static final int DB_TIME = 2000;  //ms
 
     private static final String FAIL = "fail";
     private static final String SUCCESS = "success";
 
     @ApiOperation("health check")
     @RequestMapping(value = {"/health", "/"}, method = RequestMethod.GET)
-    public String health(HttpServletResponse response) {
-        /*验证cache*/
+    public String health(HttpServletRequest request, HttpServletResponse response) {
+        // 验证cache
         long start = System.currentTimeMillis();
         try {
             this.cacheService.putString(HEALTH_KEY, HEALTH_KEY);
@@ -68,8 +69,8 @@ public class HealthCheckController {
     }
 
     @GetMapping("/traceHealth")
-    public String traceHealth(HttpServletResponse response) {
-        String myHealth = this.health(response);
+    public String traceHealth(HttpServletRequest request, HttpServletResponse response) {
+        String myHealth = this.health(request, response);
         if (FAIL.equalsIgnoreCase(myHealth)) {
             response.setStatus(500);
             return FAIL;

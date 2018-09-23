@@ -11,6 +11,9 @@ import spring.cloud.demo.model.ListResultModel;
 import spring.cloud.demo.model.ResultModel;
 import spring.cloud.gateway.feignService.CommentFeignService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Created by Harry on 15/12/2017.
  */
@@ -18,13 +21,14 @@ import spring.cloud.gateway.feignService.CommentFeignService;
 @RequestMapping("/comment")
 public class CommentController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger( CommentController.class );
+    private static final Logger LOGGER = LoggerFactory.getLogger(CommentController.class);
 
-    @Autowired private CommentFeignService commentFeignService;
+    @Autowired
+    private CommentFeignService commentFeignService;
 
     @GetMapping("/{momentId}/list")
-    public String listCommentsByMomentId(Model model, @PathVariable Long momentId ) {
-        ListResultModel<CommentModel> commentModelListResultModel = this.commentFeignService.listCommentsByMomentId( momentId );
+    public String listCommentsByMomentId(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable Long momentId) {
+        ListResultModel<CommentModel> commentModelListResultModel = this.commentFeignService.listCommentsByMomentId(momentId);
         model.addAttribute("commentList", commentModelListResultModel.getData());
         model.addAttribute("momentId", momentId);
 
@@ -33,10 +37,7 @@ public class CommentController {
 
     @PostMapping("/{momentId}/add")
     @ResponseBody
-    public ResultModel<CommentModel> addComment(
-            @PathVariable Long momentId,
-            @RequestParam String content) {
-        return this.commentFeignService.addComment( momentId, content );
+    public ResultModel<CommentModel> addComment(HttpServletRequest request, HttpServletResponse response, @PathVariable Long momentId, @RequestParam String content) {
+        return this.commentFeignService.addComment(momentId, content);
     }
-
 }
