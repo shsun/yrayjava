@@ -1,12 +1,10 @@
 package spring.cloud.eureka.server;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.config.server.EnableConfigServer;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -42,7 +40,7 @@ public class EurekaServerApplication {
             System.exit(0);
 
             if (MODE_DEBUG.equalsIgnoreCase(mode)) {
-                in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("application-debug.properties");
+                in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("profiles/dev/application-debug.properties");
                 properties.load(in);
             } else if (MODE_RELEASE.equalsIgnoreCase(mode)) {
                 switch (peer) {
@@ -53,7 +51,7 @@ public class EurekaServerApplication {
                         in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("application-release-pee2.properties");
                         break;
                     default:
-                        in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("application-debug.properties");
+                        in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("profiles/dev/application-debug.properties");
                         break;
                 }
                 properties.load(in);
