@@ -51,8 +51,8 @@
         <spring-cloud.version>Dalston.SR1</spring-cloud.version>
 
         <!-- custom parameters -->
-        <!-- should be one of debug/release -->
-        <custom.mode>debug</custom.mode>
+        <!-- should be one of dev/staging/prd -->
+        <custom.mode>dev</custom.mode>
         <custom.peer>1</custom.peer>
     </properties>
 

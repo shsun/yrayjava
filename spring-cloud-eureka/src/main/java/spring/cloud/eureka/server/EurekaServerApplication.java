@@ -13,48 +13,27 @@ import java.util.Properties;
 @EnableConfigServer
 public class EurekaServerApplication {
 
-    private static final String MODE_DEBUG = "debug";
-    private static final String MODE_RELEASE = "release";
-
+    private static final String MODE_DEV = "dev";
+    private static final String MODE_PRD = "prd";
 
     public static void main(String[] args) {
         try {
+            //
             Properties properties = new Properties();
-            InputStream in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("application.properties");
+            InputStream in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("application_config.properties");
             properties.load(in);
-
+            //
             String mode = properties.getProperty("custom.mode");
-            System.out.println(mode);
-
-            int peer = Integer.parseInt(properties.getProperty("custom.peer"));
-            System.out.println(peer);
-
-            System.exit(0);
-
-            if (MODE_DEBUG.equalsIgnoreCase(mode)) {
-                in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("profiles/dev/application.properties");
-                properties.load(in);
-            } else if (MODE_RELEASE.equalsIgnoreCase(mode)) {
-                switch (peer) {
-                    case 1:
-                        in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("application-release-pee1.properties");
-                        break;
-                    case 2:
-                        in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("application-release-pee2.properties");
-                        break;
-                    default:
-                        in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("profiles/dev/application.properties");
-                        break;
-                }
-                properties.load(in);
-            } else {
-                System.exit(0);
+            String peer = properties.getProperty("custom.peer");
+            //
+            String fileName = "dev/application.properties";
+            if (MODE_PRD.equalsIgnoreCase(mode)) {
+                fileName = "prd/application_peer" + peer + ".properties";
             }
-
-
-            System.out.println("-->>>>>>>>>>>>>>>>" + properties.getProperty("a"));
-
-
+            in = EurekaServerApplication.class.getClassLoader().getResourceAsStream(fileName);
+            properties.load(in);
+            System.out.println("------------------->>__file_name__=" + properties.getProperty("__file_name__"));
+            //
             SpringApplication application = new SpringApplication(EurekaServerApplication.class);
             application.setDefaultProperties(properties);
             application.run(args);
@@ -62,11 +41,5 @@ public class EurekaServerApplication {
             System.out.println(e.getLocalizedMessage());
             System.exit(0);
         }
-
-
-//        SpringApplication.run(EurekaServerApplication.class, args);
-//
-
     }
-
 }
