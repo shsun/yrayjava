@@ -8,6 +8,10 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import java.io.InputStream;
 import java.util.Properties;
 
+
+/**
+ * @author sh
+ */
 @SpringBootApplication
 @EnableEurekaServer
 @EnableConfigServer
