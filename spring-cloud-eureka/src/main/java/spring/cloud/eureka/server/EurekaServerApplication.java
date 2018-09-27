@@ -20,16 +20,8 @@ public class EurekaServerApplication {
     public static void main(String[] args) {
         try {
             Properties properties = new Properties();
-            InputStream in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("application-common.properties");
+            InputStream in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("application.properties");
             properties.load(in);
-
-            String b = properties.getProperty("b");
-            System.out.println("------------------>>>>>>>>>>>>>>>>>" + b);
-
-
-
-            String version = properties.getProperty("custom.version");
-            System.out.println(version);
 
             String mode = properties.getProperty("custom.mode");
             System.out.println(mode);
@@ -40,7 +32,7 @@ public class EurekaServerApplication {
             System.exit(0);
 
             if (MODE_DEBUG.equalsIgnoreCase(mode)) {
-                in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("profiles/dev/application-debug.properties");
+                in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("profiles/dev/application.properties");
                 properties.load(in);
             } else if (MODE_RELEASE.equalsIgnoreCase(mode)) {
                 switch (peer) {
@@ -51,7 +43,7 @@ public class EurekaServerApplication {
                         in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("application-release-pee2.properties");
                         break;
                     default:
-                        in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("profiles/dev/application-debug.properties");
+                        in = EurekaServerApplication.class.getClassLoader().getResourceAsStream("profiles/dev/application.properties");
                         break;
                 }
                 properties.load(in);
