@@ -1,6 +1,6 @@
 # Introduction
 
-1. This project is a demo project for spring cloud microservice structure, using spring-boot, including: 
+1. This project is a demo project for spring cloud microservice structure, using spring-boot, including:
 	- spring cloud eureka
 	- spring cloud config
 	- ribbon
@@ -19,7 +19,7 @@
 	- Task executor thread pool
 	- HealthCheck, globalHealthCheck
 
-2. This project has a login page. After login, you can see the first page of momentList, add new moments to the list, see the comments of each moment, and add new comments to the comment list. 
+2. This project has a login page. After login, you can see the first page of momentList, add new moments to the list, see the comments of each moment, and add new comments to the comment list.
 
 # Run
 
@@ -74,16 +74,16 @@ CREATE TABLE `comment` (
 	mvn clean install -DskipTests
 	cd ../spring-cloud-starter
 	mvn clean install -DskipTests
-	
+
 	cd spring-cloud-eureka
-	mvn clean spring-boot:run
-	
+	@see spring-cloud-eureka/README
+
 	cd spring-cloud-account
 	mvn clean spring-boot:run
-	
+
 	cd spring-cloud-biz
-	mvn clean spring-boot:run	
-	
+	mvn clean spring-boot:run
+
 	cd spring-cloud-gateway
 	mvn clean spring-boot:run
 ```
@@ -96,7 +96,7 @@ CREATE TABLE `comment` (
 2. spring-cloud-parent is just a empty maven project, contains the common poms for other project, so spring-cloud-eureka, spring-cloud-biz, spring-cloud-account and spring-cloud-gateway all inherate from spring-cloud-parent
 3. spring-cloud-starter is a demo starter, it cointains the common beans, common bean configurations for spring-cloud-biz, spring-cloud-account and spring-cloud-gateway.
 4. spring-cloud-client is a common depency for all, contains some util classes and java Models responding to the db table.
-5. spring-cloud-eureka is a server for Service Registration and Service Discovery. Also, I combined spring cloud config with eureka, for dynamic configrations. The heart beat time of eureka is configed to 5s, instead of 15s. 
+5. spring-cloud-eureka is a server for Service Registration and Service Discovery. Also, I combined spring cloud config with eureka, for dynamic configrations. The heart beat time of eureka is configed to 5s, instead of 15s.
 6. spring-cloud-account is the account module
 7. spring-cloud-biz is the real business module, contains the moment module and comment module, and this project uses two dbs dynamicly.
 8. spring-cloud-gateway is the gateway for all these modules. All outer requests from apps or web pages, should be sent to gateway. GateWay should veirify the login status, do the uploading, do some filters or other aspects.
