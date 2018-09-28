@@ -68,24 +68,24 @@ CREATE TABLE `comment` (
 3. run command in order:
 
 ```
-	cd spring-cloud-parent
-	mvn clean install -DskipTests
-	cd ../spring-cloud-client
-	mvn clean install -DskipTests
-	cd ../spring-cloud-starter
-	mvn clean install -DskipTests
+cd spring-cloud-parent
+mvn clean install -DskipTests
+cd ../spring-cloud-client
+mvn clean install -DskipTests
+cd ../spring-cloud-starter
+mvn clean install -DskipTests
 
-	cd spring-cloud-eureka
-	@see spring-cloud-eureka/README
+cd spring-cloud-eureka
+@see spring-cloud-eureka/README
 
-	cd spring-cloud-account
-	mvn clean spring-boot:run
+cd spring-cloud-account
+mvn clean spring-boot:run
 
-	cd spring-cloud-biz
-	mvn clean spring-boot:run
+cd spring-cloud-biz
+mvn clean spring-boot:run
 
-	cd spring-cloud-gateway
-	mvn clean spring-boot:run
+cd spring-cloud-gateway
+mvn clean spring-boot:run
 ```
 4. open ```http://127.0.0.1:7001/index``` in brower
 
