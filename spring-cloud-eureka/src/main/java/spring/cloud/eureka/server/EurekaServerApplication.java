@@ -49,9 +49,9 @@ public class EurekaServerApplication {
             in = EurekaServerApplication.class.getClassLoader().getResourceAsStream(fileName);
             properties.load(in);
             System.out.println("\n\n\n------------------->>" + peer + "\n\n\n__file_name__=" + properties.getProperty("__file_name__") + "\n\n\n");
-
-            Scanner scanner = new Scanner(System.in);
-            String profiles = scanner.nextLine();
+//
+//            Scanner scanner = new Scanner(System.in);
+//            String profiles = scanner.nextLine();
 
             //
             SpringApplication application = new SpringApplication(EurekaServerApplication.class);
