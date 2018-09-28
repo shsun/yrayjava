@@ -18,6 +18,9 @@ insert into account (user_id, user_name, password, gmt_created, gmt_modified, is
 insert into account (user_id, user_name, password, gmt_created, gmt_modified, is_deleted)value('100001',"test", "123456", NOW(), NULL, '0');
 insert into account (user_id, user_name, password, gmt_created, gmt_modified, is_deleted)value('100002',"shsun", "123456", NOW(), NULL, '0');
 insert into account (user_id, user_name, password, gmt_created, gmt_modified, is_deleted)value('100003',"syn", "123456", NOW(), NULL, '0');
+select * from account;
+
+
 
 DROP TABLE IF EXISTS `moment `;
 CREATE TABLE `moment` (

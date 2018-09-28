@@ -13,4 +13,3 @@ sudo redis-server /opt/redis_6379.conf;
 
 sleep 1;
 echo '';
-
