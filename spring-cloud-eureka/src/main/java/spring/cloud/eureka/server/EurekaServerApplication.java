@@ -1,9 +1,12 @@
 package spring.cloud.eureka.server;
 
+import java.util.Scanner;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.config.server.EnableConfigServer;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.cloud.config.server.EnableConfigServer;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -19,6 +22,15 @@ public class EurekaServerApplication {
 
     private static final String MODE_DEV = "dev";
     private static final String MODE_PRD = "prd";
+
+    /*
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String profiles = scanner.nextLine();
+        new SpringApplicationBuilder(EurekaServerApplication.class).profiles(profiles).run(args);
+    }
+    */
+
 
     public static void main(String[] args) {
         try {
@@ -36,7 +48,11 @@ public class EurekaServerApplication {
             }
             in = EurekaServerApplication.class.getClassLoader().getResourceAsStream(fileName);
             properties.load(in);
-            System.out.println("------------------->>__file_name__=" + properties.getProperty("__file_name__"));
+            System.out.println("\n\n\n------------------->>" + peer + "\n\n\n__file_name__=" + properties.getProperty("__file_name__") + "\n\n\n");
+
+            Scanner scanner = new Scanner(System.in);
+            String profiles = scanner.nextLine();
+
             //
             SpringApplication application = new SpringApplication(EurekaServerApplication.class);
             application.setDefaultProperties(properties);
