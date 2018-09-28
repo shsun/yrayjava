@@ -3,6 +3,9 @@ package spring.cloud.demo;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
+import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import spring.cloud.demo.springCloud.CustomHystrixConcurrencyStrategy;
 import spring.cloud.demo.springCloud.TraceIdFeignHttpRequrestInterceptor;
@@ -12,11 +15,8 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.web.HttpMessageConverters;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.netflix.feign.support.ResponseEntityDecoder;
-import org.springframework.cloud.netflix.feign.support.SpringDecoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -36,6 +36,7 @@ import feign.RequestInterceptor;
  */
 @Configuration
 public class GlobalBean implements CommandLineRunner {
+
 
     @Bean
     public StringHttpMessageConverter stringHttpMessageConverter() {
@@ -130,7 +131,7 @@ public class GlobalBean implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... arg0) throws Exception {
+    public void run(String... arg0) {
         HystrixPlugins.getInstance().registerConcurrencyStrategy(new CustomHystrixConcurrencyStrategy());
     }
 }

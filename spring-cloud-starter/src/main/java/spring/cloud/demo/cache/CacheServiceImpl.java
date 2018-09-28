@@ -22,7 +22,7 @@ public class CacheServiceImpl implements CacheService {
         this.stringRedisTemplate = stringRedisTemplate;
     }
 
-    public void putObject(String key, Object value) throws Exception {
+    public void putObject(String key, Object value) {
         if (Strings.isNullOrEmpty(key) || null == value) return;
         ValueOperations<String, Object> operations = this.redisTemplate.opsForValue();
         operations.set(key, value);
@@ -35,13 +35,13 @@ public class CacheServiceImpl implements CacheService {
         this.expire(key, expire);
     }
 
-    public void deleteObjectByKey(String key) throws Exception {
+    public void deleteObjectByKey(String key) {
         if (null == key) return;
         ValueOperations<String, Object> operations = this.redisTemplate.opsForValue();
         operations.getOperations().delete(key);
     }
 
-    public Object getObject(String key) throws Exception {
+    public Object getObject(String key) {
         if (Strings.isNullOrEmpty(key)) {
             return null;
         }
@@ -49,7 +49,7 @@ public class CacheServiceImpl implements CacheService {
         return operations.get(key);
     }
 
-    public void putString(String key, String value) throws Exception {
+    public void putString(String key, String value) {
         if (Strings.isNullOrEmpty(key) || null == value) return;
         ValueOperations<String, String> operations = this.stringRedisTemplate.opsForValue();
         operations.set(key, value);
@@ -60,7 +60,7 @@ public class CacheServiceImpl implements CacheService {
         this.expire(key, expire);
     }
 
-    public String getString(String key) throws Exception {
+    public String getString(String key) {
         if (Strings.isNullOrEmpty(key)) {
             return null;
         }
@@ -68,7 +68,7 @@ public class CacheServiceImpl implements CacheService {
         return operations.get(key);
     }
 
-    public void expire(String key, int expire) throws Exception {
+    public void expire(String key, int expire) {
         if (Strings.isNullOrEmpty(key)) {
             return;
         }
