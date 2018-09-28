@@ -1,6 +1,6 @@
 package spring.cloud.gateway.feignService;
 
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import spring.cloud.gateway.config.GlobalConstants;
 
