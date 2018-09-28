@@ -1,5 +1,6 @@
 package spring.cloud.account.service.impl;
 
+import base.BConstants;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,40 +28,62 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public ResultModel<AccountModel> detail(String userId) {
-        if (Strings.isNullOrEmpty(userId)) {
-            return ResultModel.createFail("invalidParam");
-        }
-        Optional<AccountDo> accountDoOp = this.accountDataAccess.selectByPrimaryKey(userId);
-        if (!accountDoOp.isPresent()) {
-            LOGGER.error("traceId:{}, AccountService.detail, user does not exist, userId:{}", TraceIdHelper.getTraceId(), userId);
-            return ResultModel.createFail("noThisUser");
-        }
-        AccountModel accountModel = new AccountModel();
-        CopyProperityUtils.copyAllProperies(accountDoOp.get(), accountModel);
 
-        return ResultModel.createSuccess(accountModel);
+        System.out.println(BConstants.ABC);
+
+        System.out.println("AccountServiceImpl.validateUserIdAndPassword() userid=" + userId);
+
+        String debug = "";
+
+        ResultModel<AccountModel> rst;
+
+        if (Strings.isNullOrEmpty(userId)) {
+            debug += "1,";
+            rst = ResultModel.createFail("invalidParam");
+        } else {
+            debug += "2,";
+            Optional<AccountDo> accountDoOp = this.accountDataAccess.selectByPrimaryKey(userId);
+            if (!accountDoOp.isPresent()) {
+                LOGGER.error("traceId:{}, AccountService.detail, user does not exist, userId:{}", TraceIdHelper.getTraceId(), userId);
+                rst = ResultModel.createFail("noThisUser");
+            } else {
+                AccountModel accountModel = new AccountModel();
+                CopyProperityUtils.copyAllProperies(accountDoOp.get(), accountModel);
+                rst = ResultModel.createSuccess(accountModel);
+            }
+        }
+        return rst;
     }
 
     @Override
     public ResultModel<String> validateUserIdAndPassword(String userId, String password) {
+
+        System.out.println(BConstants.ABC);
+
+        System.out.println("AccountController.validateUserIdAndPassword() userid=" + userId + ", password=" + password);
+
+        ResultModel<String> rst;
+
         if (Strings.isNullOrEmpty(userId) || Strings.isNullOrEmpty(password)) {
-            return ResultModel.createFail("invalidParam");
-        }
-        userId = userId.trim();
-        password = password.trim();
-
-        Optional<AccountDo> accountDoOp = this.accountDataAccess.selectByPrimaryKey(userId);
-        if (!accountDoOp.isPresent()) {
-            LOGGER.error("traceId:{}, AccountService.detail, user does not exist, userId:{}", TraceIdHelper.getTraceId(), userId);
-            //hide the error msg
-            return ResultModel.createFail("wrongUserOrPwd");
-        }
-
-        AccountDo accountDo = accountDoOp.get();
-        if (password.equals(accountDo.getPassword())) {
-            return ResultModel.createSuccess();
+            rst = ResultModel.createFail("invalidParam");
         } else {
-            return ResultModel.createFail("wrongUserOrPwd");
+            userId = userId.trim();
+            password = password.trim();
+
+            Optional<AccountDo> accountDoOp = this.accountDataAccess.selectByPrimaryKey(userId);
+            if (!accountDoOp.isPresent()) {
+                LOGGER.error("traceId:{}, AccountService.detail, user does not exist, userId:{}", TraceIdHelper.getTraceId(), userId);
+                //hide the error msg
+                rst = ResultModel.createFail("wrongUserOrPwd");
+            } else {
+                AccountDo accountDo = accountDoOp.get();
+                if (password.equals(accountDo.getPassword())) {
+                    rst = ResultModel.createSuccess();
+                } else {
+                    rst = ResultModel.createFail("wrongUserOrPwd");
+                }
+            }
         }
+        return rst;
     }
 }

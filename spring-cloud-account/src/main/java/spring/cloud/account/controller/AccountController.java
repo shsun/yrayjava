@@ -1,5 +1,6 @@
 package spring.cloud.account.controller;
 
+import base.BConstants;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -26,11 +27,23 @@ public class AccountController {
     @ApiOperation(value = "获取用户详细信息")
     @GetMapping("/detail")
     public ResultModel<AccountModel> detailByUserId(HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId) {
+
+        System.out.println(BConstants.ABC);
+
+        System.out.println("AccountController.detailByUserId() userid=" + userId);
+
+
         return this.accountService.detail(userId);
     }
 
     @PostMapping("/validate")
     public ResultModel<String> validateUserIdAndPassword(HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId, @RequestParam("password") String password) {
+
+        System.out.println(BConstants.ABC);
+
+        System.out.println("AccountController.validateUserIdAndPassword() userid=" + userId + ", password=" + password);
+
+
         return this.accountService.validateUserIdAndPassword(userId, password);
     }
 
