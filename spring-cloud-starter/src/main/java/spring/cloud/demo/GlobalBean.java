@@ -35,7 +35,7 @@ import feign.RequestInterceptor;
  * Created by Harry on 2017/6/27.
  */
 @Configuration
-public class GlobalBean implements CommandLineRunner{
+public class GlobalBean implements CommandLineRunner {
 
     @Bean
     public StringHttpMessageConverter stringHttpMessageConverter() {
@@ -44,10 +44,7 @@ public class GlobalBean implements CommandLineRunner{
     }
 
     @Bean
-    public Decoder customDecoder(
-            @Autowired StringHttpMessageConverter stringHttpMessageConverter,
-            @Autowired FastJsonHttpMessageConverter4 fastConverter
-    ) {
+    public Decoder customDecoder(@Autowired StringHttpMessageConverter stringHttpMessageConverter, @Autowired FastJsonHttpMessageConverter4 fastConverter) {
 
         HttpMessageConverters decodeConverters = new HttpMessageConverters(false,
                 Arrays.asList(stringHttpMessageConverter, fastConverter));
@@ -59,7 +56,7 @@ public class GlobalBean implements CommandLineRunner{
     public FastJsonHttpMessageConverter4 fastConverter() {
         FastJsonHttpMessageConverter4 fastConverter = new FastJsonHttpMessageConverter4();
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
-        fastJsonConfig.setSerializerFeatures( SerializerFeature.PrettyFormat,SerializerFeature.DisableCircularReferenceDetect );
+        fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat, SerializerFeature.DisableCircularReferenceDetect);
         //SerializerFeature.PrettyFormat,SerializerFeature.DisableCircularReferenceDetect
 //        fastJsonConfig.setSerializerFeatures(SerializerFeature.WriteMapNullValue,
 //        		SerializerFeature.WriteNullBooleanAsFalse,
@@ -76,7 +73,7 @@ public class GlobalBean implements CommandLineRunner{
     }
 
     @Bean
-    public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter(){
+    public ByteArrayHttpMessageConverter byteArrayHttpMessageConverter() {
         ByteArrayHttpMessageConverter byteArrayHttpMessageConverter = new ByteArrayHttpMessageConverter();
         return byteArrayHttpMessageConverter;
     }
@@ -91,20 +88,20 @@ public class GlobalBean implements CommandLineRunner{
     public TraceIdHttpRequestInterceptor traceIdHttpRequestInterceptor() {
         return new TraceIdHttpRequestInterceptor();
     }
-    
+
     @Bean
-    @ConditionalOnProperty(value={"spring.fegin.request.connectTimeoutMillis","spring.fegin.request.readTimeoutMillis"})
+    @ConditionalOnProperty(value = {"spring.fegin.request.connectTimeoutMillis", "spring.fegin.request.readTimeoutMillis"})
     @ConfigurationProperties(prefix = "spring.fegin.request")
-    public Request.Options feignRequestOptions(){
+    public Request.Options feignRequestOptions() {
         return new Request.Options();
     }
-    
+
     @Bean
     @ConditionalOnProperty(
-    		value={"spring.rest.connection.connection-request-timeout",
-    				"spring.rest.connection.connect-timeout",
-    			"spring.rest.connection.read-timeout"}
-    		)
+            value = {"spring.rest.connection.connection-request-timeout",
+                    "spring.rest.connection.connect-timeout",
+                    "spring.rest.connection.read-timeout"}
+    )
     @ConfigurationProperties(prefix = "spring.rest.connection")
     public HttpComponentsClientHttpRequestFactory customHttpRequestFactory() {
         return new HttpComponentsClientHttpRequestFactory();
@@ -112,29 +109,28 @@ public class GlobalBean implements CommandLineRunner{
 
     @Bean
     @LoadBalanced
-    public RestTemplate restTemplate(@Autowired(required=false) HttpComponentsClientHttpRequestFactory customHttpRequestFactory,
-                                     @Autowired(required=false) FastJsonHttpMessageConverter4 fastConverter,
-                                     @Autowired(required=false) TraceIdHttpRequestInterceptor traceIdHttpRequestInterceptor ){
+    public RestTemplate restTemplate(@Autowired(required = false) HttpComponentsClientHttpRequestFactory customHttpRequestFactory,
+                                     @Autowired(required = false) FastJsonHttpMessageConverter4 fastConverter,
+                                     @Autowired(required = false) TraceIdHttpRequestInterceptor traceIdHttpRequestInterceptor) {
 
-        RestTemplate restTemplate ;
-        if ( null == customHttpRequestFactory ) {
-        	restTemplate = new RestTemplate();			
-		}
-        else {
-        	restTemplate = new RestTemplate(customHttpRequestFactory);			
-		}
-        if ( null != fastConverter ) {
-        	restTemplate.getMessageConverters().add(fastConverter);			
-		}
-        if ( null != traceIdHttpRequestInterceptor ) {
-        	restTemplate.getInterceptors().add(traceIdHttpRequestInterceptor);			
-		}
+        RestTemplate restTemplate;
+        if (null == customHttpRequestFactory) {
+            restTemplate = new RestTemplate();
+        } else {
+            restTemplate = new RestTemplate(customHttpRequestFactory);
+        }
+        if (null != fastConverter) {
+            restTemplate.getMessageConverters().add(fastConverter);
+        }
+        if (null != traceIdHttpRequestInterceptor) {
+            restTemplate.getInterceptors().add(traceIdHttpRequestInterceptor);
+        }
 
         return restTemplate;
     }
-    
+
     @Override
-	public void run(String... arg0) throws Exception {
-		HystrixPlugins.getInstance().registerConcurrencyStrategy(new CustomHystrixConcurrencyStrategy());
-	}
+    public void run(String... arg0) throws Exception {
+        HystrixPlugins.getInstance().registerConcurrencyStrategy(new CustomHystrixConcurrencyStrategy());
+    }
 }
