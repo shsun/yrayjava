@@ -29,5 +29,8 @@ public class AccountApplication implements CommandLineRunner {
     @Override
     public void run(String... arg0) throws Exception {
         //do something after spring-boot started
+
+        System.out.println(arg0);
+        System.out.println("这个是测试ApplicationRunner接口---account");
     }
 }

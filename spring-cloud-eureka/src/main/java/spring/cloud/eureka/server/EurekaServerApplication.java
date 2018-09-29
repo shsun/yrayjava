@@ -5,6 +5,7 @@ import java.util.Scanner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.cloud.config.server.EnableConfigServer;
 
@@ -18,6 +19,7 @@ import java.util.Properties;
 @SpringBootApplication
 @EnableEurekaServer
 @EnableConfigServer
+@EnableEurekaClient
 public class EurekaServerApplication {
 
     private static final String MODE_DEV = "dev";
@@ -61,5 +63,7 @@ public class EurekaServerApplication {
             System.out.println(e.getLocalizedMessage());
             System.exit(0);
         }
+
+        // SpringApplication.run(EurekaServerApplication.class, args);
     }
 }

@@ -15,7 +15,6 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.5.RELEASE</version>
-        <!-- lookup parent from repository -->
         <relativePath/>
     </parent>
 
@@ -57,21 +56,17 @@
     </properties>
 
     <dependencies>
-        <!--  -->
         <dependency>
             <groupId>com.tech.harry</groupId>
             <artifactId>spring.cloud.starter</artifactId>
             <version>1.0.0</version>
         </dependency>
 
-
-
         <!-- springCloud 配置 -->
         <dependency>
         	<groupId>org.springframework.cloud</groupId>
         	<artifactId>spring-cloud-starter-config</artifactId>
         </dependency>	
-
 
         <!-- spring cloud eureka server -->
 		<!-- springCloud注测中心服务 -->		

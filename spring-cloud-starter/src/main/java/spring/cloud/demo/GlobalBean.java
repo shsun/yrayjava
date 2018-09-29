@@ -131,6 +131,28 @@ public class GlobalBean implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) {
-        HystrixPlugins.getInstance().registerConcurrencyStrategy(new CustomHystrixConcurrencyStrategy());
+        // TODO just comment the registerConcurrencyStrategy to work round the 'Another strategy was already registered' bug.
+        /*
+         *  java.lang.IllegalStateException: Failed to execute CommandLineRunner
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:821) [spring-boot-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:802) [spring-boot-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:341) [spring-boot-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1277) [spring-boot-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1265) [spring-boot-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at spring.cloud.eureka.server.EurekaServerApplication.main(EurekaServerApplication.java:67) [classes/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_65]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_65]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_65]
+	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_65]
+	at org.springframework.boot.maven.AbstractRunMojo$LaunchRunner.run(AbstractRunMojo.java:497) [spring-boot-maven-plugin-2.0.5.RELEASE.jar:2.0.5.RELEASE]
+	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_65]
+Caused by: java.lang.IllegalStateException: Another strategy was already registered.
+	at com.netflix.hystrix.strategy.HystrixPlugins.registerConcurrencyStrategy(HystrixPlugins.java:190) ~[hystrix-core-1.5.12.jar:1.5.12]
+	at spring.cloud.demo.GlobalBean.run(GlobalBean.java:134) ~[spring.cloud.starter-1.0.0.jar:1.0.0]
+         */
+
+        // HystrixPlugins.getInstance().registerConcurrencyStrategy(new CustomHystrixConcurrencyStrategy());
+        System.out.println(arg0);
+        System.out.println("这个是测试ApplicationRunner接口---starter");
     }
 }

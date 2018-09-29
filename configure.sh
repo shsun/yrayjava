@@ -2,7 +2,7 @@
 
 
 echo -e ‘\n\n\n\n\n aliyun mirror’;
-sudo mv ~/.m2/settings.xml ~/.m2/settings.xml_bak
+mv ~/.m2/settings.xml ~/.m2/settings.xml_bak
 cp -rfv ./settings.xml ~/.m2/settings.xml
 echo -e ‘\n\n\n\n\n’;
 sleep 2;
@@ -27,7 +27,7 @@ sleep 2;
 
 
 echo -e ‘\n\n\n\n\n’;
-echo -e ‘starting..................... redis’;
+echo -e ‘restart redis on 6379’;
 
 sudo redis-cli -p 6379 shutdown;
 sleep 1;
