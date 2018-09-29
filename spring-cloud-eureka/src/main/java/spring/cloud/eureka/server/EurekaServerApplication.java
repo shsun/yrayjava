@@ -18,8 +18,8 @@ import java.util.Properties;
  */
 @SpringBootApplication
 @EnableEurekaServer
-@EnableConfigServer
 @EnableEurekaClient
+@EnableConfigServer
 public class EurekaServerApplication {
 
     private static final String MODE_DEV = "dev";
@@ -35,6 +35,7 @@ public class EurekaServerApplication {
 
 
     public static void main(String[] args) {
+        /*
         try {
             //
             Properties properties = new Properties();
@@ -63,7 +64,8 @@ public class EurekaServerApplication {
             System.out.println(e.getLocalizedMessage());
             System.exit(0);
         }
+        */
 
-        // SpringApplication.run(EurekaServerApplication.class, args);
+        SpringApplication.run(EurekaServerApplication.class, args);
     }
 }

@@ -18,24 +18,6 @@
         <relativePath/>
     </parent>
 
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <properties>
-                <jest.urls>http://n2:9200,http://n4:9200</jest.urls>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>production</id>
-            <properties>
-                <jest.urls>http://192.168.3.241:9200,http://192.168.3.242:9200</jest.urls>
-            </properties>
-        </profile>
-    </profiles>
-
     <properties>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>jdbc:mysql://localhost/stock?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true</jdbc.url>
@@ -66,7 +48,14 @@
         <dependency>
         	<groupId>org.springframework.cloud</groupId>
         	<artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>	
+        </dependency>
+
+        <!--表示为web工程-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
 
         <!-- spring cloud eureka server -->
 		<!-- springCloud注测中心服务 -->		
@@ -74,6 +63,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
