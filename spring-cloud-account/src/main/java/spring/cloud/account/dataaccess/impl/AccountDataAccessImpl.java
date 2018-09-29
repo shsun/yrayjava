@@ -23,15 +23,62 @@ public class AccountDataAccessImpl implements AccountDataAccess {
 
     @Autowired
     private CacheService cacheService;
+
     @Autowired
     private AccountDoMapper accountDoMapper;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountDataAccessImpl.class);
-    private static final String accountCachePre = "spring#cloud#demo#account#userId#";
-    private static final int cache_time = 30 * 60;    //30min
+    private static final String FIXED_ACCOUNT_CACHE_PREFIX = "spring#cloud#demo#account#userId#";
+    // 30min
+    private static final int CACHE_EXPIRE_TIME = 30 * 60;
+
+
+    @Override
+    public int insert(AccountDo record) {
+        return this.accountDoMapper.insert(record);
+    }
+
+    @Override
+    public Optional<AccountDo> selectByPrimaryKey(String userId) {
+        Optional<AccountDo> rst;
+        if (Strings.isNullOrEmpty(userId)) {
+            rst = Optional.empty();
+        } else {
+            String cacheKey = this.getCacheKeyByUserId(userId);
+            AccountDo accountDo = null;
+            try {
+                accountDo = (AccountDo) this.cacheService.getObject(cacheKey);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            if (null != accountDo) {
+                rst = Optional.of(accountDo);
+            } else {
+                accountDo = this.accountDoMapper.selectByPrimaryKey(userId);
+                if (null != accountDo) {
+                    try {
+                        this.cacheService.putObject(cacheKey, accountDo, CACHE_EXPIRE_TIME);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                rst = Optional.ofNullable(accountDo);
+            }
+        }
+        return rst;
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(AccountDo record) {
+        int size = this.accountDoMapper.updateByPrimaryKeySelective(record);
+        if (size > 0) {
+            this.deleteCacheByUserId(record.getUserId());
+        }
+        return size;
+    }
 
     private String getCacheKeyByUserId(String userId) {
-        return accountCachePre + userId;
+        return FIXED_ACCOUNT_CACHE_PREFIX + userId;
     }
 
     private void deleteCacheByUserId(String userId) {
@@ -44,43 +91,4 @@ public class AccountDataAccessImpl implements AccountDataAccess {
         }
     }
 
-    @Override
-    public int insert(AccountDo record) {
-        return this.accountDoMapper.insert(record);
-    }
-
-    @Override
-    public Optional<AccountDo> selectByPrimaryKey(String userId) {
-        if (Strings.isNullOrEmpty(userId)) {
-            return Optional.empty();
-        }
-        String cacheKey = this.getCacheKeyByUserId(userId);
-        AccountDo accountDo = null;
-        try {
-            accountDo = (AccountDo) this.cacheService.getObject(cacheKey);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (null != accountDo) return Optional.of(accountDo);
-
-        accountDo = this.accountDoMapper.selectByPrimaryKey(userId);
-        if (null != accountDo) {
-            try {
-                this.cacheService.putObject(cacheKey, accountDo, cache_time);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return Optional.ofNullable(accountDo);
-    }
-
-    @Override
-    public int updateByPrimaryKeySelective(AccountDo record) {
-        int size = this.accountDoMapper.updateByPrimaryKeySelective(record);
-        if (size > 0) {
-            this.deleteCacheByUserId(record.getUserId());
-        }
-        return size;
-    }
 }
