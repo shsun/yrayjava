@@ -32,21 +32,22 @@ public class AccountController {
     @ResponseBody
     public ResultModel<AccountModel> detail(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "userId", required = false) String userId) {
 
-
         System.out.println(BConstants.ABC);
-
 
         return this.accountService.detailByUserId(userId);
     }
 
-    @GetMapping("/index")
+    @RequestMapping(value = "/index", method = {RequestMethod.POST, RequestMethod.GET})
     public String index(HttpServletRequest request, HttpServletResponse response) {
         return "login";
     }
 
-    @PostMapping("/account/login")
+    @RequestMapping(value = "/account/login", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public ResultModel<String> login(HttpServletRequest request, HttpServletResponse response, @RequestParam String userId, @RequestParam String password) {
+
+        System.out.println(BConstants.ABC);
+
         return this.accountService.login(response, userId, password);
     }
 }

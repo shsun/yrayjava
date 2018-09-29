@@ -32,6 +32,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountFeignService accountFeignService;
+
     @Autowired
     private CacheService cacheService;
 
