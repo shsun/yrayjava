@@ -1,6 +1,6 @@
 # Introduction
 
-1. This project is a demo project for spring cloud microservice structure, using spring-boot, including:
+1. This project is a demo project for spring cloud microservice structure which based on spring-boot 2.x, including:
 	- spring cloud eureka
 	- spring cloud config
 	- ribbon
@@ -19,7 +19,7 @@
 	- Task executor thread pool
 	- HealthCheck, globalHealthCheck
 
-2. This project has a login page. After login, you can see the first page of momentList, add new moments to the list, see the comments of each moment, and add new comments to the comment list.
+2. ~~This project has a login page. After login, you can see the first page of momentList, add new moments to the list, see the comments of each moment, and add new comments to the comment list.~~
 
 # Run
 1. first of all, you should get a redis(no username&password) started, and a mysql(username=root,password=123456) started. Then, the sql for creating databases and dbs is as below:
@@ -99,6 +99,8 @@ http://127.0.0.1:7001/b
 ``` 
 in brower
 
+# The monitor
+![](docs/snapshot.jpg)
 
 # Code explain
 1. The dependency of this project is shown below :
