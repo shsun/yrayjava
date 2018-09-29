@@ -46,7 +46,6 @@ public class GlobalBean implements CommandLineRunner {
 
     @Bean
     public Decoder customDecoder(@Autowired StringHttpMessageConverter stringHttpMessageConverter, @Autowired FastJsonHttpMessageConverter4 fastConverter) {
-
         HttpMessageConverters decodeConverters = new HttpMessageConverters(false,
                 Arrays.asList(stringHttpMessageConverter, fastConverter));
         ObjectFactory<HttpMessageConverters> objectFactory = () -> decodeConverters;
