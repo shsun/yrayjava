@@ -19,7 +19,6 @@ import java.util.Properties;
 @SpringBootApplication
 @EnableEurekaServer
 @EnableEurekaClient
-@EnableConfigServer
 public class EurekaServerApplication {
 
     private static final String MODE_DEV = "dev";
