@@ -22,8 +22,7 @@
 2. This project has a login page. After login, you can see the first page of momentList, add new moments to the list, see the comments of each moment, and add new comments to the comment list.
 
 # Run
-
-1. first of all, you should get a redis started, and a mysql started. Then, the sql for creating databases and dbs is as below:
+1. first of all, you should get a redis(no username&password) started, and a mysql(username=root,password=123456) started. Then, the sql for creating databases and dbs is as below:
 
 ```
 create database test;
