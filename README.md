@@ -78,6 +78,9 @@ mvn clean install -DskipTests
 cd spring-cloud-eureka
 @see spring-cloud-eureka/README
 
+cd spring-cloud-config
+mvn clean spring-boot:run
+
 cd spring-cloud-account
 mvn clean spring-boot:run
 
