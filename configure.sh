@@ -1,6 +1,23 @@
 #!/bin/sh
 
 
+
+
+
+cd spring-cloud-parent
+mvn clean install -DskipTests
+sleep 1;
+
+cd ../spring-cloud-client
+mvn clean install -DskipTests
+sleep 1;
+
+cd ../spring-cloud-starter
+mvn clean install -DskipTests
+sleep 1;
+
+
+
 echo -e "\n\n\n"
 echo "starting..................... redis"
 
