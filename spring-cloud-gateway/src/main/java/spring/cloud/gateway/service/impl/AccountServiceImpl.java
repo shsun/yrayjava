@@ -26,7 +26,6 @@ import spring.cloud.demo.model.TraceIdHelper;
 /**
  * Created by Harry on 14/12/2017.
  */
-
 @Service("accountService")
 public class AccountServiceImpl implements AccountService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountServiceImpl.class);

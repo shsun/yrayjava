@@ -14,41 +14,41 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
-public class GlobalAspectInteceptor implements HandlerInterceptor{
-	private static final Logger LOGGER = LoggerFactory.getLogger( GlobalAspectInteceptor.class );
+/**
+ *
+ */
+public class GlobalAspectInteceptor implements HandlerInterceptor {
 
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalAspectInteceptor.class);
 
-		LOGGER.info("request -> path:{}, params:{}", request.getRequestURI(), JSON.toJSONString( request.getParameterMap() ) );
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-		//traceId
-		String traceIdFromRequest = request.getHeader(StarterConstants.TRACE_ID_KEY);
-		if ( Strings.isNullOrEmpty(traceIdFromRequest) ) {
-			traceIdFromRequest = UUID.randomUUID().toString().toUpperCase();
-			request.setAttribute(StarterConstants.TRACE_ID_KEY,traceIdFromRequest);
-		}
+        LOGGER.info("request -> path:{}, params:{}", request.getRequestURI(), JSON.toJSONString(request.getParameterMap()));
 
-		TraceIdHelper.setTraceId( traceIdFromRequest );
-		TraceIdHelper.setRemoteIp(RemoteIpUtil.getRemoteIp(request));
-
-		return true;
-	}
-
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		//set global params for web
-	    if (null != modelAndView) {
-//            modelAndView.addObject("version", "127.0.2");
+        //traceId
+        String traceIdFromRequest = request.getHeader(StarterConstants.TRACE_ID_KEY);
+        if (Strings.isNullOrEmpty(traceIdFromRequest)) {
+            traceIdFromRequest = UUID.randomUUID().toString().toUpperCase();
+            request.setAttribute(StarterConstants.TRACE_ID_KEY, traceIdFromRequest);
         }
-	}
 
-	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-			throws Exception {
-		TraceIdHelper.clear();
-	}
+        TraceIdHelper.setTraceId(traceIdFromRequest);
+        TraceIdHelper.setRemoteIp(RemoteIpUtil.getRemoteIp(request));
 
+        return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        // set global params for web
+        if (null != modelAndView) {
+            // modelAndView.addObject("version", "127.0.2");
+        }
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        TraceIdHelper.clear();
+    }
 }
