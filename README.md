@@ -99,11 +99,12 @@ mvn clean spring-boot:run
 2. spring-cloud-parent is just a empty maven project, contains the common poms for other project, so spring-cloud-eureka, spring-cloud-biz, spring-cloud-account and spring-cloud-gateway all inherate from spring-cloud-parent
 3. spring-cloud-starter is a demo starter, it cointains the common beans, common bean configurations for spring-cloud-biz, spring-cloud-account and spring-cloud-gateway.
 4. spring-cloud-client is a common depency for all, contains some util classes and java Models responding to the db table.
-5. spring-cloud-eureka is a server for Service Registration and Service Discovery. Also, I combined spring cloud config with eureka, for dynamic configrations. The heart beat time of eureka is configed to 5s, instead of 15s.
-6. spring-cloud-account is the account module
-7. spring-cloud-biz is the real business module, contains the moment module and comment module, and this project uses two dbs dynamicly.
-8. spring-cloud-gateway is the gateway for all these modules. All outer requests from apps or web pages, should be sent to gateway. GateWay should veirify the login status, do the uploading, do some filters or other aspects.
-9. If you want to stop any of spring-cloud-account, spring-cloud-biz or spring-cloud-gateway, use this command: ```curl -H 'Accept:application/json' -X POST localhost:7004/shutdown```, to stop the heartbeat to the eureka cluster.
+5. spring-cloud-eureka is a server for Service Registration and Service Discovery. The heart beat time of eureka is configed to 5s, instead of 15s.
+6. spring-cloud-config is a spring cloud config for dynamic configuration.
+7. spring-cloud-account is the account module
+8. spring-cloud-biz is the real business module, contains the moment module and comment module, and this project uses two dbs dynamicly.
+9. spring-cloud-gateway is the gateway for all these modules. All outer requests from apps or web pages, should be sent to gateway. GateWay should veirify the login status, do the uploading, do some filters or other aspects.
+10. If you want to stop any of spring-cloud-account, spring-cloud-biz or spring-cloud-gateway, use this command: ```curl -H 'Accept:application/json' -X POST localhost:7004/shutdown```, to stop the heartbeat to the eureka cluster.
 
 # Deploy to the production env
 1. These projects should be deployed like this:
