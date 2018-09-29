@@ -10,7 +10,8 @@ buildNumber.properties
 *.iml
 */*.iml
 .idea/
-
+*/*.rdb
+*.rdb
 .classpath
 .project
 .settings/
