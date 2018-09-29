@@ -76,7 +76,7 @@ cd ../spring-cloud-starter
 mvn clean install -DskipTests
 
 cd spring-cloud-eureka
-mvn cean spring-boot:run
+mvn clean spring-boot:run
 
 cd spring-cloud-config
 mvn clean spring-boot:run
@@ -90,7 +90,15 @@ mvn clean spring-boot:run
 cd spring-cloud-gateway
 mvn clean spring-boot:run
 ```
-4. open ```http://127.0.0.1:7001/account/login?userId=100000&password=123456``` in brower
+4. open 
+```
+http://127.0.0.1:7001/account/login?userId=100000&password=123456
+http://127.0.0.1:7001/account/detail?userId=100000&password=123456
+
+http://127.0.0.1:7001/a
+http://127.0.0.1:7001/b
+``` 
+in brower
 
 
 # Code explain
