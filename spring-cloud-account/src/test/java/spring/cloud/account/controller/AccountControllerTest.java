@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -15,9 +16,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.alibaba.fastjson.JSONObject;
+
 import spring.cloud.account.BaseIntegrationTest;
 import spring.cloud.account.dataaccess.dataobject.AccountDo;
 import spring.cloud.client.model.AccountModel;
+import spring.cloud.demo.model.ResultModel;
 
 public class AccountControllerTest extends BaseIntegrationTest {
 
@@ -41,16 +45,28 @@ public class AccountControllerTest extends BaseIntegrationTest {
 
     @Test
     public void detailByUserId() throws Exception {
-        String tmpURL = super.url + "account/detail?userId=100000";
-        String actual = restTemplate.getForEntity(tmpURL, String.class).getBody();
-        // .getBody();
-        // JSON.parse(actual.toString());
-
-//        AccountModel actual2 = restTemplate.getForObject(tmpURL, AccountModel.class);
-//
-//        Assert.assertEquals("test", actual);
+        String userId = "100000";
+        String tmpURL = super.url + "account/detail?userId=" + userId;
+        // UT with getForObject
+        try {
+            ResultModel<JSONObject> resultModel = restTemplate.getForObject(tmpURL, ResultModel.class);
+            AccountModel data = resultModel.getData().toJavaObject(AccountModel.class);
+            Assert.assertEquals(userId, data.getUserId());
+            Assert.assertEquals("admin", data.getUserName());
+        } catch (Exception e) {
+            Assert.assertTrue(e.getMessage(), false);
+        }
+        // UT with getForEntity
+        try {
+            ResponseEntity<ResultModel> resultModel = restTemplate.getForEntity(tmpURL, ResultModel.class);
+            AccountModel data = ((JSONObject) resultModel.getBody().getData()).toJavaObject(AccountModel.class);
+            Assert.assertEquals(userId, data.getUserId());
+            Assert.assertEquals("admin", data.getUserName());
+        } catch (Exception e) {
+            Assert.assertTrue(e.getMessage(), false);
+        }
     }
-
+    
     public void detailByUserId_webmvc() throws Exception {
         String tmpURL = super.url + "/detail?userId=100000";
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder = MockMvcRequestBuilders.get(tmpURL);
