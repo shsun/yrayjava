@@ -1,5 +1,6 @@
 package spring.cloud.account.controller;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +44,10 @@ public class AccountControllerTest extends BaseIntegrationTest {
         session.setAttribute("user", user);
     }
 
+    @After
+    public void after() throws Exception {
+    }
+
     @Test
     public void detailByUserId() throws Exception {
         String userId = "100000";
@@ -66,7 +71,7 @@ public class AccountControllerTest extends BaseIntegrationTest {
             Assert.assertTrue(e.getMessage(), false);
         }
     }
-    
+
     public void detailByUserId_webmvc() throws Exception {
         String tmpURL = super.url + "/detail?userId=100000";
         MockHttpServletRequestBuilder mockHttpServletRequestBuilder = MockMvcRequestBuilders.get(tmpURL);

@@ -4,11 +4,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import spring.cloud.account.AccountApplication;
 import spring.cloud.account.BaseIntegrationTest;
 import spring.cloud.client.model.AccountModel;
 import spring.cloud.demo.model.ResultModel;
@@ -36,6 +32,5 @@ public class AccountServiceImplTest extends BaseIntegrationTest {
         AccountModel data = resultModel.getData();
         Assert.assertEquals(userId, data.getUserId());
         Assert.assertEquals("admin", data.getUserName());
-
     }
 }
