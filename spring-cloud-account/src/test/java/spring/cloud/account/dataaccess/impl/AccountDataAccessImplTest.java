@@ -7,10 +7,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import spring.cloud.account.BaseIntegrationTest;
 import spring.cloud.account.dataaccess.dataobject.AccountDo;
-import spring.cloud.client.model.AccountModel;
-import spring.cloud.client.uitils.CopyProperityUtils;
-import spring.cloud.demo.model.ResultModel;
-
 import java.util.Optional;
 
 /**
@@ -40,7 +36,5 @@ public class AccountDataAccessImplTest extends BaseIntegrationTest {
             Assert.assertEquals(userId, data.getUserId());
             Assert.assertEquals("admin", data.getUserName());
         }
-
-
     }
 }
