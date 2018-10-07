@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import spring.cloud.account.BaseIntegrationTest;
 import spring.cloud.account.dataaccess.dataobject.AccountDo;
+
 import java.util.Optional;
 
 /**

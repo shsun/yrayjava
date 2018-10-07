@@ -1,4 +1,6 @@
 package spring.cloud.account.dataaccess.dataobject;
 
-public class AccountDoTest {
+import spring.cloud.account.BaseIntegrationTest;
+
+public class AccountDoTest extends BaseIntegrationTest {
 }
