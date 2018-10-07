@@ -2,9 +2,10 @@
 
 drop database if exists test;
 create database test;
+use test;
 
-DROP TABLE IF EXISTS `account `;
-CREATE TABLE `account` (
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE account (
   `user_id` varchar(127) NOT NULL DEFAULT '',
   `user_name` varchar(127) NOT NULL DEFAULT '',
   `password` varchar(127) NOT NULL DEFAULT '',
@@ -22,8 +23,8 @@ select * from account;
 
 
 
-DROP TABLE IF EXISTS `moment `;
-CREATE TABLE `moment` (
+DROP TABLE IF EXISTS `moment`;
+CREATE TABLE moment (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` varchar(127) COLLATE utf8mb4_unicode_ci NOT NULL,
   `content` text COLLATE utf8mb4_unicode_ci,
@@ -58,9 +59,10 @@ select * from moment;
 
 drop database if exists test2;
 create database test2;
+use test2;
 
-DROP TABLE IF EXISTS `comment `;
-CREATE TABLE `comment` (
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE comment (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `moment_id` bigint(20) unsigned NOT NULL,
   `content` text COLLATE utf8mb4_unicode_ci,

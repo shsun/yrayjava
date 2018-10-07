@@ -13,20 +13,22 @@ import org.springframework.web.client.RestTemplate;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 public class BaseIntegrationTest {
-	
-	@Autowired private RestTemplateBuilder restTemplateBuilder;
-	@Value("${server.port}")
-	private String definedPort;
-	
-	protected RestTemplate restTemplate;
-	protected String url;
-	
-	@Before
-	public void setupBeforeClass() {
-		if( null == url ) {
-			url = "http://127.0.0.1:" + definedPort;
-			restTemplate = restTemplateBuilder.build();
-		}
-	}
-	
+
+    @Autowired
+    private RestTemplateBuilder restTemplateBuilder;
+
+    @Value("${server.port}")
+    private String definedPort;
+
+    protected RestTemplate restTemplate;
+    protected String url;
+
+    @Before
+    public void setupBeforeClass() {
+        if (null == url) {
+            url = "http://127.0.0.1:" + definedPort;
+            restTemplate = restTemplateBuilder.build();
+        }
+    }
+
 }

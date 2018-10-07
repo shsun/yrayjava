@@ -1,18 +1,19 @@
 package spring.cloud.account.controller;
 
-import base.BConstants;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import base.BConstants;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import spring.cloud.account.service.AccountService;
 import spring.cloud.client.model.AccountModel;
 import spring.cloud.demo.model.ResultModel;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/account")
@@ -32,19 +33,20 @@ public class AccountController {
 
         System.out.println("AccountController.detailByUserId() userid=" + userId);
 
-
-        return this.accountService.detail(userId);
+        ResultModel<AccountModel> rst = this.accountService.detail(userId);
+        return rst;
     }
 
     @PostMapping("/validate")
-    public ResultModel<String> validateUserIdAndPassword(HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId, @RequestParam("password") String password) {
+    public ResultModel<String> validateUserIdAndPassword(HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId,
+            @RequestParam("password") String password) {
 
         System.out.println(BConstants.ABC);
 
         System.out.println("AccountController.validateUserIdAndPassword() userid=" + userId + ", password=" + password);
 
-
-        return this.accountService.validateUserIdAndPassword(userId, password);
+        ResultModel<String> rst = this.accountService.validateUserIdAndPassword(userId, password);
+        return rst;
     }
 
 }
