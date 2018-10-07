@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<!--
+	<properties url="file:////E:/repos/adstats/mybatis/mybatis.properties" />
+	-->
+
+	<classPathEntry location="mybatis-generator-1.3.2/lib/mysql-connector-java-5.1.13.jar" /> 
+	<classPathEntry location="mybatis-generator-1.3.2/lib/ojdbc-6.0.jar" />
+	
+	<context id="DBTables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!--
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@10.106.23.167:1522:yktdadv" userId="biee" password="bieeadv001">
+		</jdbcConnection>
+		-->
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@10.103.23.103:1523:yktdtest" userId="biee" password="biee">
+		</jdbcConnection>
+		
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+
+		<!--  -->
+		<javaModelGenerator targetPackage="base.entry" targetProject="./src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="false" />
+		</javaModelGenerator>
+		<sqlMapGenerator targetPackage="mapper" targetProject="./src/main/resource">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+		<javaClientGenerator type="XMLMAPPER" targetPackage="base.entry" targetProject="./src/main/java">
+			<property name="enableSubPackages" value="false" />
+		</javaClientGenerator>
+
+		<!-- constans -->
+		<table tableName="DIM_ADS_CHANNEL" domainObjectName="DIM_ADS_CHANNEL" 
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>		
+		<table tableName="DIM_ADS_CHANNEL_SUB" domainObjectName="DIM_ADS_CHANNEL_SUB" 
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="DIM_COM_PROVINCE" domainObjectName="DIM_COM_PROVINCE" 
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="DIM_COM_CITY" domainObjectName="DIM_COM_CITY"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="DIM_ADS_SLOT" domainObjectName="DIM_ADS_SLOT"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true" escapeWildcards="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="DIM_ADS_TYPE" domainObjectName="DIM_ADS_TYPE"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="DIM_ADS_VIDEOGP" domainObjectName="DIM_ADS_VIDEOGP"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="DIM_ADS_PROGRAMME" domainObjectName="DIM_ADS_PROGRAMME"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+
+
+		<!-- inventory -->
+        <!--
+		<table tableName="DW_ADS_ADI_VADS_HOUR" domainObjectName="DW_ADS_ADI_VADS_HOUR"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		-->
+		<table tableName="DW_ADS_ADI_DAY" domainObjectName="DW_ADS_ADI_DAY"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="DW_ADS_ADI_HOUR" domainObjectName="DW_ADS_ADI_HOUR"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="DW_ADS_MOBILE_ADI_DAY" domainObjectName="DW_ADS_MOBILE_ADI_DAY"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		<!-- video group inventory -->
+		<table tableName="DW_ADS_M_ADI_VIDEO_DAY" domainObjectName="DW_ADS_M_ADI_VIDEO_DAY"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="DW_ADS_ADI_VIDEOGP_DAY" domainObjectName="DW_ADS_ADI_VIDEOGP_DAY"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="DW_ADS_M_ADI_VIDEOGP_DAY" domainObjectName="DW_ADS_M_ADI_VIDEOGP_DAY"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+		<table tableName="DW_ADS_ADI_PROGRAMME_DAY" domainObjectName="DW_ADS_ADI_PROGRAMME_DAY"
+				enableInsert="false" enableSelectByPrimaryKey="true" enableSelectByExample="false" enableDeleteByExample="false" enableCountByExample="false" enableUpdateByExample="false" selectByPrimaryKeyQueryId="true"  selectByExampleQueryId="true">
+				<property name="useActualColumnNames" value="true" />
+		</table>
+
+	</context>
+</generatorConfiguration>
