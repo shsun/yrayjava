@@ -32,7 +32,7 @@ echo -e ‘restart redis on 6379’;
 sudo redis-cli -p 6379 shutdown;
 sleep 1;
 
-sudo cp -rfv redis/*.conf /opt/;
+sudo cp -rfv redis/* /opt/;
 sudo redis-server /opt/redis_6379.conf;
 sleep 1;
 echo -e ‘\n\n\n\n\n’;
