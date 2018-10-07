@@ -9,15 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import spring.cloud.account.AccountApplication;
+import spring.cloud.account.BaseIntegrationTest;
 import spring.cloud.client.model.AccountModel;
 import spring.cloud.demo.model.ResultModel;
 
 /**
  * @author sh
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = AccountApplication.class)
-public class AccountServiceImplTest {
+public class AccountServiceImplTest extends BaseIntegrationTest {
     @Autowired
     private AccountServiceImpl accountService;
 
@@ -31,8 +30,12 @@ public class AccountServiceImplTest {
 
     @Test
     public void detail() {
-        ResultModel<AccountModel> resultModel = accountService.detail("100000");
+        String userId = "100000";
+        ResultModel<AccountModel> resultModel = accountService.detail(userId);
 
-        Assert.assertEquals();
+        AccountModel data = resultModel.getData();
+        Assert.assertEquals(userId, data.getUserId());
+        Assert.assertEquals("admin", data.getUserName());
+
     }
 }
