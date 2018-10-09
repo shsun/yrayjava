@@ -1,5 +1,7 @@
 package spring.cloud.biz.service;
 
+import spring.cloud.biz.dataaccess.dataobject.ZCommentDo;
+import spring.cloud.biz.dataaccess.dataobject.ZMomentDo;
 import spring.cloud.client.model.CommentModel;
 import spring.cloud.demo.model.ListResultModel;
 import spring.cloud.demo.model.ResultModel;
@@ -14,7 +16,7 @@ public interface CommentService {
      * @param momentId
      * @return
      */
-    ListResultModel<CommentModel> listCommentsByMomentId(Long momentId);
+    ListResultModel<ZCommentDo> listCommentsByMomentId(Long momentId);
 
     /**
      * add comment
@@ -23,5 +25,5 @@ public interface CommentService {
      * @param content
      * @return
      */
-    ResultModel<CommentModel> addComment(Long momentId, String content);
+    ResultModel<ZCommentDo> addComment(Long momentId, String content);
 }

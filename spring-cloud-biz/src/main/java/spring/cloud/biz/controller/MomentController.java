@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import spring.cloud.biz.config.datasourceConfig.DataSourceType;
 import spring.cloud.biz.config.datasourceConfig.TargetDataSource;
+import spring.cloud.biz.dataaccess.dataobject.ZCommentDo;
+import spring.cloud.biz.dataaccess.dataobject.ZMomentDo;
 import spring.cloud.biz.service.MomentService;
 import spring.cloud.client.model.MomentModel;
 import spring.cloud.demo.model.ListResultModel;
@@ -28,16 +30,18 @@ public class MomentController {
     private MomentService momentService;
 
     @GetMapping("/list")
-    public ListResultModel<MomentModel> listFirstPageMoment(HttpServletRequest request, HttpServletResponse response, @RequestParam(required = false, defaultValue = "1") Integer page, @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
+    public ListResultModel<ZMomentDo> listFirstPageMoment(HttpServletRequest request, HttpServletResponse response, @RequestParam(required = false, defaultValue = "1") Integer page, @RequestParam(required = false, defaultValue = "10") Integer pageSize) {
         page = page <= 0 ? 1 : page;
         pageSize = pageSize <= 0 || pageSize > 50 ? 10 : pageSize;
 
-        return this.momentService.listFirstPageMoment(page, pageSize);
+        ListResultModel<ZMomentDo> rst = this.momentService.listFirstPageMoment(page, pageSize);
+        return rst;
     }
 
     @PostMapping("")
-    public ResultModel<MomentModel> addMoment(HttpServletRequest request, HttpServletResponse response, @RequestParam String userId, @RequestParam String content) {
-        return this.momentService.addMoment(userId, content);
+    public ResultModel<ZMomentDo> addMoment(HttpServletRequest request, HttpServletResponse response, @RequestParam String userId, @RequestParam String content) {
+        ResultModel<ZMomentDo> rst = this.momentService.addMoment(userId, content);
+        return rst;
     }
 
 }

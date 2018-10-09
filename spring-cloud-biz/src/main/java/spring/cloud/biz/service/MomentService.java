@@ -1,5 +1,6 @@
 package spring.cloud.biz.service;
 
+import spring.cloud.biz.dataaccess.dataobject.ZMomentDo;
 import spring.cloud.client.model.MomentModel;
 import spring.cloud.demo.model.ListResultModel;
 import spring.cloud.demo.model.ResultModel;
@@ -15,7 +16,7 @@ public interface MomentService {
      * @param pageSize
      * @return
      */
-    ListResultModel<MomentModel> listFirstPageMoment(Integer page, Integer pageSize);
+    ListResultModel<ZMomentDo> listFirstPageMoment(Integer page, Integer pageSize);
 
     /**
      * add one momnet
@@ -24,5 +25,5 @@ public interface MomentService {
      * @param content
      * @return
      */
-    ResultModel<MomentModel> addMoment(String userId, String content);
+    ResultModel<ZMomentDo> addMoment(String userId, String content);
 }

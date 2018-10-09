@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="spring.cloud.biz.dataaccess.mapper.CommentDoMapper" >
-  <resultMap id="BaseResultMap" type="spring.cloud.biz.dataaccess.dataobject.CommentDo" >
+<mapper namespace="spring.cloud.biz.dataaccess.mapper.ZCommentDoMapper" >
+  <resultMap id="BaseResultMap" type="spring.cloud.biz.dataaccess.dataobject.ZCommentDo" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="moment_id" property="momentId" jdbcType="BIGINT" />
-    <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="gmt_created" property="gmtCreated" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
     <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
   </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="spring.cloud.biz.dataaccess.dataobject.ZCommentDo" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
   <sql id="Base_Column_List" >
-    id, moment_id, content, gmt_created, gmt_modified, is_deleted
+    id, moment_id, gmt_created, gmt_modified, is_deleted
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from comment
-    where id = #{id,jdbcType=BIGINT} and is_deleted=0
-  </select>
-
-  <update id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    update comment set is_deleted = 1, gmt_modified = NOW()
     where id = #{id,jdbcType=BIGINT}
-  </update>
-
-  <insert id="insert" parameterType="spring.cloud.biz.dataaccess.dataobject.CommentDo" useGeneratedKeys="true" keyProperty="id">
-    insert into comment (id, moment_id, content, gmt_created, gmt_modified, is_deleted)
-    values (#{id,jdbcType=BIGINT}, #{momentId,jdbcType=BIGINT}, #{content, jdbcType=VARCHAR}, #{gmtCreated,jdbcType=TIMESTAMP},
-      #{gmtModified,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT} )
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from comment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="spring.cloud.biz.dataaccess.dataobject.ZCommentDo" >
+    insert into comment (id, moment_id, gmt_created, 
+      gmt_modified, is_deleted, content
+      )
+    values (#{id,jdbcType=BIGINT}, #{momentId,jdbcType=BIGINT}, #{gmtCreated,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
-
-  <insert id="insertSelective" parameterType="spring.cloud.biz.dataaccess.dataobject.CommentDo" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="spring.cloud.biz.dataaccess.dataobject.ZCommentDo" >
     insert into comment
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -38,9 +45,6 @@
       </if>
       <if test="momentId != null" >
         moment_id,
-      </if>
-      <if test="content != null" >
-        content,
       </if>
       <if test="gmtCreated != null" >
         gmt_created,
@@ -51,6 +55,9 @@
       <if test="isDeleted != null" >
         is_deleted,
       </if>
+      <if test="content != null" >
+        content,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -58,9 +65,6 @@
       </if>
       <if test="momentId != null" >
         #{momentId,jdbcType=BIGINT},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreated != null" >
         #{gmtCreated,jdbcType=TIMESTAMP},
@@ -71,16 +75,16 @@
       <if test="isDeleted != null" >
         #{isDeleted,jdbcType=BIT},
       </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="spring.cloud.biz.dataaccess.dataobject.CommentDo" >
+  <update id="updateByPrimaryKeySelective" parameterType="spring.cloud.biz.dataaccess.dataobject.ZCommentDo" >
     update comment
     <set >
       <if test="momentId != null" >
         moment_id = #{momentId,jdbcType=BIGINT},
-      </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreated != null" >
         gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
@@ -91,15 +95,25 @@
       <if test="isDeleted != null" >
         is_deleted = #{isDeleted,jdbcType=BIT},
       </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-
-  <update id="updateByPrimaryKey" parameterType="spring.cloud.biz.dataaccess.dataobject.CommentDo" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="spring.cloud.biz.dataaccess.dataobject.ZCommentDo" >
     update comment
     set moment_id = #{momentId,jdbcType=BIGINT},
       gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
-      content = #{content,jdbcType=VARCHAR},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="spring.cloud.biz.dataaccess.dataobject.ZCommentDo" >
+    update comment
+    set moment_id = #{momentId,jdbcType=BIGINT},
+      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       is_deleted = #{isDeleted,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}

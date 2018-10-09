@@ -11,6 +11,8 @@ import spring.cloud.biz.config.datasourceConfig.DataSourceType;
 import spring.cloud.biz.config.datasourceConfig.DynamicDataSourceContextHolder;
 import spring.cloud.biz.dataaccess.dataobject.CommentDo;
 import spring.cloud.biz.dataaccess.dataobject.MomentDo;
+import spring.cloud.biz.dataaccess.dataobject.ZCommentDo;
+import spring.cloud.biz.dataaccess.dataobject.ZMomentDo;
 import spring.cloud.biz.dataaccess.mapper.CommentDoMapper;
 import spring.cloud.biz.dataaccess.mapper.MomentDoMapper;
 import spring.cloud.biz.service.CommentService;
@@ -40,20 +42,20 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional(value = "commentTxManager", propagation = Propagation.REQUIRED, rollbackFor = {Exception.class, Throwable.class})
-    public ListResultModel<CommentModel> listCommentsByMomentId(Long momentId) {
-        ListResultModel<CommentModel> resultModel = ListResultModel.createSuccess();
+    public ListResultModel<ZCommentDo> listCommentsByMomentId(Long momentId) {
+        ListResultModel<ZCommentDo> resultModel = ListResultModel.createSuccess();
         if (null == momentId) {
             LOGGER.error("traceId:{}, listCommentsByMomentId, momentId is null", TraceIdHelper.getTraceId());
             return resultModel;
         }
 
-        List<CommentDo> commentDoList = this.commentDoMapper.listCommentsByMomentId(momentId);
+        List<ZCommentDo> commentDoList = this.commentDoMapper.listCommentsByMomentId(momentId);
         if (null == commentDoList || commentDoList.isEmpty()) {
             return resultModel;
         }
-        List<CommentModel> modelList = new ArrayList<>();
-        for (CommentDo commentDo : commentDoList) {
-            CommentModel commentModel = new CommentModel();
+        List<ZCommentDo> modelList = new ArrayList<>();
+        for (ZCommentDo commentDo : commentDoList) {
+            ZCommentDo commentModel = new ZCommentDo();
             CopyProperityUtils.copyAllProperies(commentDo, commentModel);
             modelList.add(commentModel);
         }
@@ -63,7 +65,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public ResultModel<CommentModel> addComment(Long momentId, String content) {
+    public ResultModel<ZCommentDo> addComment(Long momentId, String content) {
         if (null == momentId || Strings.isNullOrEmpty(content)) {
             LOGGER.error("traceId:{} addComment fail, invalidParam, momentId:{}, content:{}",
                     TraceIdHelper.getTraceId(), momentId, content);
@@ -72,7 +74,7 @@ public class CommentServiceImpl implements CommentService {
 
         //set which dataSource to use
         DynamicDataSourceContextHolder.setDataSourceType(DataSourceType.MOMENT);
-        MomentDo momentDo = this.momentDoMapper.selectByPrimaryKey(momentId);
+        ZMomentDo momentDo = this.momentDoMapper.selectByPrimaryKey(momentId);
         if (null == momentDo) {
             LOGGER.error("traceId:{}, addComment fail, momentId:{} does not exist, content:{}",
                     TraceIdHelper.getTraceId(), momentId, content);
@@ -80,7 +82,7 @@ public class CommentServiceImpl implements CommentService {
         }
 
         DynamicDataSourceContextHolder.setDataSourceType(DataSourceType.COMMENT);
-        CommentDo commentDo = new CommentDo();
+        ZCommentDo commentDo = new ZCommentDo();
         commentDo.setMomentId(momentId);
         commentDo.setContent(content);
         commentDo.setGmtCreated(new Date());
@@ -88,7 +90,7 @@ public class CommentServiceImpl implements CommentService {
         commentDo.setIsDeleted(false);
         this.commentDoMapper.insert(commentDo);
 
-        CommentModel commentModel = new CommentModel();
+        ZCommentDo commentModel = new ZCommentDo();
         CopyProperityUtils.copyAllProperies(commentDo, commentModel);
 
         return ResultModel.createSuccess(commentModel);

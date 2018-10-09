@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import spring.cloud.biz.dataaccess.dataobject.MomentDo;
+//import spring.cloud.biz.dataaccess.dataobject.MomentDo;
+import spring.cloud.biz.dataaccess.dataobject.ZMomentDo;
 import spring.cloud.biz.dataaccess.mapper.MomentDoMapper;
 import spring.cloud.biz.service.MomentService;
-import spring.cloud.client.model.MomentModel;
+//import spring.cloud.client.model.MomentModel;
 import spring.cloud.client.uitils.CopyProperityUtils;
 import spring.cloud.demo.model.ListResultModel;
 import spring.cloud.demo.model.ResultModel;
@@ -37,12 +38,12 @@ public class MomentServiceImpl implements MomentService {
     /*  by default, @Transactional uses the primary txManager */
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = {Exception.class, Throwable.class})
-    public ListResultModel<MomentModel> listFirstPageMoment(Integer page, Integer pageSize) {
+    public ListResultModel<ZMomentDo> listFirstPageMoment(Integer page, Integer pageSize) {
         PageHelper.startPage(page, pageSize, "id desc");
-        List<MomentDo> momentDoList = this.momentDoMapper.listMoment();
+        List<ZMomentDo> momentDoList = this.momentDoMapper.listMoment();
 
-        PageInfo<MomentDo> pageInfo = new PageInfo<>(momentDoList);
-        ListResultModel<MomentModel> resultModel = ListResultModel.createSuccess();
+        PageInfo<ZMomentDo> pageInfo = new PageInfo<>(momentDoList);
+        ListResultModel<ZMomentDo> resultModel = ListResultModel.createSuccess();
         resultModel.setPageNo(pageInfo.getPageNum());
         resultModel.setTotalPages(pageInfo.getPages());
         resultModel.setTotalCount(pageInfo.getTotal());
@@ -51,9 +52,9 @@ public class MomentServiceImpl implements MomentService {
             return resultModel;
         }
 
-        List<MomentModel> modelList = new ArrayList<>();
+        List<ZMomentDo> modelList = new ArrayList<>();
         momentDoList.forEach(momentDo -> {
-            MomentModel momentModel = new MomentModel();
+            ZMomentDo momentModel = new ZMomentDo();
             CopyProperityUtils.copyAllProperies(momentDo, momentModel);
             modelList.add(momentModel);
         });
@@ -64,13 +65,13 @@ public class MomentServiceImpl implements MomentService {
     }
 
     @Override
-    public ResultModel<MomentModel> addMoment(String userId, String content) {
+    public ResultModel<ZMomentDo> addMoment(String userId, String content) {
         if (Strings.isNullOrEmpty(userId) || Strings.isNullOrEmpty(content)) {
             LOGGER.error("traceId:{} addMoment, invalidParam, userId:{}, content:{}",
                     TraceIdHelper.getTraceId(), userId, content);
             return ResultModel.createFail("invalidParam");
         }
-        MomentDo momentDo = new MomentDo();
+        ZMomentDo momentDo = new ZMomentDo();
         momentDo.setUserId(userId);
         momentDo.setContent(content);
         momentDo.setGmtCreated(new Date());
@@ -78,7 +79,7 @@ public class MomentServiceImpl implements MomentService {
         momentDo.setIsDeleted(false);
 
         this.momentDoMapper.insert(momentDo);
-        MomentModel momentModel = new MomentModel();
+        ZMomentDo momentModel = new ZMomentDo();
         CopyProperityUtils.copyAllProperies(momentDo, momentModel);
 
         return ResultModel.createSuccess(momentModel);

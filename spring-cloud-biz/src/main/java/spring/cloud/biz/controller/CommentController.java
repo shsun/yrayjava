@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import spring.cloud.biz.config.datasourceConfig.DataSourceType;
 import spring.cloud.biz.config.datasourceConfig.TargetDataSource;
+import spring.cloud.biz.dataaccess.dataobject.ZCommentDo;
 import spring.cloud.biz.service.CommentService;
 import spring.cloud.client.model.CommentModel;
 import spring.cloud.demo.model.ListResultModel;
@@ -30,14 +31,14 @@ public class CommentController {
     private CommentService commentService;
 
     @GetMapping("/{momentId}/list")
-    public ListResultModel<CommentModel> listCommentsByMomentId(HttpServletRequest request, HttpServletResponse response, @PathVariable Long momentId) {
-        ListResultModel<CommentModel> rst = this.commentService.listCommentsByMomentId(momentId);
+    public ListResultModel<ZCommentDo> listCommentsByMomentId(HttpServletRequest request, HttpServletResponse response, @PathVariable Long momentId) {
+        ListResultModel<ZCommentDo> rst = this.commentService.listCommentsByMomentId(momentId);
         return rst;
     }
 
     @PostMapping("/{momentId}/add")
-    public ResultModel<CommentModel> addComment(HttpServletRequest request, HttpServletResponse response, @PathVariable Long momentId, @RequestParam String content) {
-        ResultModel<CommentModel> rst = this.commentService.addComment(momentId, content);
+    public ResultModel<ZCommentDo> addComment(HttpServletRequest request, HttpServletResponse response, @PathVariable Long momentId, @RequestParam String content) {
+        ResultModel<ZCommentDo> rst = this.commentService.addComment(momentId, content);
         return rst;
     }
 
