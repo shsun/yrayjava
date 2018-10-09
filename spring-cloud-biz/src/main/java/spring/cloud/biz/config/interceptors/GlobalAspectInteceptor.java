@@ -17,7 +17,7 @@ public class GlobalAspectInteceptor implements HandlerInterceptor {
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalAspectInteceptor.class);
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         //traceId
         String traceIdFromRequest = request.getHeader(StarterConstants.TRACE_ID_KEY);
         if (Strings.isNullOrEmpty(traceIdFromRequest)) {
@@ -32,7 +32,7 @@ public class GlobalAspectInteceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) {
         //set global params for web
         if (null != modelAndView) {
 //            modelAndView.addObject("version", "127.0.2");
@@ -40,7 +40,7 @@ public class GlobalAspectInteceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         TraceIdHelper.clear();
     }
 

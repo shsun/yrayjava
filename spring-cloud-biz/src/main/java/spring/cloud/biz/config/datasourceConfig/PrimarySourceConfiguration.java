@@ -17,7 +17,7 @@ public class PrimarySourceConfiguration {
 	@Primary
 	@ConfigurationProperties(prefix="spring.datasource")
 	public DataSource dataSource() {
-		DruidDataSource dataSource = (DruidDataSource) DataSourceBuilder.create().type(DruidDataSource.class).build();
+		DruidDataSource dataSource = DataSourceBuilder.create().type(DruidDataSource.class).build();
 	    return dataSource;
 	}
 	

@@ -34,6 +34,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Autowired
     private CommentDoMapper commentDoMapper;
+
     @Autowired
     private MomentDoMapper momentDoMapper;
 

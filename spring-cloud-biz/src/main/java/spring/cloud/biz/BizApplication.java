@@ -29,7 +29,7 @@ public class BizApplication implements CommandLineRunner{
 	}
 
 	@Override
-	public void run(String... arg0) throws Exception {
+	public void run(String... arg0) {
 		//do something after spring-boot started
 	}
 	

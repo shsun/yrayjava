@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE generatorConfiguration
-        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
-        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
 
 <!-- 配置Run As Maven build : Goals 参数 : mybatis-generator:generate -Dmybatis.generator.overwrite=true -->
 <!-- 配置 tableName,使用 Run As Maven build 生成 dao model 层 -->
@@ -40,7 +39,7 @@
         </javaClientGenerator>
 
         <!--对应数据库表名 -->
-        <table schema="todo" tableName="comment" domainObjectName="CommentDo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+        <table schema="todo" tableName="comment" domainObjectName="UnMutableCommentDo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false" enableInsert="true" enableSelectByPrimaryKey="true" escapeWildcards="true"
                enableUpdateByPrimaryKey="true">
         </table>

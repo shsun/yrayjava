@@ -1,5 +1,9 @@
 package spring.cloud.biz.controller;
 
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +15,6 @@ import spring.cloud.client.model.CommentModel;
 import spring.cloud.demo.model.ListResultModel;
 import spring.cloud.demo.model.ResultModel;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by Harry on 15/12/2017.
@@ -29,12 +31,14 @@ public class CommentController {
 
     @GetMapping("/{momentId}/list")
     public ListResultModel<CommentModel> listCommentsByMomentId(HttpServletRequest request, HttpServletResponse response, @PathVariable Long momentId) {
-        return this.commentService.listCommentsByMomentId(momentId);
+        ListResultModel<CommentModel> rst = this.commentService.listCommentsByMomentId(momentId);
+        return rst;
     }
 
     @PostMapping("/{momentId}/add")
     public ResultModel<CommentModel> addComment(HttpServletRequest request, HttpServletResponse response, @PathVariable Long momentId, @RequestParam String content) {
-        return this.commentService.addComment(momentId, content);
+        ResultModel<CommentModel> rst = this.commentService.addComment(momentId, content);
+        return rst;
     }
 
 }
