@@ -21,6 +21,7 @@ public class HealthController {
 
     @Autowired
     private CacheService cacheService;
+
     @Autowired
     private MomentDoMapper momentDoMapper;
 
@@ -29,7 +30,7 @@ public class HealthController {
     private static final String HEALTH_KEY = "spring.cloud.biz#healthCheck#key";
 
     private static final int CACHE_TIME = 500;  //ms
-    private static final int db_TIME = 2000;  //ms
+    private static final int DB_TIME = 2000;  //ms
 
     private static final String FAIL = "fail";
     private static final String SUCCESS = "success";
@@ -63,8 +64,8 @@ public class HealthController {
         PageHelper.startPage(1, 10);
         this.momentDoMapper.listMoment();
         long end = System.currentTimeMillis();
-        if (end - start > db_TIME) {
-            LOGGER.error("healthCheckController error, listAllUsers expire {}ms, actually:{}ms", db_TIME, (end - start));
+        if (end - start > DB_TIME) {
+            LOGGER.error("healthCheckController error, listAllUsers expire {}ms, actually:{}ms", DB_TIME, (end - start));
             response.setStatus(500);
             return FAIL;
         }

@@ -36,27 +36,33 @@ public class CookieCheckInterceptor implements HandlerInterceptor {
 
         LOGGER.info("request -> path:{}, params:{}", request.getRequestURI(), JSON.toJSONString(request.getParameterMap()));
 
+        // should login 1st if there is no cookie
         Cookie[] cookies = request.getCookies();
         if (null == cookies || cookies.length == 0) {
             printError(response, JSON.toJSONString(ResultModel.createFail("needLogin")));
             return false;
         }
-        String ticket = null;
+
+        // should login if there is no login-token in cookie
+        String token = null;
         for (Cookie cookie : cookies) {
-            if (null == cookie) continue;
+            if (null == cookie) {
+                continue;
+            }
             String cookieKey = cookie.getName();
             if (!GlobalConstants.LOGIN_TOKEN_KEY.equals(cookieKey)) {
                 continue;
             }
-            ticket = cookie.getValue();
+            token = cookie.getValue();
             break;
         }
-        if (Strings.isNullOrEmpty(ticket)) {
+        if (Strings.isNullOrEmpty(token)) {
             printError(response, JSON.toJSONString(ResultModel.createFail("needLogin")));
             return false;
         }
 
-        String userId = this.cacheService.getString(ticket);
+        // should login if there is no user-id in cache
+        String userId = this.cacheService.getString(token);
         if (Strings.isNullOrEmpty(userId)) {
             printError(response, JSON.toJSONString(ResultModel.createFail("needLogin")));
             return false;

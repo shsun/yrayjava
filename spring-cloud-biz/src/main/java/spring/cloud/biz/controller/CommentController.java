@@ -12,7 +12,6 @@ import spring.cloud.biz.config.datasourceConfig.DataSourceType;
 import spring.cloud.biz.config.datasourceConfig.TargetDataSource;
 import spring.cloud.biz.dataaccess.dataobject.ZCommentDo;
 import spring.cloud.biz.service.CommentService;
-import spring.cloud.client.model.CommentModel;
 import spring.cloud.demo.model.ListResultModel;
 import spring.cloud.demo.model.ResultModel;
 

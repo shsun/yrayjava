@@ -14,11 +14,9 @@ import spring.cloud.gateway.config.GlobalConstants;
 public interface CommentFeignService {
 
     @GetMapping("/{momentId}/list")
-    ListResultModel<CommentModel> listCommentsByMomentId( @PathVariable("momentId") Long momentId );
+    ListResultModel<CommentModel> listCommentsByMomentId(@PathVariable("momentId") Long momentId);
 
     @PostMapping("/{momentId}/add")
-    ResultModel<CommentModel> addComment(
-            @PathVariable("momentId") Long momentId,
-            @RequestParam("content") String content);
+    ResultModel<CommentModel> addComment(@PathVariable("momentId") Long momentId, @RequestParam("content") String content);
 
 }

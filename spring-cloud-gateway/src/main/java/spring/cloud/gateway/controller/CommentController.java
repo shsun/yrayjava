@@ -38,6 +38,7 @@ public class CommentController {
     @PostMapping("/{momentId}/add")
     @ResponseBody
     public ResultModel<CommentModel> addComment(HttpServletRequest request, HttpServletResponse response, @PathVariable Long momentId, @RequestParam String content) {
-        return this.commentFeignService.addComment(momentId, content);
+        ResultModel<CommentModel> rst = this.commentFeignService.addComment(momentId, content);
+        return rst;
     }
 }
