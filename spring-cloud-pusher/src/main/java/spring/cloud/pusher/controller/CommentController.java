@@ -15,10 +15,6 @@ import spring.cloud.pusher.service.CommentService;
 import spring.cloud.demo.model.ListResultModel;
 import spring.cloud.demo.model.ResultModel;
 
-
-/**
- * Created by Harry on 15/12/2017.
- */
 @RestController
 @RequestMapping("/comment")
 @TargetDataSource(DataSourceType.COMMENT)        //using the moment DataSource
@@ -40,5 +36,4 @@ public class CommentController {
         ResultModel<ZCommentDo> rst = this.commentService.addComment(momentId, content);
         return rst;
     }
-
 }
