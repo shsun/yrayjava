@@ -23,17 +23,12 @@ public class MyServletContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent event) {
-
-
         LOGGER.info(event.getServletContext().getServletContextName() + " init");
-
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent event) {
-
         LOGGER.info(event.getServletContext().getServletContextName() + " destroy");
-
     }
 }
 
