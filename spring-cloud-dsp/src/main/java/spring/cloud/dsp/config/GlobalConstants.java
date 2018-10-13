@@ -1,8 +1,5 @@
 package spring.cloud.dsp.config;
 
-/**
- * Created by wangxiaohu on 2017/6/19.
- */
 public class GlobalConstants {
 
     public static final String ACCOUNT_SERVICE_NAME = "spring.cloud.dsp";

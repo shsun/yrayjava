@@ -12,9 +12,6 @@ import spring.cloud.demo.cache.CacheService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Created by Harry on 2017/5/31.
- */
 @RestController
 @RequestMapping("/")
 public class HealthController {
@@ -37,8 +34,6 @@ public class HealthController {
 
     @RequestMapping("/health")
     public String health(HttpServletRequest request, HttpServletResponse response) {
-
-        /* check the cache time */
         long start = System.currentTimeMillis();
         try {
             this.cacheService.putString(HEALTH_KEY, HEALTH_KEY);
@@ -58,8 +53,7 @@ public class HealthController {
             e.printStackTrace();
             return FAIL;
         }
-
-        /* check db */
+        // check db
         start = System.currentTimeMillis();
         PageHelper.startPage(1, 10);
         this.momentDoMapper.listMoment();

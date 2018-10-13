@@ -1,7 +1,10 @@
 package spring.cloud.dsp.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.stereotype.Component;
+import spring.cloud.dsp.config.interceptors.GlobalAspectInteceptor;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -14,6 +17,9 @@ import java.io.IOException;
 @WebFilter(urlPatterns = "/login/*", filterName = "loginFilter")
 public class LoginFilter implements Filter {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginFilter.class);
+
+
     private String[] excludedUris;
 
     @Override
@@ -25,8 +31,12 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        System.out.println("this is LoginFilter,url :" + request.getRequestURI());
+
+        LOGGER.info("this is LoginFilter,url :" + request.getRequestURI());
+
         String uri = request.getServletPath();
+        // FIXME
+        /*
         if (isExcludedUri(uri)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else if (request.getSession().getAttribute("user") != null) {
@@ -34,6 +44,8 @@ public class LoginFilter implements Filter {
         } else {
             response.sendRedirect(request.getContextPath() + "/login/toLogin");
         }
+        */
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override

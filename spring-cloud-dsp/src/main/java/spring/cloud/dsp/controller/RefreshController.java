@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 
-/**
- * Created by wangxiaohu on 2017/8/3.
- */
 @RestController
 @Api(description = "动态刷新配置文件相关接口")
 public class RefreshController {

@@ -27,6 +27,7 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         System.out.println("this is LoginFilter,url :" + request.getRequestURI());
         String uri = request.getServletPath();
+        /*
         if (isExcludedUri(uri)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else if (request.getSession().getAttribute("user") != null) {
@@ -34,6 +35,8 @@ public class LoginFilter implements Filter {
         } else {
             response.sendRedirect(request.getContextPath() + "/login/toLogin");
         }
+        */
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     @Override
