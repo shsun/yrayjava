@@ -35,8 +35,8 @@ public class IndexController {
 
         List<String> userList = new ArrayList<String>();
         userList.add("admin");
-        userList.add("user1");
-        userList.add("user2");
+        userList.add("user1--");
+        userList.add("user2--");
 
         modelAndView.addObject("userList", userList);
         return modelAndView;
