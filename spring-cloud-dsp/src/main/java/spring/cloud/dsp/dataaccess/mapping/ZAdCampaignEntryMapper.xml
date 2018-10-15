@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="spring.cloud.dsp.dataaccess.mapper.ZAdCampaignEntryMapper" >
+  <resultMap id="BaseResultMap" type="spring.cloud.dsp.dataaccess.dataobject.ZAdCampaignEntry" >
+    <id column="campaign_id" property="campaignId" jdbcType="VARCHAR" />
+    <result column="advertiser_id" property="advertiserId" jdbcType="VARCHAR" />
+    <result column="campaign_name" property="campaignName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="CHAR" />
+    <result column="budget" property="budget" jdbcType="INTEGER" />
+    <result column="cost" property="cost" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="REAL" />
+    <result column="action" property="action" jdbcType="CHAR" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="start_time" property="startTime" jdbcType="TIME" />
+    <result column="end_time" property="endTime" jdbcType="TIME" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+    <result column="finish_percent" property="finishPercent" jdbcType="INTEGER" />
+    <result column="gmt_created" property="gmtCreated" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="is_deleted" property="isDeleted" jdbcType="BIT" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    campaign_id, advertiser_id, campaign_name, status, budget, cost, price, action, start_date, 
+    end_date, start_time, end_time, weight, finish_percent, gmt_created, gmt_modified, 
+    is_deleted, version
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ad_campaign
+    where campaign_id = #{campaignId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ad_campaign
+    where campaign_id = #{campaignId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="spring.cloud.dsp.dataaccess.dataobject.ZAdCampaignEntry" >
+    insert into ad_campaign (campaign_id, advertiser_id, campaign_name, 
+      status, budget, cost, 
+      price, action, start_date, end_date, 
+      start_time, end_time, weight, 
+      finish_percent, gmt_created, gmt_modified, 
+      is_deleted, version)
+    values (#{campaignId,jdbcType=VARCHAR}, #{advertiserId,jdbcType=VARCHAR}, #{campaignName,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{budget,jdbcType=INTEGER}, #{cost,jdbcType=INTEGER}, 
+      #{price,jdbcType=REAL}, #{action,jdbcType=CHAR}, #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE}, 
+      #{startTime,jdbcType=TIME}, #{endTime,jdbcType=TIME}, #{weight,jdbcType=INTEGER}, 
+      #{finishPercent,jdbcType=INTEGER}, #{gmtCreated,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=BIT}, #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="spring.cloud.dsp.dataaccess.dataobject.ZAdCampaignEntry" >
+    insert into ad_campaign
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="campaignId != null" >
+        campaign_id,
+      </if>
+      <if test="advertiserId != null" >
+        advertiser_id,
+      </if>
+      <if test="campaignName != null" >
+        campaign_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="budget != null" >
+        budget,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="action != null" >
+        action,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="finishPercent != null" >
+        finish_percent,
+      </if>
+      <if test="gmtCreated != null" >
+        gmt_created,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="campaignId != null" >
+        #{campaignId,jdbcType=VARCHAR},
+      </if>
+      <if test="advertiserId != null" >
+        #{advertiserId,jdbcType=VARCHAR},
+      </if>
+      <if test="campaignName != null" >
+        #{campaignName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="budget != null" >
+        #{budget,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="action != null" >
+        #{action,jdbcType=CHAR},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIME},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIME},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="finishPercent != null" >
+        #{finishPercent,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreated != null" >
+        #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="spring.cloud.dsp.dataaccess.dataobject.ZAdCampaignEntry" >
+    update ad_campaign
+    <set >
+      <if test="advertiserId != null" >
+        advertiser_id = #{advertiserId,jdbcType=VARCHAR},
+      </if>
+      <if test="campaignName != null" >
+        campaign_name = #{campaignName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=CHAR},
+      </if>
+      <if test="budget != null" >
+        budget = #{budget,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="action != null" >
+        action = #{action,jdbcType=CHAR},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIME},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIME},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="finishPercent != null" >
+        finish_percent = #{finishPercent,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreated != null" >
+        gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDeleted != null" >
+        is_deleted = #{isDeleted,jdbcType=BIT},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where campaign_id = #{campaignId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="spring.cloud.dsp.dataaccess.dataobject.ZAdCampaignEntry" >
+    update ad_campaign
+    set advertiser_id = #{advertiserId,jdbcType=VARCHAR},
+      campaign_name = #{campaignName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=CHAR},
+      budget = #{budget,jdbcType=INTEGER},
+      cost = #{cost,jdbcType=INTEGER},
+      price = #{price,jdbcType=REAL},
+      action = #{action,jdbcType=CHAR},
+      start_date = #{startDate,jdbcType=DATE},
+      end_date = #{endDate,jdbcType=DATE},
+      start_time = #{startTime,jdbcType=TIME},
+      end_time = #{endTime,jdbcType=TIME},
+      weight = #{weight,jdbcType=INTEGER},
+      finish_percent = #{finishPercent,jdbcType=INTEGER},
+      gmt_created = #{gmtCreated,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_deleted = #{isDeleted,jdbcType=BIT},
+      version = #{version,jdbcType=INTEGER}
+    where campaign_id = #{campaignId,jdbcType=VARCHAR}
+  </update>
+</mapper>

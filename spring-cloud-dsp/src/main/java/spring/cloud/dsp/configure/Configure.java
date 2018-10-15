@@ -2,12 +2,8 @@ package spring.cloud.dsp.configure;
 
 
 import org.apache.catalina.filters.RemoteIpFilter;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import spring.cloud.dsp.filter.LoginFilter;
-import spring.cloud.dsp.listener.MyHttpSessionListener;
 
 /**
  * @author shsun
@@ -25,6 +21,7 @@ public class Configure {
         return new RemoteIpFilter();
     }
 
+    /*
     @Bean
     public FilterRegistrationBean testFilterRegistration() {
         // 配置无需过滤的路径或者静态资源，如：css，imgage等
@@ -43,6 +40,7 @@ public class Configure {
         registration.setOrder(1);
         return registration;
     }
+    */
 }
 
 
