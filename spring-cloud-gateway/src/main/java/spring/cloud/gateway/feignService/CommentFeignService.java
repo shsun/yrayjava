@@ -10,7 +10,7 @@ import spring.cloud.gateway.config.GlobalConstants;
 /**
  * Created by Harry on 15/12/2017.
  */
-@FeignClient(name = GlobalConstants.BIZ_SERVICE_NAME, path = "/comment")
+@FeignClient(name = GlobalConstants.BIZ_SERVICE_NAME, path = "/comment", fallback = XAdCommentErrorService.class)
 public interface CommentFeignService {
 
     @GetMapping("/{momentId}/list")

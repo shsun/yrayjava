@@ -5,9 +5,7 @@ import java.util.concurrent.Callable;
 import spring.cloud.demo.model.TraceIdHelper;
 import com.netflix.hystrix.strategy.concurrency.HystrixConcurrencyStrategy;
 
-/**
- * Created by Harry on 2017/7/14.
- */
+
 public class CustomHystrixConcurrencyStrategy extends HystrixConcurrencyStrategy {
 
     @Override

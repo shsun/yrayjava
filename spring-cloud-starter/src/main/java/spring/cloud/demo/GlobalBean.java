@@ -45,9 +45,9 @@ public class GlobalBean implements CommandLineRunner {
     }
 
     @Bean
-    public Decoder customDecoder(@Autowired StringHttpMessageConverter stringHttpMessageConverter, @Autowired FastJsonHttpMessageConverter4 fastConverter) {
+    public Decoder customDecoder(@Autowired StringHttpMessageConverter messageConverter, @Autowired FastJsonHttpMessageConverter4 messageConverter4) {
         HttpMessageConverters decodeConverters = new HttpMessageConverters(false,
-                Arrays.asList(stringHttpMessageConverter, fastConverter));
+                Arrays.asList(messageConverter, messageConverter4));
         ObjectFactory<HttpMessageConverters> objectFactory = () -> decodeConverters;
         return new ResponseEntityDecoder(new SpringDecoder(objectFactory));
     }
@@ -109,21 +109,20 @@ public class GlobalBean implements CommandLineRunner {
 
     @Bean
     @LoadBalanced
-    public RestTemplate restTemplate(@Autowired(required = false) HttpComponentsClientHttpRequestFactory customHttpRequestFactory,
-                                     @Autowired(required = false) FastJsonHttpMessageConverter4 fastConverter,
-                                     @Autowired(required = false) TraceIdHttpRequestInterceptor traceIdHttpRequestInterceptor) {
-
+    public RestTemplate restTemplate(@Autowired(required = false) HttpComponentsClientHttpRequestFactory requestFactory,
+                                     @Autowired(required = false) FastJsonHttpMessageConverter4 converter4,
+                                     @Autowired(required = false) TraceIdHttpRequestInterceptor interceptor) {
         RestTemplate restTemplate;
-        if (null == customHttpRequestFactory) {
+        if (null == requestFactory) {
             restTemplate = new RestTemplate();
         } else {
-            restTemplate = new RestTemplate(customHttpRequestFactory);
+            restTemplate = new RestTemplate(requestFactory);
         }
-        if (null != fastConverter) {
-            restTemplate.getMessageConverters().add(fastConverter);
+        if (null != converter4) {
+            restTemplate.getMessageConverters().add(converter4);
         }
-        if (null != traceIdHttpRequestInterceptor) {
-            restTemplate.getInterceptors().add(traceIdHttpRequestInterceptor);
+        if (null != interceptor) {
+            restTemplate.getInterceptors().add(interceptor);
         }
 
         return restTemplate;
@@ -132,8 +131,8 @@ public class GlobalBean implements CommandLineRunner {
     @Override
     public void run(String... arg0) {
         // TODO just comment the registerConcurrencyStrategy to work round the 'Another strategy was already registered' bug.
+        // HystrixPlugins.getInstance().registerConcurrencyStrategy(new CustomHystrixConcurrencyStrategy());
 
-        //HystrixPlugins.getInstance().registerConcurrencyStrategy(new CustomHystrixConcurrencyStrategy());
         System.out.println(arg0);
         System.out.println("这个是测试ApplicationRunner接口---starter");
     }
