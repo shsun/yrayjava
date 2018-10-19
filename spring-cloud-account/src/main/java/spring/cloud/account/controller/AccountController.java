@@ -27,25 +27,25 @@ public class AccountController {
 
     @ApiOperation(value = "获取用户详细信息")
     @GetMapping("/detail")
-    public ResultModel<AccountModel> detailByUserId(HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId) {
+    public ResultModel<AccountModel> detailByUserId(HttpServletRequest request, HttpServletResponse response, @RequestParam("userName") String userName) {
 
         System.out.println(BConstants.ABC);
 
-        System.out.println("AccountController.detailByUserId() userid=" + userId);
+        System.out.println("AccountController.detailByUserId() userName=" + userName);
 
-        ResultModel<AccountModel> rst = this.accountService.detail(userId);
+        ResultModel<AccountModel> rst = this.accountService.detail(userName);
         return rst;
     }
 
     @PostMapping("/validate")
-    public ResultModel<String> validateUserIdAndPassword(HttpServletRequest request, HttpServletResponse response, @RequestParam("userId") String userId,
+    public ResultModel<String> validateUserIdAndPassword(HttpServletRequest request, HttpServletResponse response, @RequestParam("userName") String userName,
             @RequestParam("password") String password) {
 
         System.out.println(BConstants.ABC);
 
-        System.out.println("AccountController.validateUserIdAndPassword() userid=" + userId + ", password=" + password);
+        System.out.println("AccountController.validateUserIdAndPassword() userid=" + userName + ", password=" + password);
 
-        ResultModel<String> rst = this.accountService.validateUserIdAndPassword(userId, password);
+        ResultModel<String> rst = this.accountService.validateUserIdAndPassword(userName, password);
         return rst;
     }
 
