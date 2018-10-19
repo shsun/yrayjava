@@ -1,5 +1,6 @@
 package spring.cloud.pusher.configure;
 
+import org.quartz.Scheduler;
 import org.quartz.Trigger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,13 +11,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.quartz.CronTriggerFactoryBean;
 import org.springframework.scheduling.quartz.JobDetailFactoryBean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import spring.cloud.pusher.quartz.XAdJobFactory;
 import spring.cloud.pusher.quartz.XAdCampaign2RedisJob;
 import spring.cloud.pusher.quartz.XAdFeedbackJob;
-
-import javax.sql.DataSource;
+import org.quartz.Scheduler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import java.io.IOException;
 import java.util.Properties;
-import javax.sql.DataSource;
 
 /**
  * @author shsun
@@ -31,9 +35,26 @@ public class Configure {
 //    @Qualifier(value = "primaryDataSource")
 //    private DataSource primaryDataSource;
 
-    /**
-     * 调度器工厂Bean
-     */
+
+    @Autowired
+    private XAdJobFactory myJobFactory;
+
+
+    @Bean
+    public SchedulerFactoryBean schedulerFactoryBean() {
+        SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
+        schedulerFactoryBean.setJobFactory(myJobFactory);
+        System.out.println("myJobFactory:" + myJobFactory);
+        return schedulerFactoryBean;
+    }
+
+    @Bean
+    public Scheduler scheduler() {
+        return schedulerFactoryBean().getScheduler();
+    }
+
+
+    /*
     @Bean(name = "schedulerFactory")
     public SchedulerFactoryBean schedulerFactory(Trigger... triggers) {
         SchedulerFactoryBean bean = new SchedulerFactoryBean();
@@ -53,10 +74,6 @@ public class Configure {
         return bean;
     }
 
-
-    /**
-     * 方法调用任务明细工厂Bean
-     */
     @Bean(name = "campaign2RedisJob")
     public JobDetailFactoryBean campaign2RedisJobBean() {
         JobDetailFactoryBean jobDetail = new JobDetailFactoryBean();
@@ -67,9 +84,6 @@ public class Configure {
         return jobDetail;
     }
 
-    /**
-     * 表达式触发器工厂Bean
-     */
     @Bean(name = "campaign2RedisJobTrigger")
     public CronTriggerFactoryBean campaign2RedisJobTrigger(@Qualifier(value = "campaign2RedisJob") JobDetailFactoryBean myFirstExerciseJobBean) {
         CronTriggerFactoryBean tigger = new CronTriggerFactoryBean();
@@ -80,9 +94,6 @@ public class Configure {
 
     }
 
-    /**
-     * 方法调用任务明细工厂Bean
-     */
     @Autowired
     @Bean(name = "feedbackJob")
     public JobDetailFactoryBean feedbackJobJobBean() {
@@ -94,9 +105,6 @@ public class Configure {
         return jobDetail;
     }
 
-    /**
-     * 表达式触发器工厂Bean
-     */
     @Bean(name = "feedbackJobTrigger")
     public CronTriggerFactoryBean feedbackJobJobBeanTrigger(@Qualifier(value = "feedbackJob") JobDetailFactoryBean myFirstExerciseJobBean) {
         CronTriggerFactoryBean tigger = new CronTriggerFactoryBean();
@@ -105,6 +113,7 @@ public class Configure {
         tigger.setName("general-feedbackJob");
         return tigger;
     }
+    */
 }
 
 
