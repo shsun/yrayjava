@@ -15,7 +15,7 @@ import spring.cloud.gateway.config.GlobalConstants;
 /**
  * called by feignClient, with CircuitBreaker, using eureka, with robin-load-balance
  */
-@FeignClient(value = GlobalConstants.ACCOUNT_SERVICE_NAME, path = "/account", decode404 = true)
+@FeignClient(value = GlobalConstants.ACCOUNT_SERVICE_NAME, path = "/account", decode404 = true, fallback = XAdAccountErrorService.class)
 public interface AccountFeignService {
 
     @PostMapping("/validate")

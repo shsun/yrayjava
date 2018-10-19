@@ -12,9 +12,9 @@ public class SpringUtil implements ApplicationContextAware {
     private static ApplicationContext applicationContext = null;
 
     @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(ApplicationContext pApplicationContext) throws BeansException {
         if (SpringUtil.applicationContext == null) {
-            SpringUtil.applicationContext = applicationContext;
+            SpringUtil.applicationContext = pApplicationContext;
         }
         System.out.println("---------------------------------------------------------------------");
         System.out.println("---------------------------------------------------------------------");
