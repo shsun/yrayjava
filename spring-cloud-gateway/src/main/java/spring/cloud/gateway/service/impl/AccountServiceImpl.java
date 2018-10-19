@@ -38,33 +38,33 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
-    public ResultModel<AccountModel> detailByUserId(String userId) {
-        if (Strings.isNullOrEmpty(userId) || userId.trim().length() == 0) {
-            userId = AccountHelper.getUserId();
+    public ResultModel<AccountModel> detailByUserId(String userName) {
+        if (Strings.isNullOrEmpty(userName) || userName.trim().length() == 0) {
+            userName = AccountHelper.getUserId();
         } else {
-            userId = userId.trim();
+            userName = userName.trim();
         }
-        return this.accountFeignService.detailByUserId(userId);
+        return this.accountFeignService.detailByUserId(userName);
     }
 
     @Override
-    public ResultModel<String> login(HttpServletResponse response, String userId, String password) {
-        Optional<String> valOp = ParamCheckUtils.checkParams(Arrays.asList(userId, password), "userId", "password");
+    public ResultModel<String> login(HttpServletResponse response, String userName, String password) {
+        Optional<String> valOp = ParamCheckUtils.checkParams(Arrays.asList(userName, password), "userName", "password");
         if (valOp.isPresent()) {
-            LOGGER.error("traceId:{}, login, param valid fail, userId:{}, password:{}", TraceIdHelper.getTraceId(), userId, password);
+            LOGGER.error("traceId:{}, login, param valid fail, userName:{}, password:{}", TraceIdHelper.getTraceId(), userName, password);
             return ResultModel.createFail("invalidParam");
         }
 
-        ResultModel<String> validateResult = this.accountFeignService.validateUserIdAndPassword(userId, password);
+        ResultModel<String> validateResult = this.accountFeignService.validateUserIdAndPassword(userName, password);
         if (!ResultModel.CODE_SUCCESS.equals(validateResult.getCode())) {
-            LOGGER.error("traceId:{}, login fail, errorCode:{}, errorMsg:{}, userId:{}, password:{}", TraceIdHelper.getTraceId(), validateResult.getCode(), validateResult.getMsg());
+            LOGGER.error("traceId:{}, login fail, errorCode:{}, errorMsg:{}, userName:{}, password:{}", TraceIdHelper.getTraceId(), validateResult.getCode(), validateResult.getMsg());
             return validateResult;
         }
 
         // FIXME  not a good way to generate ticket
         String ticket = RandomGenerator.generateNumerString(32);
         try {
-            this.cacheService.putString(ticket, userId, GlobalConstants.LOGIN_TOKEN_EXPIRE);
+            this.cacheService.putString(ticket, userName, GlobalConstants.LOGIN_TOKEN_EXPIRE);
         } catch (Exception e) {
             e.printStackTrace();
             //put ticket to redis fail

@@ -11,5 +11,5 @@ import javax.servlet.http.HttpServletResponse;
 public interface AccountService {
     ResultModel<AccountModel> detailByUserId(String userId);
 
-    ResultModel<String> login(HttpServletResponse response, String userId, String password);
+    ResultModel<String> login(HttpServletResponse response, String userName, String password);
 }

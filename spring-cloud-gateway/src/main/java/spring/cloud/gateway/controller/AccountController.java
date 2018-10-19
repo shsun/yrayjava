@@ -6,7 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import spring.cloud.client.model.AccountModel;
 import spring.cloud.demo.model.ResultModel;
 import spring.cloud.gateway.service.AccountService;
@@ -16,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import base.BConstants;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -28,7 +33,7 @@ public class AccountController {
     private AccountService accountService;
 
     @ApiOperation(value = "获取用户详细信息", notes = "获取用户详细信息，userId\n\r\t" + "不传userId的话，默认取当前用户的信息")
-    @GetMapping(path = "/account/detail")
+    @RequestMapping(path = "/account/detail", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public ResultModel<AccountModel> detail(HttpServletRequest request, HttpServletResponse response, @RequestParam(value = "userId", required = false) String userId) {
 
@@ -42,7 +47,7 @@ public class AccountController {
         return "login";
     }
 
-    @GetMapping("/index")
+    @RequestMapping(value = "/index", method = {RequestMethod.POST, RequestMethod.GET})
     public String index() {
         return "login";
     }
@@ -50,10 +55,32 @@ public class AccountController {
 
     @RequestMapping(value = "/account/login", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
-    public ResultModel<String> login(HttpServletRequest request, HttpServletResponse response, @RequestParam String userId, @RequestParam String password) {
+    public ModelAndView login(HttpServletRequest request, HttpServletResponse response, Model model, String userName, String password) {
 
         System.out.println(BConstants.ABC);
 
-        return this.accountService.login(response, userId, password);
+        ResultModel<String> rst = this.accountService.login(response, userName, password);
+
+       // return rst;
+
+
+
+/*
+
+        return render(request, 'home.ftl',
+                {'queryset': queryset, 'username': request.user, 'user_id': request.user.id,
+                'sy_release_money': sy_release_money, 'sy_gift_money': sy_gift_money,
+                'cz_all_money': cz_all_money, 'cost__sum': cost__sum,
+                'impression__sum': impression__sum,
+                'click__sum': click__sum, 'click_ctr': click_ctr})
+
+    */
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("'username'", "gogog");
+        mv.setViewName("home");
+        return mv;
+
     }
+
 }
