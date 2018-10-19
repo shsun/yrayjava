@@ -1,11 +1,11 @@
 
-{% extends 'base.html' %}
+
+<@extends name="base.ftl"/>
+
 
 {% block title %}广告组{% endblock %}
 
-{% load staticfiles %}
-{{ username }}
-
+${username}
 
 
 {% block custom_js %}
