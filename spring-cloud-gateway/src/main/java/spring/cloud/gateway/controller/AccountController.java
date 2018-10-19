@@ -37,10 +37,16 @@ public class AccountController {
         return this.accountService.detailByUserId(userId);
     }
 
-    @RequestMapping(value = "/index", method = {RequestMethod.POST, RequestMethod.GET})
-    public String index(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/index2", method = {RequestMethod.POST, RequestMethod.GET})
+    public String index2(HttpServletRequest request, HttpServletResponse response) {
         return "login";
     }
+
+    @GetMapping("/index")
+    public String index() {
+        return "login";
+    }
+
 
     @RequestMapping(value = "/account/login", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody

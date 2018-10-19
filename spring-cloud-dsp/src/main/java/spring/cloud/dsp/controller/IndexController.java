@@ -3,7 +3,6 @@ package spring.cloud.dsp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import spring.cloud.client.model.AccountModel;
+import spring.cloud.MessageException;
 import spring.cloud.demo.model.ResultModel;
-import spring.cloud.dsp.dataaccess.dataobject.ZCommentDo;
 import spring.cloud.dsp.dataaccess.dataobject.ZUserEntry;
 import spring.cloud.dsp.service.CommentService;
 
@@ -45,13 +43,6 @@ public class IndexController {
     @RequestMapping(value = "/login")
     public ModelAndView login(ModelAndView modelAndView) {
         modelAndView.setViewName("login");
-
-        List<String> userList = new ArrayList<String>();
-        userList.add("admin");
-        userList.add("user1--");
-        userList.add("user2--");
-
-        modelAndView.addObject("userList", userList);
         return modelAndView;
     }
 
@@ -68,13 +59,16 @@ public class IndexController {
     }
 
 
-    @PostMapping("/user/ulogin2")
+    @RequestMapping(value = "/user/ulogin2", method = {RequestMethod.GET, RequestMethod.POST})
     public ResultModel<String> login2(HttpServletRequest request, HttpServletResponse response) {
 //        ResultModel<ZCommentDo> rst = this.commentService.addComment(momentId, content);
 //        return rst;
 
 
         LOGGER.info("login2");
+
+        if (1 == 1)
+            throw new MessageException(1432, "Sam 错误");
 
         return null;
     }

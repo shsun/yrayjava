@@ -36,6 +36,7 @@ public class CookieCheckInterceptor implements HandlerInterceptor {
 
         LOGGER.info("request -> path:{}, params:{}", request.getRequestURI(), JSON.toJSONString(request.getParameterMap()));
 
+        /*
         // should login 1st if there is no cookie
         Cookie[] cookies = request.getCookies();
         if (null == cookies || cookies.length == 0) {
@@ -69,6 +70,7 @@ public class CookieCheckInterceptor implements HandlerInterceptor {
         }
 
         AccountHelper.setUserId(userId);
+        */
         return true;
     }
 
