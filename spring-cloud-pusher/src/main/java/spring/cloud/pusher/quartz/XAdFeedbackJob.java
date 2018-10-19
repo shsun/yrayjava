@@ -17,6 +17,6 @@ public class XAdFeedbackJob implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        LOGGER.info("XAdFeedbackJob");
+        LOGGER.info("XAdFeedbackJob!!!!!!!!!!!!!!00!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
 }
