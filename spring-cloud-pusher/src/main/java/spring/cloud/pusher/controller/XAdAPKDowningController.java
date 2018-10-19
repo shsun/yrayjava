@@ -5,15 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import spring.cloud.demo.cache.CacheService;
 import spring.cloud.demo.model.ListResultModel;
-import spring.cloud.demo.model.ResultModel;
-import spring.cloud.pusher.config.datasourceConfig.DataSourceType;
-import spring.cloud.pusher.config.datasourceConfig.TargetDataSource;
 import spring.cloud.pusher.dataaccess.dataobject.ZCommentDo;
-import spring.cloud.pusher.quartz.QuartzManager;
+import spring.cloud.pusher.quartz.XAdQuartzManager;
 import spring.cloud.pusher.quartz.XAdCampaign2RedisJob;
-import spring.cloud.pusher.service.CommentService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +21,7 @@ public class XAdAPKDowningController {
 
 
     @Autowired
-    QuartzManager quartzManager;
+    XAdQuartzManager quartzManager;
 
     @GetMapping("/retrieve")
     public ListResultModel<ZCommentDo> listCommentsByMomentId(HttpServletRequest request, HttpServletResponse response) {

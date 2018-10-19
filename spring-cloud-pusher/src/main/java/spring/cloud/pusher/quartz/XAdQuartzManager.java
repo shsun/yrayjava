@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class QuartzManager {
+public class XAdQuartzManager {
 
     @Autowired
     private Scheduler scheduler;
