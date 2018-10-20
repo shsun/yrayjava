@@ -26,6 +26,7 @@
 
     <!-- font-awesome icons -->
     <link rel="stylesheet" href="/css/font.css" type="text/css"/>
+    <link href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/font-awesome.css">
     <link rel="stylesheet" href="/css/morris.css" type="text/css"/>
     <!-- calendar -->
@@ -63,7 +64,7 @@
 <body>
 <section id="container" style="min-height:100%;background: #F3F4F6;">
     <!-- //font-awesome icons -->
-    <script src="/js/raphael-min.js"></script>
+    <script src="/lib/raphael-min.js"></script>
     <style>
         .header {
             background: #38414E;
@@ -74,7 +75,7 @@
             display: block;
             width: 100%;
             height: 22px;
-            background: url("{% static 'img/top.png' %}");
+            background: url("/img/top.png");
             position: absolute;
             bottom: 0;
         }
@@ -110,7 +111,7 @@
             <!--logo start-->
             <div class="brand" style="background: #38414E;">
                 <div class="logoimg">
-                    <img src="/img/logo.png' %}" alt="">
+                    <img src="/img/logo.png" alt="">
                 </div>
                 <div class="sidebar-toggle-box">
                     <div class="fa fa-bars"></div>
@@ -173,15 +174,16 @@
     <!--main content end-->
 </section>
 
-<script src="/js/jquery2.0.3.min.js"></script>
-<script src="/js/bootstrap.js"></script>
-<script src="/js/jquery.dcjqaccordion.2.7.js"></script>
-<script src="/js/scripts.js"></script>
-<script src="/js/jquery.slimscroll.js"></script>
-<script src="/js/jquery.nicescroll.js"></script>
-<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/js/flot-chart/excanvas.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="/lib/jquery2.0.3.min.js"></script>
+<script src="/lib/bootstrap.js"></script>
+<script src="/lib/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/lib/scripts.js"></script>
+<script src="/lib/jquery.slimscroll.js"></script>
+<script src="/lib/jquery.nicescroll.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/lib/flot-chart/excanvas.min.js"></script>
 <![endif]-->
-<script src="/js/jquery.scrollTo.js"></script>
+<script src="/lib/jquery.scrollTo.js"></script>
 <!-- morris JavaScript -->
 
 <!-- bootstraptable js -->

@@ -43,7 +43,6 @@ $(function () {
                     num_money=res[0].Y_data[3].data
                     get_datas()
                 }
-
             }
         })
     }
