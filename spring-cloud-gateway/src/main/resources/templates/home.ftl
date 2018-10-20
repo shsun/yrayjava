@@ -1,15 +1,13 @@
-<@override name="title_block">广告组</@override>
+<@override name="title">广告组</@override>
 
 <@override name="custom_js">
 <script src="/echarts/echarts.common.min.js"></script>
 <script src="/js/home.js"></script>
 </@override>
 
-<@override name="custom_css">
-    ${userName}
-</@override>
+<@override name="custom_css"></@override>
 
-<@override name="userName_block">
+<@override name="userName">
 ${userName}
 </@override>
 
@@ -185,7 +183,7 @@ ${userName}
     <ul style="margin-left: 10px;" class="pull-left">
 
         <li>
-            <a href="/home/home.ftl" class="tabTop">
+            <a href="/home/" class="tabTop">
                 <span style="margin:0 20px;font-size:20px;line-height:40px;color:#fff;">首页</span>
             </a>
         </li>

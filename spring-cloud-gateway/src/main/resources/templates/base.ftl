@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title><@block name="title_block">base_title_content</@block></title>
+    <title><@block name="title">base_title_content</@block></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content=""/>
@@ -58,7 +58,7 @@
     <!--加载动画end-->
 
 
-    <@block name="custom_css">base_custom_css_content</@block>
+    <@block name="custom_css"></@block>
 
 </head>
 <body>
@@ -136,7 +136,7 @@
 
                 <ul class="nav pull-right top-menu">
                     <li>
-                        <span id="base_userName_id" style="margin:0 10px;font-size:25px;line-height:35px;color:#fff;"><@block name="userName_block">base_userName_content</@block></span>
+                        <span id="base_userName_id" style="margin:0 10px;font-size:25px;line-height:35px;color:#fff;"><@block name="userName">base_userName_content</@block></span>
                     </li>
 
                 </ul>

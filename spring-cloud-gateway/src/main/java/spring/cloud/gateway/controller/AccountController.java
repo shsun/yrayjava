@@ -54,6 +54,11 @@ public class AccountController {
         return "login";
     }
 
+    @RequestMapping(value = "/home/", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public ModelAndView home(HttpServletRequest request, HttpServletResponse response){
+        return this.login(request, response, null, "gogogo", "123456");
+    }
 
     @RequestMapping(value = "/account/login", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
@@ -101,6 +106,36 @@ public class AccountController {
 
     }
 
+
+
+    @RequestMapping(value = "/recharge_consumption/", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public List<Map<String, Object>> recharge_consumption(HttpServletRequest request, HttpServletResponse response) {
+
+        List<Map<String, Object>> X_data = new ArrayList();
+        /*
+        for (int i = 0; i < 10; i++) {
+            Map<String, Object> y = new HashMap<>();
+            y.put("data", 3 * i);
+            X_data.add(y);
+        }
+        */
+//
+//        cost_data_list = [
+//        {'date': x_dict.get('date').strftime('%Y-%m-%d'), 'advertiser': x_dict.get('advertiser'),
+//                'total_cost': round(x_dict.get('total_cost'), 1)} for x_dict in cost_data_list]
+
+        return X_data;
+    }
+
+    @RequestMapping(value = "/pager1/", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public Map<String, Object> pager1(HttpServletRequest request, HttpServletResponse response) {
+        Map<String, Object> y = new HashMap<>();
+        y.put("results", new ArrayList<>());
+        y.put("count", 0);
+        return y;
+    }
 
     @RequestMapping(value = "/advertiser_hour/", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
@@ -214,12 +249,39 @@ public class AccountController {
 
 
 
+    @RequestMapping(value = "/h5/", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public ModelAndView h5(HttpServletRequest request, HttpServletResponse response) {
+
+        System.out.println(BConstants.ABC);
+
+        ModelAndView mv = new ModelAndView();
+
+
+        mv.addObject("userName", "userName-ggogo");
+        mv.addObject("user_id", "userid----onono");
+        // return render(request, 'black5.html', {'username': request.user, 'user_id': request.user.id})
+        mv.setViewName("black5");
+        return mv;
+
+    }
 
 
 
 
 
+    @RequestMapping(value = "/recharge_html/", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public ModelAndView recharge_html(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView();
 
+        mv.addObject("userName", "userName-ggogo");
+        mv.addObject("user_id", "userid----onono");
+
+        // return render(request, 'finanace.html', {'username': request.user, 'user_id': request.user.id})
+        mv.setViewName("finanace");
+        return mv;
+    }
 
 
 }
