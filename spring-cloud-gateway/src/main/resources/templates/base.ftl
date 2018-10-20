@@ -122,7 +122,7 @@
             <div class="top-nav clearfix">
                 <!--search & user info start-->
 
-                <@block name="custom_css"></@block>
+                <@block name="navbar"></@block>
 
                 <ul class="nav pull-right top-menu">
 
