@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>{% block title %} 项目设置 {% endblock %}</title>
+    <title><@block name="title_block">base_title_content</@block></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content=""/>
@@ -57,7 +57,7 @@
     <!--加载动画end-->
 
 
-    {% block custom_css %}{% endblock %}
+    <@block name="custom_css">base_custom_css_content</@block>
 
 </head>
 <body>
@@ -120,22 +120,8 @@
 
             <div class="top-nav clearfix">
                 <!--search & user info start-->
-                {% block navbar %}
-                    {#    <ul style="margin-left: 10px;" class="nav pull-left top-menu">#}
-                    {#        <li>#}
-                    {#            <span style="margin:0 20px;font-size:20px;line-height:35px;color:#fff;">项目设置</span>#}
-                    {#        </li>#}
-                    {##}
-                    {#        <li>#}
-                    {#            <span style="margin:0 20px;font-size:20px;line-height:35px;color:#fff;">项目数据清洗</span>#}
-                    {#        </li>#}
-                    {##}
-                    {#        <li>#}
-                    {#             <span style="margin:0 20px;font-size:20px;line-height:35px;color:#fff;">数据仓库</span>#}
-                    {#        </li>#}
-                    {##}
-                    {#    </ul>#}
-                {% endblock %}
+
+                <@block name="custom_css"></@block>
 
                 <ul class="nav pull-right top-menu">
 
@@ -149,21 +135,17 @@
 
                 <ul class="nav pull-right top-menu">
                     <li>
-                        <span style="margin:0 10px;font-size:25px;line-height:35px;color:#fff;">{{ username }}</span>
-                        <span id="base_username_id"
-                              style="margin:0 10px;font-size:25px;line-height:35px;color:#fff; display: none">{{ user_id }}</span>
+                        <span id="base_userName_id" style="margin:0 10px;font-size:25px;line-height:35px;color:#fff;">${userName}</span>
                     </li>
 
                 </ul>
-
-
                 <!--search & user info end-->
             </div>
         </header>
         <!--header end-->
     </section>
 
-    {% block sidebar %}
+    <@block name="sidebar">
         <!--sidebar start-->
         <aside>
             <div id="sidebar" class="nav-collapse">
@@ -173,10 +155,9 @@
                         <li>
                             <a class="active" href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                {#                        <span class = 'span_json_value'>Dashboard</span>#}
-                                {#                        <span class ='span_text'>11</span>#}
+                                <span class='span_json_value'>Dashboard</span>
+                                <span class='span_text'>11</span>
                             </a>
-
                         </li>
                     </ul>
                 </div>
@@ -185,17 +166,13 @@
         </aside>
         <!--sidebar end-->
         <!--main content start-->
-    {% endblock %}
+    </@block>
 
-
-    {% block content %}
-
-    {% endblock %}
+    <@block name="content">base_content_content</@block>
 
     <!--main content end-->
 </section>
 
-{#<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>#}
 <script src="/js/jquery2.0.3.min.js"></script>
 <script src="/js/bootstrap.js"></script>
 <script src="/js/jquery.dcjqaccordion.2.7.js"></script>
@@ -243,12 +220,9 @@
 
 <!--公用js end end-->
 
-
-{% block custom_js %}{% endblock %}
-
+<@block name="custom_js">base_custom_js_content</@block>
 <!-- mywrite js -->
 
 <!-- mywrite js end -->
-
 </body>
 </html>

@@ -1,5 +1,4 @@
-
-{% extends 'base.html' %}
+<#include "base.ftl">
 
 {% block title %}广告组{% endblock %}
 
