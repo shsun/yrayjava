@@ -135,7 +135,7 @@
 
                 <ul class="nav pull-right top-menu">
                     <li>
-                        <span id="base_userName_id" style="margin:0 10px;font-size:25px;line-height:35px;color:#fff;">${userName}</span>
+                        <span id="base_userName_id" style="margin:0 10px;font-size:25px;line-height:35px;color:#fff;"><@block name="userName_block">base_userName_content</@block></span>
                     </li>
 
                 </ul>

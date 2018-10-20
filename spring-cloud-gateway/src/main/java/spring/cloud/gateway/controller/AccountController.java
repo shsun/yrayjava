@@ -20,7 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import base.BConstants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -61,7 +63,7 @@ public class AccountController {
 
         ResultModel<String> rst = this.accountService.login(response, userName, password);
 
-       // return rst;
+        // return rst;
 
 
 
@@ -77,7 +79,24 @@ public class AccountController {
     */
 
         ModelAndView mv = new ModelAndView();
-        mv.addObject("'username'", "gogog");
+        mv.addObject("userName", "gogog");
+        List<Map<String, String>> queryset = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Map<String, String> qury = new HashMap<>();
+            qury.put("measurement_date", "measurement_date__" + i);
+            qury.put("comments", "comments__" + i);
+            queryset.add(qury);
+        }
+        mv.addObject("queryset", queryset);
+        mv.addObject("cz_all_money", 123);
+        mv.addObject("sy_release_money", 123);
+        mv.addObject("sy_gift_money", 123);
+        mv.addObject("impression__sum", 123);
+        mv.addObject("click__sum", 123);
+        mv.addObject("click_ctr", 123);
+        mv.addObject("cost__sum", 123);
+
+
         mv.setViewName("home");
         return mv;
 

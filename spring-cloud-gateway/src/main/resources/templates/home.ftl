@@ -1,5 +1,3 @@
-
-
 <@override name="title_block">广告组</@override>
 
 <@override name="custom_js">
@@ -7,7 +5,13 @@
 <script src="/js/home.js"></script>
 </@override>
 
-<@block name="custom_css"></@block>
+<@override name="custom_css">
+    ${userName}
+</@override>
+
+<@override name="userName_block">
+${userName}
+</@override>
 
 <@override name="navbar">
 <style>

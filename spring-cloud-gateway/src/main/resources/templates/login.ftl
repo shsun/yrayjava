@@ -62,6 +62,9 @@
         </div>
     </header>
     <div class="w3layouts-main">
+
+         <@block name="login" >父模板的 title--login</@block>
+
         <h2 style="color: #4D4E50;font-size:16px">请输入用户名和密码</h2>
         <form action="/account/login" method="post">
             <input type="userName" class="ggg" name="userName" placeholder="admin">
