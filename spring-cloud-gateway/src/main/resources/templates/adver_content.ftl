@@ -1,24 +1,19 @@
-<#include "base.ftl">
-
-{% block title %}广告单元{% endblock %}
-
-{% load staticfiles %}
-{{ username }}
+<@override name="title">广告组</@override>
 
 
-
-{% block custom_js %}
-    <script src="{% static 'project_js/adver_content.js' %}"></script>
-    <script src="{% static 'project_js/adver_content_uploads.js' %}"></script>
-
-{% endblock %}
-
-{% block custom_css %}
-
-{% endblock %}
+<@override name="custom_js">
+    <script src="/js/adver_content.js"></script>
+    <script src="/js/adver_content_uploads.js"></script>
+</@override>
 
 
-{% block navbar %}
+<@block name="custom_css"></@block>
+
+<@override name="userName">
+${userName}
+</@override>
+
+<@override name="navbar">
     <style>
         .pull-left li:nth-child(2):after {
             content: '';
@@ -192,7 +187,7 @@
 
         }
 
-        #submit_save_b,#update_save_b {
+        #submit_save_b, #update_save_b {
             width: 155px;
             height: 36px;
             background: #F16E54;
@@ -224,25 +219,27 @@
             display: inline-block;
             width: 64px;
             height: 64px;
-            background: url("{% static 'img/load.png' %}") no-repeat;
+            background: url("/img/load.png") no-repeat;
             background-size: 100% 100%;
-            margin-top:-20px;
+            margin-top: -20px;
         }
 
         .page-right-con {
             width: 350px;
             margin-top: 8px;
         }
-        .page-right-con img{
-            width:100%;
-        }
-        .page-right-con p{
-            display: none;
-        }
-        .page-show{
-            display: block !important;
+
+        .page-right-con img {
+            width: 100%;
         }
 
+        .page-right-con p {
+            display: none;
+        }
+
+        .page-show {
+            display: block !important;
+        }
 
         .img_con {
             display: inline-block;
@@ -250,14 +247,14 @@
             height: 64px;
             position: relative;
             display: none;
-            margin:0 10px;
+            margin: 0 10px;
         }
 
         .img_con img {
             display: inline-block;
             width: 100%;
-            height:88px;
-            padding-top:26px;
+            height: 88px;
+            padding-top: 26px;
         }
 
         .img_con span {
@@ -275,50 +272,61 @@
             z-index: 999;
             cursor: pointer;
         }
-        .btnCheck{
-            width:60px;
-            height:30px;
-            border:none;
+
+        .btnCheck {
+            width: 60px;
+            height: 30px;
+            border: none;
             outline: none;
-            background:#ccc;
-            color:#fff;
+            background: #ccc;
+            color: #fff;
             border-radius: 3px;
-            margin-right:20px;
+            margin-right: 20px;
         }
-        .activeBtn{
+
+        .activeBtn {
             background: #F16E54;
         }
-        tbody tr td:nth-child(6){
-            width:180px;
+
+        tbody tr td:nth-child(6) {
+            width: 180px;
         }
-        tbody tr td:nth-child(5){
-            width:280px;
+
+        tbody tr td:nth-child(5) {
+            width: 280px;
         }
-        tbody td{
+
+        tbody td {
             color: #36414F !important;
         }
-        thead th .th-inner,thead th,tbody{
-            text-align:center;
+
+        thead th .th-inner, thead th, tbody {
+            text-align: center;
             color: #57585D !important;
         }
-        .list_table_tr_7{
+
+        .list_table_tr_7 {
             display: flex;
-            width:300px;
+            width: 300px;
             justify-content: center;
         }
-        .img_one{
-            width:60px;
-            height:100px;
+
+        .img_one {
+            width: 60px;
+            height: 100px;
         }
-        .img_more{
-            width:100px;
-            height:100px;
+
+        .img_more {
+            width: 100px;
+            height: 100px;
         }
-        tbody tr td:nth-child(6){
-            width:300px;
+
+        tbody tr td:nth-child(6) {
+            width: 300px;
         }
-        tbody tr td:nth-child(5){
-            width:150px;
+
+        tbody tr td:nth-child(5) {
+            width: 150px;
         }
     </style>
     <ul style="margin-left: 10px;" class="pull-left">
@@ -340,10 +348,10 @@
             </a>
         </li>
     </ul>
-{% endblock %}
+</@override>
 
-{% block sidebar %}
 
+<@override name="sidebar">
     <aside>
         <div id="sidebar" class="nav-collapse">
             <!-- sidebar menu start-->
@@ -360,20 +368,16 @@
                         </a>
 
                     </li>
-
-
                 </ul>
             </div>
             <!-- sidebar menu end-->
         </div>
     </aside>
-{% endblock %}
+</@override>
 
 
 
-
-{% block content %}
-
+<@override name="content">
     <section id="main-content">
         <span id="porject_btn_id">111</span>
 
@@ -393,23 +397,20 @@
 
                     <div style="display: none;" class="input-group">
                         <span class="page-left">广告单元所属人：</span>
-                        <input type="text" value="{{ user_id }}" name="advertiser" id="adv_name_value"
+                        <input type="text" value="${user_id}" name="advertiser" id="adv_name_value"
                                class="page-input" placeholder="广告单元所属人">
                     </div>
 
                     <div class="input-group">
                         <span class="page-left">广告计划：</span>
-                            <input type="text" name="campaign_name" id="adv_name_value" class="page-input" placeholder="广告计划" style="display: none">
-
-
-                            <select id="id_select_ad_campaing" class="page-input"
-                                    style="display: inline-block;margin-right:0;border-radius:0px;">
-                                <option>请选择广告计划：</option>
-                                {% for ad_campaing in all_ad_campaing %}
-                                    <option value="{{ ad_campaing.id }}">{{ ad_campaing }}</option>
-                                {% endfor %}
-                            </select>
-
+                        <input type="text" name="campaign_name" id="adv_name_value" class="page-input" placeholder="广告计划" style="display: none">
+                        <select id="id_select_ad_campaing" class="page-input"
+                                style="display: inline-block;margin-right:0;border-radius:0px;">
+                            <option>请选择广告计划：</option>
+                        <#list all_ad_campaing as ad_campaing>
+                            <option value="${ad_campaing.id}">${ad_campaing}</option>
+                        </#list>
+                        </select>
                     </div>
 
                     <div style="display: none;" class="input-group">
@@ -417,8 +418,6 @@
                         <input type="text" value="" name="campaign_id" id="adv_plan_value"
                                class="page-input" placeholder="广告计划id">
                     </div>
-
-
 
                     <div class="input-group">
                         <span class="page-left">广告描述：</span>
@@ -444,8 +443,9 @@
                     <div class="input-group">
                         <span class="page-left" style="margin-top:-20px">上传提示：</span>
                         <p style="display: inline-block;width:300px">
-                           <button style="outline: none;border:none;background: none;font-weight: 600;" class="imgBtn">小图、组图 横宽比 1.53:1， 宽 必须大于等于 360
-                            大图 横宽比 16:9， 宽建议大于等于 1080</button>
+                            <button style="outline: none;border:none;background: none;font-weight: 600;" class="imgBtn">小图、组图 横宽比 1.53:1， 宽 必须大于等于 360
+                                大图 横宽比 16:9， 宽建议大于等于 1080
+                            </button>
                         </p>
                     </div>
 
@@ -482,7 +482,6 @@
                                placeholder="最大点击数">
                     </div>
 
-
                     <div class="input-group">
                         <input type="text" name="enable" id="adv_enable_value" class="page-input" placeholder="1"
                                value="1" style="display: none">
@@ -499,7 +498,6 @@
                         <button class="btn-close">关闭</button>
                     </div>
 
-                {% csrf_token %}
                 </form>
 
                 <div class="page-right">
@@ -507,34 +505,30 @@
                         在信息流中的展现示意：
                     </p>
                     <div class="page-right-con">
-                         <p class="page-show">
-                             <img src="{% static 'img/big.png' %}" alt="">
-                         </p>
-                         <p>
-                             <img src="{% static 'img/small.png' %}" alt="">
-                         </p>
-                         <p>
-                             <img src="{% static 'img/more.png' %}" alt="">
-                         </p>
+                        <p class="page-show">
+                            <img src="/img/big.png" alt="">
+                        </p>
+                        <p>
+                            <img src="/img/small.png" alt="">
+                        </p>
+                        <p>
+                            <img src="/img/more.png" alt="">
+                        </p>
                     </div>
                 </div>
 
             </div><!-- /.modal-content -->
 
         </div><!-- /.modal -->
-    </div>
-
-
+        </div>
 
         <section id="main-wrapper" class="wrapper">
-
             <div class="center">
                 <div class="center-top">
                     <button id="btn_add_file" type="button" class="btn btn-default add_btn">
                         <span class="glyphicon" aria-hidden="true" style="color:#fff">新增广告单元</span>
                     </button>
                 </div>
-
 
                 <span style="font-family: SourceHanSansCN-Regular;font-size: 14px;color: #9B9A9B;">状态：</span>
 
@@ -563,12 +557,9 @@
                         <th data-field="campaign_id">广告计划</th>
                         <th data-field="campaign_id_status">广告计划状态</th>
                         <th data-field="title">标题</th>
-                        <th data-field="data" >描述</th>
+                        <th data-field="data">描述</th>
                         <th data-field="img_url">图片路径</th>
                         <th data-field="landing_url">落地页</th>
-                        <!--
-                        <th data-field="owner">广告负责人</th>
-                        -->
                         <th style="width:100px">操作</th>
                     </tr>
                     </thead>
@@ -578,22 +569,10 @@
                     <div class="info fl">
                     </div>
                 </div>
-                {#        <p id = 'all_pag'></p>#}
-
             </div>
-
         </section>
         <input type="file" hidden id="aaa" style="display: none">
     </section>
+</@override>
 
-
-{% endblock %}
-
-
-
-
-
-
-
-
-
+<@extends name="base.ftl"/>

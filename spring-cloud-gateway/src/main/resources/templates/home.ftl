@@ -211,7 +211,7 @@ ${userName}
             <div class="leftside-navigation">
                 <ul class="sidebar-menu" id="nav-accordion" style="padding-top:100px">
                     <li>
-                        <a href="/home/home.ftl" id="active">
+                        <a href="/home/" id="active">
                             <span class='span_json_value'>账户明细</span>
                         </a>
 

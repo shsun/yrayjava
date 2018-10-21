@@ -284,4 +284,19 @@ public class AccountController {
     }
 
 
+    @RequestMapping(value = "/adver/", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public ModelAndView adver_content(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView();
+        //return render(request, 'adver_content.html', {'username': request.user, 'user_id': request.user.id, 'all_ad_campaing': all_ad_campaing})
+
+        List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        mv.addObject("userName", "userName-ggogo");
+        mv.addObject("user_id", "userid----onono");
+        mv.addObject("all_ad_campaing", list);
+
+        // return render(request, 'finanace.html', {'username': request.user, 'user_id': request.user.id})
+        mv.setViewName("adver_content");
+        return mv;
+    }
 }
