@@ -27,15 +27,6 @@ mvn clean install -DskipTests -U;
 echo -e ‘\n\n\n\n\n’;
 sleep 2;
 
-echo -e ‘’;
-echo -e ‘’;
-echo -e ‘’;
-echo -e ‘----------------------------rabbitmq’;
-echo -e ‘stop rabbitmq-server’;
-sleep 2;
-echo -e ‘start rabbitmq-server on 5672 at background’;
-rabbitmq-server start &
-sleep 5;
 
 echo -e ‘’;
 echo -e ‘’;
@@ -49,3 +40,15 @@ sudo cp -rfv redis/*.* /opt/;
 sudo redis-server /opt/redis_6379.conf;
 sleep 1;
 echo -e ‘\n\n\n\n\n’;
+
+
+echo -e ‘’;
+echo -e ‘’;
+echo -e ‘’;
+echo -e ‘----------------------------rabbitmq’;
+echo -e ‘stop rabbitmq-server’;
+sudo rabbitmqctl stop;
+sleep 2;
+echo -e ‘start rabbitmq-server on 5672 at background’;
+sudo rabbitmq-server restart;
+sleep 5;
