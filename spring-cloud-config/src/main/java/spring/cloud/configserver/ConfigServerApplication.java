@@ -1,4 +1,4 @@
-package spring.cloud.config;
+package spring.cloud.configserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

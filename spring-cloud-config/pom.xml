@@ -18,7 +18,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>spring.cloud.config</name>
+    <name>spring.cloud.configserver.configure</name>
     <description>maven parent for spring cloud demo.</description>
 
     <properties>
@@ -36,6 +36,10 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
