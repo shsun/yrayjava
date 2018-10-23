@@ -1,6 +1,6 @@
 # Introduction
 
-1. This project is a demo project for spring cloud microservice structure which based on spring-boot2.x, including but not limited to:
+1. This project is a demo project for spring cloud microservice structure which based on <font color=#FF8C00>spring-boot2.x</font>, including but not limited to:
 	- spring cloud eureka
 	- spring cloud config
 	- spring cloud bus
@@ -25,22 +25,17 @@
 2. ~~This project has a login page. After login, you can see the first page of momentList, add new moments to the list, see the comments of each moment, and add new comments to the comment list.~~
 
 # Run
-1. 1st, You should get redis(no username&password), rabbitMQ(username=guest&password=guest) and mysql(username=root&password=123456) started. Then, the sql for creating databases and dbs as below:
-
-```
-please RUN init.sql 1st
-```
-
+1. 1st, You should get some components started
+	- redis(no username&password and port=6379),
+	- rabbitMQ(username=guest, password=guest and port=5672)
+	- mysql(username=root, password=123456 and port=3306), the sql for creating databases and tables as below:
+	  ```
+	  please RUN init.sql 1st
+	  ```
 2. Java 8 and maven-3 are required.
 3. run command in order:
-
 ```
-cd spring-cloud-parent
-mvn clean install -DskipTests
-cd ../spring-cloud-client
-mvn clean install -DskipTests
-cd ../spring-cloud-starter
-mvn clean install -DskipTests
+bash configure.sh
 
 cd spring-cloud-eureka
 mvn clean spring-boot:run
