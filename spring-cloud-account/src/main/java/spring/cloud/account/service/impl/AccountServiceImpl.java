@@ -27,24 +27,24 @@ public class AccountServiceImpl implements AccountService {
     private AccountDataAccess accountDataAccess;
 
     @Override
-    public ResultModel<AccountModel> detail(String userId) {
+    public ResultModel<AccountModel> detail(String userName) {
 
         System.out.println(BConstants.ABC);
 
-        System.out.println("AccountServiceImpl.validateUserIdAndPassword() userid=" + userId);
+        System.out.println("AccountServiceImpl.validateUserIdAndPassword() userName=" + userName);
 
         String debug = "";
 
         ResultModel<AccountModel> rst;
 
-        if (Strings.isNullOrEmpty(userId)) {
+        if (Strings.isNullOrEmpty(userName)) {
             debug += "1,";
             rst = ResultModel.createFail("invalidParam");
         } else {
             debug += "2,";
-            Optional<AccountDo> accountDoOp = this.accountDataAccess.selectByPrimaryKey(userId);
+            Optional<AccountDo> accountDoOp = this.accountDataAccess.selectByPrimaryKey(userName);
             if (!accountDoOp.isPresent()) {
-                LOGGER.error("traceId:{}, AccountService.detail, user does not exist, userId:{}", TraceIdHelper.getTraceId(), userId);
+                LOGGER.error("traceId:{}, AccountService.detail, user does not exist, userName:{}", TraceIdHelper.getTraceId(), userName);
                 rst = ResultModel.createFail("noThisUser");
             } else {
                 AccountModel accountModel = new AccountModel();
@@ -56,23 +56,23 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public ResultModel<String> validateUserIdAndPassword(String userId, String password) {
+    public ResultModel<String> validateUserIdAndPassword(String userName, String password) {
 
         System.out.println(BConstants.ABC);
 
-        System.out.println("AccountController.validateUserIdAndPassword() userid=" + userId + ", password=" + password);
+        System.out.println("AccountController.validateUserIdAndPassword() userName=" + userName + ", password=" + password);
 
         ResultModel<String> rst;
 
-        if (Strings.isNullOrEmpty(userId) || Strings.isNullOrEmpty(password)) {
+        if (Strings.isNullOrEmpty(userName) || Strings.isNullOrEmpty(password)) {
             rst = ResultModel.createFail("invalidParam");
         } else {
-            userId = userId.trim();
+            userName = userName.trim();
             password = password.trim();
 
-            Optional<AccountDo> accountDoOp = this.accountDataAccess.selectByPrimaryKey(userId);
+            Optional<AccountDo> accountDoOp = this.accountDataAccess.selectByPrimaryKey(userName);
             if (!accountDoOp.isPresent()) {
-                LOGGER.error("traceId:{}, AccountService.detail, user does not exist, userId:{}", TraceIdHelper.getTraceId(), userId);
+                LOGGER.error("traceId:{}, AccountService.detail, user does not exist, userName:{}", TraceIdHelper.getTraceId(), userName);
                 //hide the error msg
                 rst = ResultModel.createFail("wrongUserOrPwd");
             } else {

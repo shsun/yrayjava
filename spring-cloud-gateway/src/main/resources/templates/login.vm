@@ -3,7 +3,7 @@
         <input type="input" placeholder="userId" id="userId" name="userId">
     </td></tr>
     <tr><td>
-        <input type="password" placeholder="password" id="password" name="password">
+        <input type="password" placeholder="password-vm" id="password" name="password">
     </td></tr>
     <tr><td>
         <input type="button" value="login" onclick="login()">

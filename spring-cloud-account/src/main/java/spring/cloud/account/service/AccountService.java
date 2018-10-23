@@ -5,7 +5,7 @@ import spring.cloud.demo.model.ResultModel;
 
 public interface AccountService {
 
-	ResultModel<AccountModel> detail(String userId);
+	ResultModel<AccountModel> detail(String userName);
 
-	ResultModel<String> validateUserIdAndPassword(String userId, String password);
+	ResultModel<String> validateUserIdAndPassword(String userName, String password);
 }
