@@ -28,42 +28,7 @@
 1. 1st, You should get redis(no username&password), rabbitMQ(username=guest&password=guest) and mysql(username=root&password=123456) started. Then, the sql for creating databases and dbs as below:
 
 ```
-create database test;
-
-CREATE TABLE `account` (
-  `user_id` varchar(127) NOT NULL DEFAULT '',
-  `user_name` varchar(127) NOT NULL DEFAULT '',
-  `password` varchar(127) NOT NULL DEFAULT '',
-  `gmt_created` datetime NOT NULL,
-  `gmt_modified` datetime DEFAULT NULL,
-  `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`user_id`),
-  KEY `index_user_id` (`user_id`) KEY_BLOCK_SIZE=10
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE `moment` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(127) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci,
-  `gmt_created` datetime NOT NULL,
-  `gmt_modified` datetime DEFAULT NULL,
-  `is_deleted` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `index_user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-create database test2;
-
-CREATE TABLE `comment` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `moment_id` bigint(20) unsigned NOT NULL,
-  `content` text COLLATE utf8mb4_unicode_ci,
-  `gmt_created` datetime NOT NULL,
-  `gmt_modified` datetime DEFAULT NULL,
-  `is_deleted` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `index_moment_id` (`moment_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+please RUN init.sql 1st
 ```
 
 2. Java 8 and maven-3 are required.
@@ -105,8 +70,8 @@ http://127.0.0.1:7001/b
 ```
 in brower
 
-# make spring-cloud-bus work as below:
-```python
+# spring-cloud-bus is integration with spring-cloud-config, So you can make spring-cloud-config-server broadcast message when configurations updated.
+```
 curl -v -X POST "http://127.0.0.1:3111/actuator/bus-refresh"
 ```
 
