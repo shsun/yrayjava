@@ -102,6 +102,8 @@ http://127.0.0.1:7001/b
 ``` 
 in brower
 
+# make spring-cloud-bus work via curl -v -X POST "http://127.0.0.1:3111/actuator/bus-refresh"
+
 # The monitor
 ![](docs/snapshot.jpg)
 
