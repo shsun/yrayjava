@@ -1,8 +1,9 @@
 # Introduction
 
-1. This project is a demo project for spring cloud microservice structure which based on spring-boot 2.x, including:
+1. This project is a demo project for spring cloud microservice structure which based on spring-boot2.x, including but not limited to:
 	- spring cloud eureka
 	- spring cloud config
+	- spring cloud bus
 	- ribbon
 	- feign
 	- hystrix
@@ -11,8 +12,10 @@
 	- multi databases with dynamic select（AOP）
 	- Global traceId
 	- velocity
+	- freemarker
 	- mybatis, pageHelper (for paging), druid (alibaba druid, for mysql dataSource and connection pool)
 	- redis (jdk serialization)
+	- rabbitMQ 3.3.7
 	- slf4j & logback
 	- Internationality
 	- Global Exception catch
@@ -22,7 +25,7 @@
 2. ~~This project has a login page. After login, you can see the first page of momentList, add new moments to the list, see the comments of each moment, and add new comments to the comment list.~~
 
 # Run
-1. first of all, you should get a redis(no username&password) started, and a mysql(username=root,password=123456) started. Then, the sql for creating databases and dbs is as below:
+1. 1st, You should get redis(no username&password), rabbitMQ(username=guest&password=guest) and mysql(username=root&password=123456) started. Then, the sql for creating databases and dbs as below:
 
 ```
 create database test;
@@ -63,7 +66,7 @@ CREATE TABLE `comment` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
 
-2. Java 8 and maven 3 are required.
+2. Java 8 and maven-3 are required.
 3. run command in order:
 
 ```
@@ -92,18 +95,18 @@ mvn clean spring-boot:run
 cd spring-cloud-gateway
 mvn clean spring-boot:run
 ```
-4. open 
+4. open
 ```
 http://127.0.0.1:7001/account/login?userId=100000&password=123456
 http://127.0.0.1:7001/account/detail?userId=100000&password=123456
 
 http://127.0.0.1:7001/a
 http://127.0.0.1:7001/b
-``` 
+```
 in brower
 
 # make spring-cloud-bus work as below:
-```python 
+```python
 curl -v -X POST "http://127.0.0.1:3111/actuator/bus-refresh"
 ```
 
