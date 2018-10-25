@@ -5,6 +5,7 @@ echo -e ‘’;
 echo -e ‘’;
 echo -e ‘----------------------------install lib’;
 echo -e ‘\n\n\n\n\n aliyun mirror’;
+sudo mkdir ~/.m2;
 mv ~/.m2/settings.xml ~/.m2/settings.xml_bak
 cp -rfv ./settings.xml ~/.m2/settings.xml
 echo -e ‘\n\n\n\n\n’;
