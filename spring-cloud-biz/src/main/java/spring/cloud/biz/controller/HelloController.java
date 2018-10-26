@@ -15,4 +15,23 @@ public class HelloController {
     public String getAddress() {
         return this.address;
     }
+
+
+    @RequestMapping("/kk")
+    public String getAddressKK() {
+        return "kk--" + this.address;
+    }
+
+
+    @RequestMapping("/biz/k/1")
+    public String getAddressKK_1() {
+        return "/biz/k/1--" + this.address;
+    }
+
+
+    @RequestMapping("/biz/k/2")
+    public String getAddressKK_2() {
+        return "biz/k/2--" + this.address;
+    }
+
 }
