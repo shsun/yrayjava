@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import spring.cloud.MessageException;
+import spring.cloud.dsp.MessageException;
 import spring.cloud.demo.model.ResultModel;
 import spring.cloud.dsp.dataaccess.dataobject.ZUserEntry;
 import spring.cloud.dsp.service.CommentService;

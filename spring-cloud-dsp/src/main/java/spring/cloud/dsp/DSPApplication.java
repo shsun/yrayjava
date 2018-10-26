@@ -14,16 +14,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 
-@EnableEurekaClient
+//@EnableEurekaClient
+//@ServletComponentScan
 @SpringBootApplication
-@EnableTransactionManagement
 @EnableScheduling
 @MapperScan("spring.cloud.dsp.dataaccess.mapper")
 @EnableDiscoveryClient
 @EnableFeignClients
 @EnableCircuitBreaker
 @EnableHystrixDashboard
-@ServletComponentScan
 public class DSPApplication implements CommandLineRunner {
 
     public static void main(String[] args) {

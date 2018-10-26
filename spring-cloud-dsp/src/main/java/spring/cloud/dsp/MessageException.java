@@ -1,4 +1,4 @@
-package spring.cloud;
+package spring.cloud.dsp;
 
 public class MessageException extends RuntimeException {
 

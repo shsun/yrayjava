@@ -63,9 +63,9 @@
     </header>
     <div class="w3layouts-main">
         <h2 style="color: #4D4E50;font-size:16px">请输入用户名和密码</h2>
-        <form action="/user/ulogin2" method="post">
-            <input type="userName" class="ggg" name="userName" placeholder="请输入用户名">
-            <input type="password" class="ggg" name="password" placeholder="请输入密码">
+        <form action="/account/login" method="post">
+            <input type="userName" class="ggg" name="userName" placeholder="admin">
+            <input type="password" class="ggg" name="password" placeholder="123456">
             <div class="clearfix"></div>
             <input type="submit" value="登陆" name="登陆">
         </form>
