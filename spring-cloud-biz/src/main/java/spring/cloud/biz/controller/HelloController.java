@@ -31,7 +31,7 @@ public class HelloController {
 
     @RequestMapping("/biz/k/2")
     public String getAddressKK_2() {
-        return "biz/k/2--" + this.address;
+        return "biz/k/2--" + this.address + "-->>" + Math.round(Math.random() * 10000);
     }
 
 }
