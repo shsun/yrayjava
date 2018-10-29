@@ -1,4 +1,4 @@
-package spring.cloud.gateway.route.filter;
+package spring.cloud.gateway.route.config.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
