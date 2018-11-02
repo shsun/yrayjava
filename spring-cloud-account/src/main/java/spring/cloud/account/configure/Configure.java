@@ -7,10 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-//import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,8 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import spring.cloud.account.service.AccountService;
 
 @Configuration
-//@EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)  //  启用方法级别的权限认证
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)  //  启用方法级别的权限认证
 public class Configure extends WebSecurityConfigurerAdapter {
 
 //    @Autowired
@@ -27,7 +27,6 @@ public class Configure extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AccountService accountService;
-
 
     @Override
     public void configure(WebSecurity web) throws Exception {
