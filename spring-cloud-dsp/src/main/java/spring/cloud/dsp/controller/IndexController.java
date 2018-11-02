@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import spring.cloud.dsp.config.datasourceConfig.DataSourceType;
 import spring.cloud.dsp.config.datasourceConfig.TargetDataSource;
@@ -288,9 +289,9 @@ public class IndexController {
     @RequestMapping(value = "/ad_campaing/", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public List<Map<String, Object>> ad_campaing(HttpServletRequest request, HttpServletResponse response) {
-
+        HttpSession session = request.getSession();
+        //
         String advertiser = request.getParameter("advertiser");
-
         String name = request.getParameter("name");
         String start_time = request.getParameter("start_time");
         String end_time = request.getParameter("end_time");
@@ -298,9 +299,7 @@ public class IndexController {
         String start_hour_min_second = request.getParameter("start_hour_min_second");
         String end_hour_min_second = request.getParameter("end_hour_min_second");
         String unit_price = request.getParameter("unit_price");
-
-        request.getSession();
-
+        //
         ZAdCampaignEntry campaignEntry = new ZAdCampaignEntry();
         campaignEntry.setAdvertiserId("100000");
         campaignEntry.setCampaignId(name);
@@ -318,7 +317,7 @@ public class IndexController {
 
         int rst = this.campaignEntryMapper.insert(campaignEntry);
 
-        System.out.print("-->"+rst);
+        System.out.print("-->" + rst);
 
         List<Map<String, Object>> data_list = new ArrayList();
         return data_list;
