@@ -1,7 +1,7 @@
 package spring.cloud.dsp.config.datasourceConfig;
 
 public enum DataSourceType {
-    MOMENT("dataSource"), COMMENT("commentDataSource");
+    MOMENT("dataSource"), COMMENT("commentDataSource"), XAD("xadDataSource");
 
     private String beanName;
 

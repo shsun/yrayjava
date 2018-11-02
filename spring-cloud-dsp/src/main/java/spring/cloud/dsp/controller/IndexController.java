@@ -1,6 +1,5 @@
 package spring.cloud.dsp.controller;
 
-
 import java.util.*;
 
 import base.BConstants;
@@ -11,25 +10,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import spring.cloud.MessageException;
-import spring.cloud.client.uitils.ParamCheckUtils;
-import spring.cloud.client.uitils.RandomGenerator;
-import spring.cloud.demo.model.ResultModel;
-import spring.cloud.demo.model.TraceIdHelper;
-import spring.cloud.dsp.dataaccess.dataobject.ZUserEntry;
-import spring.cloud.dsp.service.CommentService;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import spring.cloud.dsp.config.datasourceConfig.DataSourceType;
+import spring.cloud.dsp.config.datasourceConfig.TargetDataSource;
+import spring.cloud.dsp.dataaccess.dataobject.ZAdCampaignEntry;
+import spring.cloud.dsp.dataaccess.mapper.ZAdCampaignEntryMapper;
+
+
 @Controller
+@TargetDataSource(DataSourceType.XAD)
 public class IndexController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
-    private CommentService commentService;
+    private ZAdCampaignEntryMapper campaignEntryMapper;
 
 
     @RequestMapping(value = "/index")
@@ -51,7 +49,6 @@ public class IndexController {
         return modelAndView;
     }
 
-
     @RequestMapping(value = "/home/", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public ModelAndView home(HttpServletRequest request, HttpServletResponse response){
@@ -61,15 +58,9 @@ public class IndexController {
     @RequestMapping(value = "/account/login", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response, Model model, String userName, String password) {
-
         System.out.println(BConstants.ABC);
-
         // ResultModel<String> rst = this.login(response, userName, password);
-
         // return rst;
-
-
-
 /*
 
         return render(request, 'home.ftl',
@@ -88,7 +79,6 @@ public class IndexController {
         qury.put("measurement_date", "2018-10-10");
         qury.put("comments", "comments__");
         queryset.add(qury);
-
         mv.addObject("queryset", queryset);
         mv.addObject("cz_all_money", 123);
         mv.addObject("sy_release_money", 123);
@@ -97,11 +87,8 @@ public class IndexController {
         mv.addObject("click__sum", 123);
         mv.addObject("click_ctr", 123);
         mv.addObject("cost__sum", 123);
-
-
         mv.setViewName("home");
         return mv;
-
     }
 
 
@@ -206,18 +193,12 @@ public class IndexController {
         d1.put("'Y_data'", Y_data);
         data_list.append(d1);
         */
-
-
-
-
         List<Map<String, Object>> X_data = new ArrayList();
         for (int i = 0; i < 10; i++) {
             Map<String, Object> y = new HashMap<>();
             y.put("data", 3 * i);
             X_data.add(y);
         }
-
-
 
         List<Map<String, Object>> Y_data = new ArrayList();
         Map<String, Object> impression_dict = new HashMap<>();
@@ -230,9 +211,6 @@ public class IndexController {
         y.put("data", 3);
         Y_data.add(y);
 
-
-
-
         List<Map<String, Object>> data_list = new ArrayList();
         Map<String, Object> d1 = new HashMap<>();
         d1.put("X_data", X_data);
@@ -240,12 +218,6 @@ public class IndexController {
         data_list.add(d1);
         return data_list;
     }
-
-
-
-
-
-
 
     @RequestMapping(value = "/h5/", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
@@ -298,37 +270,57 @@ public class IndexController {
         return mv;
     }
 
-    /*
-    public ResultModel<String> login(HttpServletResponse response, String userName, String password) {
-        Optional<String> valOp = ParamCheckUtils.checkParams(Arrays.asList(userName, password), "userName", "password");
-        if (valOp.isPresent()) {
-            LOGGER.error("traceId:{}, login, param valid fail, userName:{}, password:{}", TraceIdHelper.getTraceId(), userName, password);
-            return ResultModel.createFail("invalidParam");
-        }
-
-        ResultModel<String> validateResult = this.accountFeignService.validateUserIdAndPassword(userName, password);
-        if (!ResultModel.CODE_SUCCESS.equals(validateResult.getCode())) {
-            LOGGER.error("traceId:{}, login fail, errorCode:{}, errorMsg:{}, userName:{}, password:{}", TraceIdHelper.getTraceId(), validateResult.getCode(), validateResult.getMsg());
-            return validateResult;
-        }
-
-        // FIXME  not a good way to generate ticket
-        String ticket = RandomGenerator.generateNumerString(32);
-        try {
-            this.cacheService.putString(ticket, userName, GlobalConstants.LOGIN_TOKEN_EXPIRE);
-        } catch (Exception e) {
-            e.printStackTrace();
-            //put ticket to redis fail
-            return ResultModel.createFail("internalErr");
-        }
-
-        Cookie cookie = new Cookie(GlobalConstants.LOGIN_TOKEN_KEY, ticket);
-        cookie.setMaxAge(GlobalConstants.LOGIN_TOKEN_EXPIRE);
-        cookie.setPath("/");
-        response.addCookie(cookie);
-
-        return ResultModel.createSuccess();
+    /**
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/advertisement_list_pager/", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public List<Map<String, Object>> advertisement_list_pager(HttpServletRequest request, HttpServletResponse response) {
+        List<Map<String, Object>> data_list = new ArrayList();
+        return data_list;
     }
-    */
+    //
 
+
+    @RequestMapping(value = "/ad_campaing/", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
+    public List<Map<String, Object>> ad_campaing(HttpServletRequest request, HttpServletResponse response) {
+
+        String advertiser = request.getParameter("advertiser");
+
+        String name = request.getParameter("name");
+        String start_time = request.getParameter("start_time");
+        String end_time = request.getParameter("end_time");
+        String budget = request.getParameter("budget").trim();
+        String start_hour_min_second = request.getParameter("start_hour_min_second");
+        String end_hour_min_second = request.getParameter("end_hour_min_second");
+        String unit_price = request.getParameter("unit_price");
+
+        request.getSession();
+
+        ZAdCampaignEntry campaignEntry = new ZAdCampaignEntry();
+        campaignEntry.setAdvertiserId("100000");
+        campaignEntry.setCampaignId(name);
+        campaignEntry.setCampaignName(name);
+        campaignEntry.setStatus("dsh");
+        campaignEntry.setBudget(new Integer(budget));
+        campaignEntry.setCost(new Integer(0));
+        campaignEntry.setPrice(new Float(0.5));
+        campaignEntry.setAction("LP");
+        campaignEntry.setWeight(50);
+        campaignEntry.setFinishPercent(0);
+        campaignEntry.setGmtCreated(new Date());
+        campaignEntry.setIsDeleted(false);
+        campaignEntry.setVersion(1);
+
+        int rst = this.campaignEntryMapper.insert(campaignEntry);
+
+        System.out.print("-->"+rst);
+
+        List<Map<String, Object>> data_list = new ArrayList();
+        return data_list;
+    }
 }

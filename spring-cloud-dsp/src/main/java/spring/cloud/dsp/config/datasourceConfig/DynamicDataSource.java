@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 @Component
-@AutoConfigureAfter(value = {PrimarySourceConfiguration.class, CommentSourceConfiguration.class})
+@AutoConfigureAfter(value = {PrimarySourceConfiguration.class, CommentSourceConfiguration.class, XAdSourceConfiguration.class})
 public class DynamicDataSource extends AbstractRoutingDataSource {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DynamicDataSource.class);
