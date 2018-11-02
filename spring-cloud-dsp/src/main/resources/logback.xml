@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{35}-%line [%thread]:%message%n" />
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{35}-%line [%thread]:%msg%n" />
     <property name="LOG_FILE" value="logs/log.log"/>
     <property name="ERROR_FILE" value="logs/log.err"/>
 
@@ -64,8 +64,6 @@
         <appender-ref ref="FILE_ERROR"/>
         <appender-ref ref="STDOUT" />
     </logger>
-
-    <logger name="spring.cloud.dsp.dataaccess.mapper" level="ERROR" />
 
     <root level="INFO">
         <appender-ref ref="FILE_INFO"/>

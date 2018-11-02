@@ -16,7 +16,7 @@
       #changelist table thead th:first-child {width: inherit}
     </style>
   {% endif %}
-  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+  <script src = "{% static 'js/jquery2.0.3.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'project_js/admin/black5_admin_change_list.js' %}"></script>
 {% endblock %}
 

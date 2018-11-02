@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-{% load staticfiles %}
 <head>
-    <title>{% block title %} 项目设置 {% endblock %}</title>
+    <title><@block name="title">base_title_content</@block></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="keywords" content=""/>
@@ -13,59 +12,59 @@
         window.scrollTo(0, 1);
     } </script>
     <!-- bootstrap-css -->
-    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="/bootstrap/bootstrap.min.css">
 
     <!-- //bootstrap-css -->
 
     <!-- bootstrap-table-css -->
-    <link rel="stylesheet" href="{% static 'bootstrap-table/bootstrap-table.min.css' %}">
+    <link rel="stylesheet" href="/bootstrap-table/bootstrap-table.min.css">
 
     <!-- Custom CSS -->
-    <link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css'/>
-    <link href="{% static 'css/style-responsive.css' %}" rel="stylesheet"/>
+    <link href="/css/style.css" rel='stylesheet' type='text/css'/>
+    <link href="/css/style-responsive.css" rel="stylesheet"/>
 
 
     <!-- font-awesome icons -->
-    <link rel="stylesheet" href="{% static 'css/font.css' %}" type="text/css"/>
-{#    <link href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">#}
-    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
-    <link rel="stylesheet" href="{% static 'css/morris.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="/css/font.css" type="text/css"/>
+    <link href="https://cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/morris.css" type="text/css"/>
     <!-- calendar -->
-    <link rel="stylesheet" href="{% static 'css/monthly.css' %}">
+    <link rel="stylesheet" href="/css/monthly.css">
     <!-- //calendar -->
 
 
     <!-- 弹出框插件 css -->
-    <link rel="stylesheet" href="{% static 'alertplug/sweet-alert.css' %}">
+    <link rel="stylesheet" href="/alertplug/sweet-alert.css">
     <!-- 弹出框插件 css end -->
 
 
     <!-- 分页工具 -->
 
-    <link rel="stylesheet" href="{% static 'jqueryPagination/css/jquery.pagination.css' %}">
+    <link rel="stylesheet" href="/jqueryPagination/css/jquery.pagination.css">
 
     <!-- 分页工具 end -->
 
 
     <!--layui-->
-    <link rel="stylesheet" href="{% static 'layui/css/layui.css' %}">
+    <link rel="stylesheet" href="/layui/css/layui.css">
 
     <!--layuiend-->
 
 
     <!--加载动画-->
-    <link rel="stylesheet" href="{% static 'loading/jquery.mloading.css' %}">
+    <link rel="stylesheet" href="/loading/jquery.mloading.css">
 
     <!--加载动画end-->
 
 
-    {% block custom_css %}{% endblock %}
+    <@block name="custom_css"></@block>
 
 </head>
 <body>
 <section id="container" style="min-height:100%;background: #F3F4F6;">
     <!-- //font-awesome icons -->
-    <script src="{% static 'js/raphael-min.js' %}"></script>
+    <script src="/lib/raphael-min.js"></script>
     <style>
         .header {
             background: #38414E;
@@ -76,7 +75,7 @@
             display: block;
             width: 100%;
             height: 22px;
-            background: url("{% static 'img/top.png' %}");
+            background: url("/img/top.png");
             position: absolute;
             bottom: 0;
         }
@@ -112,7 +111,7 @@
             <!--logo start-->
             <div class="brand" style="background: #38414E;">
                 <div class="logoimg">
-                    <img src="{% static 'img/logo.png' %}" alt="">
+                    <img src="/img/logo.png" alt="">
                 </div>
                 <div class="sidebar-toggle-box">
                     <div class="fa fa-bars"></div>
@@ -122,22 +121,8 @@
 
             <div class="top-nav clearfix">
                 <!--search & user info start-->
-                {% block navbar %}
-                    {#    <ul style="margin-left: 10px;" class="nav pull-left top-menu">#}
-                    {#        <li>#}
-                    {#            <span style="margin:0 20px;font-size:20px;line-height:35px;color:#fff;">项目设置</span>#}
-                    {#        </li>#}
-                    {##}
-                    {#        <li>#}
-                    {#            <span style="margin:0 20px;font-size:20px;line-height:35px;color:#fff;">项目数据清洗</span>#}
-                    {#        </li>#}
-                    {##}
-                    {#        <li>#}
-                    {#             <span style="margin:0 20px;font-size:20px;line-height:35px;color:#fff;">数据仓库</span>#}
-                    {#        </li>#}
-                    {##}
-                    {#    </ul>#}
-                {% endblock %}
+
+                <@block name="navbar"></@block>
 
                 <ul class="nav pull-right top-menu">
 
@@ -151,21 +136,17 @@
 
                 <ul class="nav pull-right top-menu">
                     <li>
-                        <span style="margin:0 10px;font-size:25px;line-height:35px;color:#fff;">{{ username }}</span>
-                        <span id="base_username_id"
-                              style="margin:0 10px;font-size:25px;line-height:35px;color:#fff; display: none">{{ user_id }}</span>
+                        <span id="base_userName_id" style="margin:0 10px;font-size:25px;line-height:35px;color:#fff;"><@block name="userName">base_userName_content</@block></span>
                     </li>
 
                 </ul>
-
-
                 <!--search & user info end-->
             </div>
         </header>
         <!--header end-->
     </section>
 
-    {% block sidebar %}
+    <@block name="sidebar">
         <!--sidebar start-->
         <aside>
             <div id="sidebar" class="nav-collapse">
@@ -175,10 +156,9 @@
                         <li>
                             <a class="active" href="javascript:;">
                                 <i class="fa fa-book"></i>
-                                {#                        <span class = 'span_json_value'>Dashboard</span>#}
-                                {#                        <span class ='span_text'>11</span>#}
+                                <span class='span_json_value'>Dashboard</span>
+                                <span class='span_text'>11</span>
                             </a>
-
                         </li>
                     </ul>
                 </div>
@@ -187,70 +167,64 @@
         </aside>
         <!--sidebar end-->
         <!--main content start-->
-    {% endblock %}
+    </@block>
 
-
-    {% block content %}
-
-    {% endblock %}
+    <@block name="content">base_content_content</@block>
 
     <!--main content end-->
 </section>
 
-{#<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>#}
-<script src="{% static 'js/jquery2.0.3.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
-<script src="{% static 'js/jquery.dcjqaccordion.2.7.js' %}"></script>
-<script src="{% static 'js/scripts.js' %}"></script>
-<script src="{% static 'js/jquery.slimscroll.js' %}"></script>
-<script src="{% static 'js/jquery.nicescroll.js' %}"></script>
-<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="{% static 'js/flot-chart/excanvas.min.js' %}"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="/lib/jquery2.0.3.min.js"></script>
+<script src="/lib/bootstrap.js"></script>
+<script src="/lib/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/lib/scripts.js"></script>
+<script src="/lib/jquery.slimscroll.js"></script>
+<script src="/lib/jquery.nicescroll.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="/lib/flot-chart/excanvas.min.js"></script>
 <![endif]-->
-<script src="{% static 'js/jquery.scrollTo.js' %}"></script>
+<script src="/lib/jquery.scrollTo.js"></script>
 <!-- morris JavaScript -->
 
 <!-- bootstraptable js -->
-<script src="{% static 'bootstrap-table/bootstrap-table.js' %}"></script>
-<script src="{% static 'bootstrap-table/bootstrap-table-zh-CN.js' %}"></script>
-<script src="{% static 'bootstrap-table/tableExport.js' %}"></script>
-<script src="{% static 'bootstrap-table/bootstrap-table-export.js' %}"></script>
+<script src="/bootstrap-table/bootstrap-table.js"></script>
+<script src="/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+<script src="/bootstrap-table/tableExport.js"></script>
+<script src="/bootstrap-table/bootstrap-table-export.js"></script>
 
 
 <!-- 弹出框插件  -->
-<script src="{% static 'alertplug/sweet-alert.js' %}"></script>
+<script src="/alertplug/sweet-alert.js"></script>
 
 <!-- 弹出框插件 end  -->
 
 
 <!-- 分页工具 -->
 
-<script src="{% static 'jqueryPagination/js/jquery.pagination.min.js' %}"></script>
+<script src="/jqueryPagination/js/jquery.pagination.min.js"></script>
 
 <!-- 分页工具 end -->
 
 
 <!--引入layui图-->
-<script src="{% static 'layui/layui.js' %}"></script>
+<script src="/layui/layui.js"></script>
 
 <!--引入layui图 end-->
 
 <!--加载动画-->
-<script src="{% static 'loading/jquery.mloading.js' %}"></script>
+<script src="/loading/jquery.mloading.js"></script>
 
 <!--加载动画 end-->
 
 
 <!--公用js-->
-<script src= {% static 'project_js/project_base.js' %}></script>
+<script src="/js/project_base.js"></script>
 
 <!--公用js end end-->
 
-
-{% block custom_js %}{% endblock %}
-
+<@block name="custom_js">base_custom_js_content</@block>
 <!-- mywrite js -->
 
 <!-- mywrite js end -->
-
 </body>
 </html>
