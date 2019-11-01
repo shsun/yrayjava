@@ -1,3 +1,12 @@
+redis-server 多节点互备集群  	至少6台虚机/物理机
+rabbit-MQ 多节点集群  		建议3台虚机/物理机
+eureka-server 应用管理中心 	至少1台虚机/物理机
+zookeeper集群				至少3台虚机/物理机
+config-server				至少1台虚机/物理机
+通用账户权限系统集群 			至少2台虚机/物理机
+通用文件系统集群 				至少2台虚机/物理机
+通用操作日志管理集群 			至少2台虚机/物理机
+
 # Introduction
 
 1. This project is a demo project for spring cloud microservice structure which based on <font color=#FF8C00>spring-boot2.x</font>, including but not limited to:

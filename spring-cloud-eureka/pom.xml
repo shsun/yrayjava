@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.tech.harry</groupId>
+    <groupId>com.as.xframework</groupId>
     <artifactId>spring.cloud.eureka.server</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.5.RELEASE</version>
+        <version>2.2.0.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -29,7 +29,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
 
         <!-- custom parameters -->
         <!-- should be one of dev/staging/prd -->
@@ -39,7 +39,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.tech.harry</groupId>
+            <groupId>com.as.xframework</groupId>
             <artifactId>spring.cloud.starter</artifactId>
             <version>1.0.0</version>
         </dependency>
