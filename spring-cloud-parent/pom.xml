@@ -79,7 +79,7 @@
         <springfox.swagger.ui.version>2.9.2</springfox.swagger.ui.version>
         <swagger.bootstrap.ui.version>1.8.8</swagger.bootstrap.ui.version>
 
-        <guava.version>27.0.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
 
         <google.collections.version>1.0</google.collections.version>
 
