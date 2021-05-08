@@ -72,7 +72,7 @@
         <shiro.ehcache.version>1.4.0</shiro.ehcache.version>
         <shiro.cas.version>1.4.0</shiro.cas.version>
         <shiro.web.version>1.4.0</shiro.web.version>
-        <shiro.core.version>1.4.0</shiro.core.version>
+        <shiro.core.version>1.6.0</shiro.core.version>
         <cas.client.core.version>3.5.1</cas.client.core.version>
 
         <springfox.swagger2.version>2.9.2</springfox.swagger2.version>
