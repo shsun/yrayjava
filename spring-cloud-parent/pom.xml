@@ -68,7 +68,7 @@
         <dynamic.datasource.spring.boot.starter.version>2.5.4</dynamic.datasource.spring.boot.starter.version>
 
         <shiro.spring.boot.web.starter.version>1.4.0</shiro.spring.boot.web.starter.version>
-        <shiro.spring.version>1.4.0</shiro.spring.version>
+        <shiro.spring.version>1.7.1</shiro.spring.version>
         <shiro.ehcache.version>1.4.0</shiro.ehcache.version>
         <shiro.cas.version>1.4.0</shiro.cas.version>
         <shiro.web.version>1.4.0</shiro.web.version>
