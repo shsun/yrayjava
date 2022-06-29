@@ -115,7 +115,7 @@
 
         <log4j.rolling.appender.version>20150607-2059</log4j.rolling.appender.version>
 
-        <poi.version>3.17</poi.version>
+        <poi.version>4.1.1</poi.version>
         <poi.ooxml.version>3.17</poi.ooxml.version>
         <poi.ooxml.schemas.version>4.0.1</poi.ooxml.schemas.version>
         <xmlbeans.version>3.0.2</xmlbeans.version>
